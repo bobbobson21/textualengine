@@ -1,0 +1,4 @@
+#pragma once
+
+#define STR_NULL "NULL"
+#define BASE_COMPONENT_IDENTIFYER "NONE_COMPONENT"

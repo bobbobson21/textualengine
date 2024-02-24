@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameContent\ConsoleReciver\ConsoleReciver.cpp" />
     <ClCompile Include="EngineContent\BaseComponent\BaseComponent.cpp" />
     <ClCompile Include="EngineContent\BaseEntity\BaseEntity.cpp" />
     <ClCompile Include="EngineContent\RenderingModifier\RenderingModifier.cpp" />
@@ -134,10 +135,12 @@
     <ClCompile Include="texturalengine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameContent\ConsoleReciver\ConsoleReciver.h" />
     <ClInclude Include="EngineContent\Audio\AudioBeepControl.h" />
     <ClInclude Include="EngineContent\BaseComponent\BaseComponent.h" />
     <ClInclude Include="EngineContent\BaseEntity\BaseEntity.h" />
     <ClInclude Include="EngineContent\EngineSetting\EngineSetting.h" />
+    <ClInclude Include="EngineContent\Marcos\Marcos.h" />
     <ClInclude Include="EngineContent\RenderingModifier\RenderingModifier.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -30,6 +30,9 @@
     <ClCompile Include="GameContent\EntryPoint\EntryPoint.h">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameContent\ConsoleReciver\ConsoleReciver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineContent\BaseEntity\BaseEntity.h">
@@ -45,6 +48,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EngineContent\EngineSetting\EngineSetting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineContent\Marcos\Marcos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameContent\ConsoleReciver\ConsoleReciver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
