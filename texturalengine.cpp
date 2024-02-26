@@ -35,11 +35,11 @@ void ThreadRenderLoop()
 {
 	while (true)
 	{
-		for (int y = 0; y <= EngineSettings::Ycharizals; y++) //renders all the charizals on the Y
+		for (int Y = 0; Y <= EngineSettings::YCharizals; Y++) //renders all the charizals on the Y
 		{
-			for (int x = 0; x <= EngineSettings::Xcharizals; x++) //renders a line of charizals
+			for (int X = 0; X <= EngineSettings::XCharizals; X++) //renders a line of charizals
 			{
-				BaseEntity::ProcessRendering(x,y,(x == EngineSettings::Xcharizals) );
+				BaseEntity::ProcessRendering(X + EngineSettings::RenderOffsetX, Y + EngineSettings::RenderOffsetY,(X == EngineSettings::XCharizals) );
 			}
 
 		}

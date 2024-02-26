@@ -4,6 +4,8 @@
 #include <Vector>
 #include <Map>
 #include <iostream>
+#include <fcntl.h>
+#include <io.h>
 
 #include "../Marcos/Marcos.h"
 #include "../BaseComponent/BaseComponent.h"
@@ -17,9 +19,9 @@ struct RenderingInfo
 {
 	int OffsetX = 0;
 	int OffsetY = 0;
-	vector<string> ContentsToRender;
-	int Importance;
-	RenderingModifier MyModifyer;
+	vector<string> ContentsToRender = vector<string>();
+	int Importance = 0;
+	RenderingModifier *MyModifyer = new RenderingModifier();
 };
 
 class BaseEntity

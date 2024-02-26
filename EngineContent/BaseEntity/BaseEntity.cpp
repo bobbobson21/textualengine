@@ -1,4 +1,5 @@
 #include "BaseEntity.h"
+#include "../../GameContent/GameAssests/g_m_MaterialGrass/g_m_grassmat.h"
 
 vector<BaseEntity *> BaseEntity::EntityiesInRunTime;
 
@@ -32,7 +33,7 @@ void BaseEntity::Fire(string Message, string Value)
 
 void BaseEntity::SetKeyValue(string Key, string value)
 {
-	KeyValueList[Key] = value;
+	//KeyValueList[Key] = value;
 }
 
 string BaseEntity::GetValueOfKey(string Key)
@@ -68,6 +69,8 @@ BaseComponent &BaseEntity::GetComponent(string Identifyer) //get component by id
 		}
 		catch (...) {}
 	}
+	BaseComponent ReturnInvalidComponent = BaseComponent();
+	return ReturnInvalidComponent;
 }
 
 void BaseEntity::RemoveComponent(string Identifyer) //removes a component by its idenifyer
@@ -158,37 +161,51 @@ void BaseEntity::ProcessUpdate(float DeltaTime)
 
 void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 {
-	int CurrentImportance = 0;
-	string CurrentlyGoingToPush = "";
-	RenderingModifier CurrentRenderingModifyer;
+	int RendededCharizalImportance = 0;
+	string RendededCharizalToPush = "";
+	RenderingModifier* RendededCharizalRenderingModifyer = nullptr;
 
 	for (int i = 0; i < EntityiesInRunTime.size(); i++)
 	{
-		vector<string> RenderContent = EntityiesInRunTime[i]->MyRenderingInfo.ContentsToRender;
-		int OffsetX = EntityiesInRunTime[i]->MyRenderingInfo.OffsetX;
-		int OffsetY = EntityiesInRunTime[i]->MyRenderingInfo.OffsetY;
-		int Importance = EntityiesInRunTime[i]->MyRenderingInfo.Importance;
-
-		if (Y - OffsetY > 0 && RenderContent.size() - 1 < Y - OffsetY) //is with in screenbounds y
+		try
 		{
-			if (X - OffsetX > 0 && RenderContent[Y].length() < X - OffsetX) //is with in screenbounds x
+			vector<string> CurrentRenderContent = EntityiesInRunTime[i]->MyRenderingInfo.ContentsToRender;
+			int CurrentOffsetX = EntityiesInRunTime[i]->MyRenderingInfo.OffsetX;
+			int CurrentOffsetY = EntityiesInRunTime[i]->MyRenderingInfo.OffsetY;
+			int CurrentImportance = EntityiesInRunTime[i]->MyRenderingInfo.Importance;
+
+			if (Y - CurrentOffsetY > 0 && Y + CurrentOffsetY < CurrentRenderContent.size()) //is with in screenbounds y
 			{
-				if (RenderContent[Y - OffsetY][X - OffsetX] != ' ' && Importance >= CurrentImportance) //is not an enpty pixle and is a pixle of higher importance
+				if (X - CurrentOffsetX > 0 && X + CurrentOffsetX < CurrentRenderContent[Y - CurrentOffsetY].length()) //is with in screenbounds x
 				{
-					CurrentImportance = Importance; //sets the pixle data to the curent pixle to render
-					CurrentlyGoingToPush = RenderContent[Y - OffsetY];
-					CurrentRenderingModifyer = EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
+					char CurrentCharizal = CurrentRenderContent[Y - CurrentOffsetY][X - CurrentOffsetX];
+
+					if (CurrentCharizal != ' ' && CurrentImportance >= RendededCharizalImportance) //is not an enpty pixle and is a pixle of higher importance
+					{
+						RendededCharizalImportance = CurrentImportance; //sets the pixle data to the curent pixle to render
+						RendededCharizalToPush = CurrentCharizal;
+						RendededCharizalRenderingModifyer = EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
+					}
 				}
 			}
 		}
+		catch (...) {}
 	}
 
-	string NewToPush = CurrentRenderingModifyer.PreRender(); //runs the render modifyer that can be used to create stuff like flashing materials
-	if (NewToPush != STR_NULL) { CurrentlyGoingToPush = NewToPush[0]; }
+	if (RendededCharizalRenderingModifyer != nullptr)
+	{
+		string NewToPush = RendededCharizalRenderingModifyer->PreRender(X, Y); //runs the render modifyer that can be used to create stuff like flashing materials
+		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
+	}
 
-	cout << CurrentlyGoingToPush; //RENDERS CHARIZAL
-	if (NewLineAfter == true) { cout << endl; }
+		cout << RendededCharizalToPush; //RENDERS CHARIZAL
+		if (NewLineAfter == true) { cout << endl; }
 
-	CurrentRenderingModifyer.PostRender();
+	if (RendededCharizalRenderingModifyer != nullptr)
+	{
+		RendededCharizalRenderingModifyer->PostRender();
+	}
+	
+
 }
 

@@ -1,4 +1,7 @@
+#pragma once
+
 #include "ConsoleReciver.h"
+#include "../../EngineContent/EngineSettings/EngineSettings.h"
 
 void ConsoleReciver::ReceiveFireInstruction(string Message, string Value)
 {
@@ -6,4 +9,24 @@ void ConsoleReciver::ReceiveFireInstruction(string Message, string Value)
 	{
 		exit(0);
 	}
+
+	if (Message == "SetRenderingOffsetX")
+	{
+		try
+		{
+			EngineSettings::RenderOffsetX = stoi(Value);
+		}
+		catch (...) {}
+	}
+
+
+	if (Message == "SetRenderingOffsetX")
+	{
+		try
+		{
+			EngineSettings::RenderOffsetY = stoi(Value);
+		}
+		catch (...) {}
+	}
+
 }

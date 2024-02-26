@@ -1,6 +1,6 @@
 #include "RenderingModifier.h"
 
-string RenderingModifier::PreRender()
+string RenderingModifier::PreRender(int X, int Y)
 {
 	if (ColorOveride != -1)
 	{
@@ -8,7 +8,7 @@ string RenderingModifier::PreRender()
 		SetConsoleTextAttribute(conout, ColorOveride);
 	}
 
-	return "NULL";
+	return STR_NULL;
 }
 
 void RenderingModifier::PostRender()
