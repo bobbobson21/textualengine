@@ -1,38 +1,40 @@
 #include "g_m_grassmat.h"
 
-string g_m_grassmat::PreRender(int X, int Y)
+string g_m_grassmat::PreRender(int X, int Y, string RenderingFor)
 {
-	srand(X + Y);
+	srand(X + Y *4145);
 
-	HANDLE conout = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(conout, ColorOveride);
+	SetConsoleTextAttribute(OutHandle, ColorOveride);
 
-	switch (rand() % 7)
+	switch ((int)rand() % 7)
 	{
 	case 1:
-		SetConsoleTextAttribute(conout, 170);
+		SetConsoleTextAttribute(OutHandle, 170);
 		break;
 
 	case 2:
-		SetConsoleTextAttribute(conout, 162);
+		SetConsoleTextAttribute(OutHandle, 162);
 		break;
 
 	case 3:
-		SetConsoleTextAttribute(conout, 34);
+		SetConsoleTextAttribute(OutHandle, 34);
 		break;
 
 	case 4:
-		SetConsoleTextAttribute(conout, 42);
+		SetConsoleTextAttribute(OutHandle, 42);
 		break;
 
 	case 5:
-		SetConsoleTextAttribute(conout, 43);
+		SetConsoleTextAttribute(OutHandle, 43);
 		break;
 
 	case 6: default:
-		SetConsoleTextAttribute(conout, 171);
+		SetConsoleTextAttribute(OutHandle, 171);
 		break;
 	}
+
+	if (((int)rand() % 3) == 1) { return "["; }
+	if (((int)rand() % 3) == 1) { return "]"; }
 
 	return STR_NULL;
 }

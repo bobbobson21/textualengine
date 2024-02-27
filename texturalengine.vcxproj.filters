@@ -33,6 +33,12 @@
     <ClCompile Include="GameContent\ConsoleReciver\ConsoleReciver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameContent\GameAssests\g_m_MaterialGrass\g_m_grassmat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameContent\GameAssests\g_WorldLayer\g_WorldLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineContent\BaseEntity\BaseEntity.h">
@@ -54,6 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameContent\ConsoleReciver\ConsoleReciver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameContent\GameAssests\g_m_MaterialGrass\g_m_grassmat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameContent\GameAssests\g_WorldLayer\g_WorldLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

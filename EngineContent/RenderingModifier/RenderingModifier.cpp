@@ -1,11 +1,10 @@
 #include "RenderingModifier.h"
 
-string RenderingModifier::PreRender(int X, int Y)
+string RenderingModifier::PreRender(int X, int Y, string RenderingFor)
 {
 	if (ColorOveride != -1)
 	{
-		HANDLE conout = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleTextAttribute(conout, ColorOveride);
+		SetConsoleTextAttribute(OutHandle, ColorOveride);
 	}
 
 	return STR_NULL;

@@ -194,12 +194,12 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 
 	if (RendededCharizalRenderingModifyer != nullptr)
 	{
-		string NewToPush = RendededCharizalRenderingModifyer->PreRender(X, Y); //runs the render modifyer that can be used to create stuff like flashing materials
+		string NewToPush = RendededCharizalRenderingModifyer->PreRender(X, Y, RendededCharizalToPush); //runs the render modifyer that can be used to create stuff like flashing materials
 		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
 	}
 
-		cout << RendededCharizalToPush; //RENDERS CHARIZAL
-		if (NewLineAfter == true) { cout << endl; }
+	fwrite(RendededCharizalToPush.c_str(), 1, 1, stdout);
+	if (NewLineAfter == true) { fwrite("\n", 1, 2, stdout); }
 
 	if (RendededCharizalRenderingModifyer != nullptr)
 	{
