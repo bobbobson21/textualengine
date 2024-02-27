@@ -1,6 +1,6 @@
 #include "BaseEntity.h"
 
-vector<BaseEntity *> BaseEntity::EntityiesInRunTime;
+vector<unique_ptr<BaseEntity>*> BaseEntity::EntityiesInRunTime;
 
 void BaseEntity::Update(float DeltaTime)
 {
@@ -27,7 +27,7 @@ void BaseEntity::Fire(string Message, string Value)
 	{
 		try
 		{
-			MyComponents[i]->ReceiveFireInstruction(Message, Value);
+			MyComponents[i]->get()->ReceiveFireInstruction(Message, Value);
 		}
 		catch (...) {}
 	}
@@ -55,7 +55,7 @@ string BaseEntity::GetValueOfKey(string Key)
 void BaseEntity::AddComponent(BaseEntity* Ent, BaseComponent* Com)
 {
 	Com->SelfOwner = Ent; //so the component knows who its boss is
-	Ent->MyComponents.push_back(Com);
+	Ent->MyComponents.push_back(new unique_ptr<BaseComponent>{Com});
 	Com->Start();
 }
 
@@ -65,9 +65,9 @@ BaseComponent *BaseEntity::GetComponent(BaseEntity* Ent, string Identifyer) //ge
 	{
 		try
 		{
-			if (Ent->MyComponents[i] != nullptr &&  Ent->MyComponents[i]->GetIdentifyer() == Identifyer) //found what we are looking for
+			if (Ent->MyComponents[i] != nullptr &&  Ent->MyComponents[i]->get()->GetIdentifyer() == Identifyer) //found what we are looking for
 			{
-				return Ent->MyComponents[i];
+				return Ent->MyComponents[i]->get();
 			}
 		}
 		catch (...) {}
@@ -82,9 +82,9 @@ void BaseEntity::RemoveComponent(BaseEntity* Ent, string Identifyer) //removes a
 	{
 		try
 		{
-			if (Ent->MyComponents[i] != nullptr && Ent->MyComponents[i]->GetIdentifyer() == Identifyer) //found what we are looking for
+			if (Ent->MyComponents[i] != nullptr && Ent->MyComponents[i]->get()->GetIdentifyer() == Identifyer) //found what we are looking for
 			{
-				Ent->MyComponents[i]->OnRemove();
+				Ent->MyComponents[i]->get()->OnRemove();
 				Ent->MyComponents.erase(Ent->MyComponents.begin() + i);
 				return;
 			}
@@ -96,7 +96,7 @@ void BaseEntity::RemoveComponent(BaseEntity* Ent, string Identifyer) //removes a
 
 void BaseEntity::Spawn(BaseEntity* Ent) //puts entity in run time
 {
-	EntityiesInRunTime.push_back(Ent);
+	EntityiesInRunTime.push_back(new unique_ptr<BaseEntity>{Ent});
 	Ent->MyIndex = EntityiesInRunTime.size() -1;
 	Ent->Start();
 }
@@ -105,7 +105,7 @@ void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 {
 	for (int i = 0; i < Ent->MyComponents.size(); i++)
 	{
-		Ent->MyComponents[i]->OnRemove();
+		Ent->MyComponents[i]->get()->OnRemove();
 		try
 		{
 			Ent->MyComponents.erase(Ent->MyComponents.begin() + i);
@@ -130,24 +130,24 @@ void BaseEntity::RemoveAll()
 		{
 			if (EntityiesInRunTime[i] != nullptr)
 			{
-				for (int o = 0; o < EntityiesInRunTime[i]->MyComponents.size(); o++)
+				for (int o = 0; o < EntityiesInRunTime[i]->get()->MyComponents.size(); o++)
 				{
-					if (EntityiesInRunTime[i]->MyComponents[o] != nullptr)
+					if (EntityiesInRunTime[i]->get()->MyComponents[o] != nullptr)
 					{
-						EntityiesInRunTime[i]->MyComponents[o]->OnRemove();
+						EntityiesInRunTime[i]->get()->MyComponents[o]->get()->OnRemove();
 						try
 						{
-							EntityiesInRunTime[i]->MyComponents.erase(EntityiesInRunTime[i]->MyComponents.begin() + o);
+							EntityiesInRunTime[i]->get()->MyComponents.erase(EntityiesInRunTime[i]->get()->MyComponents.begin() + o);
 						}
 						catch (...) {}
 					}
 				}
 
-				EntityiesInRunTime[i]->OnRemove();
+				EntityiesInRunTime[i]->get()->OnRemove();
 
 				try
 				{
-					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + EntityiesInRunTime[i]->MyIndex);
+					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + EntityiesInRunTime[i]->get()->MyIndex);
 					for (int i = 0; i < EntityiesInRunTime.size(); i++) //finds all entities and removes them
 					i--;
 				}
@@ -167,7 +167,7 @@ bool BaseEntity::IsVaild(BaseEntity* Ent)
 		{
 			for (int i = 0; i < EntityiesInRunTime.size(); i++)
 			{
-				if (EntityiesInRunTime[i] == Ent)
+				if (EntityiesInRunTime[i]->get() == Ent)
 				{
 					return true;
 				}
@@ -189,16 +189,16 @@ void BaseEntity::ProcessUpdate(float DeltaTime)
 		{
 			if (EntityiesInRunTime[i] != nullptr)
 			{
-				EntityiesInRunTime[i]->Update(DeltaTime); //updates all entities
+				EntityiesInRunTime[i]->get()->Update(DeltaTime); //updates all entities
 
-				for (int o = 0; o < EntityiesInRunTime[i]->MyComponents.size(); o++) //then updates there components
+				for (int o = 0; o < EntityiesInRunTime[i]->get()->MyComponents.size(); o++) //then updates there components
 				{
 					try
 					{
-						if (EntityiesInRunTime[i]->MyComponents[o] != nullptr)
+						if (EntityiesInRunTime[i]->get()->MyComponents[o] != nullptr)
 						{
-							EntityiesInRunTime[i]->MyComponents[o]->SelfOwner = EntityiesInRunTime[i];
-							EntityiesInRunTime[i]->MyComponents[o]->Update(DeltaTime);
+							EntityiesInRunTime[i]->get()->MyComponents[o]->get()->SelfOwner = EntityiesInRunTime[i]->get();
+							EntityiesInRunTime[i]->get()->MyComponents[o]->get()->Update(DeltaTime);
 						}
 					}
 					catch (...) {}
@@ -221,10 +221,10 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 		{
 			if (EntityiesInRunTime[i] != nullptr)
 			{
-				vector<string> CurrentRenderContent = EntityiesInRunTime[i]->MyRenderingInfo.ContentsToRender;
-				int CurrentOffsetX = EntityiesInRunTime[i]->MyRenderingInfo.OffsetX;
-				int CurrentOffsetY = EntityiesInRunTime[i]->MyRenderingInfo.OffsetY;
-				int CurrentImportance = EntityiesInRunTime[i]->MyRenderingInfo.Importance;
+				vector<string> CurrentRenderContent = EntityiesInRunTime[i]->get()->MyRenderingInfo.ContentsToRender;
+				int CurrentOffsetX = EntityiesInRunTime[i]->get()->MyRenderingInfo.OffsetX;
+				int CurrentOffsetY = EntityiesInRunTime[i]->get()->MyRenderingInfo.OffsetY;
+				int CurrentImportance = EntityiesInRunTime[i]->get()->MyRenderingInfo.Importance;
 
 				if (Y - CurrentOffsetY >= 0 && Y + CurrentOffsetY < CurrentRenderContent.size()) //is with in screenbounds y
 				{
@@ -236,7 +236,7 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 						{
 							RendededCharizalImportance = CurrentImportance; //sets the pixle data to the curent pixle to render
 							RendededCharizalToPush = CurrentCharizal;
-							RendededCharizalRenderingModifyer = EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
+							RendededCharizalRenderingModifyer = EntityiesInRunTime[i]->get()->MyRenderingInfo.MyModifyer;
 						}
 					}
 				}

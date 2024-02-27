@@ -28,8 +28,10 @@ class BaseEntity
 {
 private:
 	map<string, string> KeyValueList;
-	static vector<BaseEntity *> EntityiesInRunTime;
-	vector<BaseComponent *> MyComponents;
+	static vector<unique_ptr<BaseEntity> *> EntityiesInRunTime;
+	vector<unique_ptr<BaseComponent> *> MyComponents;
+
+	unique_ptr<BaseEntity> Test;
 
 protected:
 	RenderingInfo MyRenderingInfo;

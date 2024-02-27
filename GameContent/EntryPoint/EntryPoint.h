@@ -45,7 +45,5 @@ static int GameMain()
 	Grass->SetRenderContents(GrassRenderContent);
 	BaseEntity::Spawn( Grass );
 
-	BaseEntity::RemoveAll();
-
 	return 0;
 }
