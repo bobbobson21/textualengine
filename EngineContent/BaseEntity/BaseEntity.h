@@ -29,10 +29,10 @@ class BaseEntity
 private:
 	map<string, string> KeyValueList;
 	static vector<BaseEntity *> EntityiesInRunTime;
+	vector<BaseComponent *> MyComponents;
 
 protected:
 	RenderingInfo MyRenderingInfo;
-	vector<BaseComponent> MyComponents;
 	int MyIndex = 0;
 
 	virtual void ReceiveFireInstruction(string Message, string Value); //reacts to a message and value
@@ -40,18 +40,19 @@ protected:
 public:
 	virtual void Update(float DeltaTime); //runs on tick in endless loop
 	virtual void Start(); //runs after spawn
+	virtual void OnRemove();
 	
 	void Fire(string Message, string Value); //send a message and a value
 
 	void SetKeyValue(string Key, string Value); //key = entity setting && value = what it should be set to
 	string GetValueOfKey(string Key); //gets the value of a setting
 	
-	void AddComponent(BaseComponent& Com); //Components are like mini entits that cant render or store keys but they can effect the entity there attached to
-	BaseComponent& GetComponent(string Identifyer);
-	void RemoveComponent(string Identifyer);
+	static void AddComponent(BaseEntity* Ent, BaseComponent* Com); //Components are like mini entits that cant render or store keys but they can effect the entity there attached to
+	static BaseComponent* GetComponent(BaseEntity* Ent, string Identifyer);
+	static void RemoveComponent(BaseEntity* Ent, string Identifyer);
 
-	void Spawn(); //regiestes the entity with the engine so it can render stuff and update
-	void Remove(); //unregiestes the entity with engine
+	static void Spawn(BaseEntity* Ent); //regiestes the entity with the engine so it can render stuff and update
+	static void Remove(BaseEntity* Ent); //unregiestes the entity with engine
 	static void RemoveAll(); //destroys all entitys usful for unloading a level
 
 	static bool IsVaild(BaseEntity* Ent); //is a given ent valid (ie has it been spawned and is it not destroyed)

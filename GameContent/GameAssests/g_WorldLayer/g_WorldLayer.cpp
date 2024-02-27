@@ -4,3 +4,5 @@ void g_WorldLayer::SetRenderContents(RenderingInfo Rend)
 {
 	MyRenderingInfo = Rend;
 }
+
+

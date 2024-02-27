@@ -4,6 +4,10 @@ void BaseComponent::Start()
 {
 }
 
+void BaseComponent::OnRemove()
+{
+}
+
 string BaseComponent::GetIdentifyer()
 {
 	return Identifyer;

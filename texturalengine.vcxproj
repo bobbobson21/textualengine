@@ -132,7 +132,7 @@
     <ClCompile Include="EngineContent\BaseEntity\BaseEntity.cpp" />
     <ClCompile Include="EngineContent\RenderingModifier\RenderingModifier.cpp" />
     <ClCompile Include="GameContent\EntryPoint\EntryPoint.h" />
-    <ClCompile Include="GameContent\GameAssests\g_m_MaterialGrass\g_m_grassmat.cpp" />
+    <ClCompile Include="GameContent\GameAssests\g_m_WorldMaterial\g_m_WorldMat.cpp" />
     <ClCompile Include="GameContent\GameAssests\g_WorldLayer\g_WorldLayer.cpp" />
     <ClCompile Include="texturalengine.cpp" />
   </ItemGroup>
@@ -144,7 +144,7 @@
     <ClInclude Include="EngineContent\EngineSetting\EngineSetting.h" />
     <ClInclude Include="EngineContent\Marcos\Marcos.h" />
     <ClInclude Include="EngineContent\RenderingModifier\RenderingModifier.h" />
-    <ClInclude Include="GameContent\GameAssests\g_m_MaterialGrass\g_m_grassmat.h" />
+    <ClInclude Include="GameContent\GameAssests\g_m_WorldMaterial\g_m_WorldMat.h" />
     <ClInclude Include="GameContent\GameAssests\g_WorldLayer\g_WorldLayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

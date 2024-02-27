@@ -23,6 +23,7 @@ public:
 	virtual void ReceiveFireInstruction(string Message, string Value);
 	virtual void Update(float DeltaTime); //all of this is the same as the ent
 	virtual void Start();
+	virtual void OnRemove();
 
 	static bool IsVaild(BaseComponent* EntCom);
 };

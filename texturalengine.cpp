@@ -33,13 +33,15 @@ void ThreadUpdateLoop()
 
 void ThreadRenderLoop()
 {
+	HANDLE ConOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
 	//for (size_t i = 0; i < 255; i++)
 	//{
-	//	HANDLE conout = GetStdHandle(STD_OUTPUT_HANDLE);
-	//	SetConsoleTextAttribute(conout, i);
+	//	SetConsoleTextAttribute(ConOut, i);
 
 	//	cout << i << endl;
 	//}
+
 
 	while (true)
 	{
@@ -48,12 +50,10 @@ void ThreadRenderLoop()
 			for (int X = 0; X <= EngineSettings::XCharizals; X++) //renders a line of charizals
 			{
 				BaseEntity::ProcessRendering(X + EngineSettings::RenderOffsetX, Y + EngineSettings::RenderOffsetY,(X == EngineSettings::XCharizals) );
+				SetConsoleTextAttribute(ConOut, 7);
 			}
 
 		}
-
-		HANDLE conout = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleTextAttribute(conout, 7);
 
 		Sleep(EngineSettings::MinmalRenderDelayInMircoSeconds);
 		system("cls"); //clear last frame

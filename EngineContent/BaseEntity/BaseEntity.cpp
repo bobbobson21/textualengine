@@ -1,5 +1,4 @@
 #include "BaseEntity.h"
-#include "../../GameContent/GameAssests/g_m_MaterialGrass/g_m_grassmat.h"
 
 vector<BaseEntity *> BaseEntity::EntityiesInRunTime;
 
@@ -8,6 +7,10 @@ void BaseEntity::Update(float DeltaTime)
 }
 
 void BaseEntity::Start()
+{
+}
+
+void BaseEntity::OnRemove()
 {
 }
 
@@ -24,7 +27,7 @@ void BaseEntity::Fire(string Message, string Value)
 	{
 		try
 		{
-			MyComponents[i].ReceiveFireInstruction(Message, Value);
+			MyComponents[i]->ReceiveFireInstruction(Message, Value);
 		}
 		catch (...) {}
 	}
@@ -33,7 +36,7 @@ void BaseEntity::Fire(string Message, string Value)
 
 void BaseEntity::SetKeyValue(string Key, string value)
 {
-	//KeyValueList[Key] = value;
+	KeyValueList[Key] = value;
 }
 
 string BaseEntity::GetValueOfKey(string Key)
@@ -49,39 +52,41 @@ string BaseEntity::GetValueOfKey(string Key)
 }
 
 
-void BaseEntity::AddComponent(BaseComponent& Com)
+void BaseEntity::AddComponent(BaseEntity* Ent, BaseComponent* Com)
 {
-	Com.SelfOwner = this; //so the component knows who its boss is
-	MyComponents.push_back(Com);
-	Com.Start();
+	Com->SelfOwner = Ent; //so the component knows who its boss is
+	Ent->MyComponents.push_back(Com);
+	Com->Start();
 }
 
-BaseComponent &BaseEntity::GetComponent(string Identifyer) //get component by identifyer
+BaseComponent *BaseEntity::GetComponent(BaseEntity* Ent, string Identifyer) //get component by identifyer
 {
-	for (int i = 0; i < MyComponents.size(); i++)
+	for (int i = 0; i < Ent->MyComponents.size(); i++)
 	{
 		try
 		{
-			if (MyComponents[i].GetIdentifyer() == Identifyer) //found what we are looking for
+			if (Ent->MyComponents[i]->GetIdentifyer() == Identifyer) //found what we are looking for
 			{
-				return MyComponents[i];
+				return Ent->MyComponents[i];
 			}
 		}
 		catch (...) {}
 	}
-	BaseComponent ReturnInvalidComponent = BaseComponent();
-	return ReturnInvalidComponent;
+	return nullptr;
 }
 
-void BaseEntity::RemoveComponent(string Identifyer) //removes a component by its idenifyer
+void BaseEntity::RemoveComponent(BaseEntity* Ent, string Identifyer) //removes a component form an entity by its idenifyer
 {
-	for (int i = 0; i < MyComponents.size(); i++)
+	for (int i = 0; i < Ent->MyComponents.size(); i++)
 	{
 		try
 		{
-			if (MyComponents[i].GetIdentifyer() == Identifyer) //found what we are looking for
+			if (Ent->MyComponents[i]->GetIdentifyer() == Identifyer) //found what we are looking for
 			{
-				MyComponents.erase(MyComponents.begin() + i);
+				Ent->MyComponents[i]->OnRemove();
+				delete Ent->MyComponents[i];
+
+				Ent->MyComponents.erase(Ent->MyComponents.begin() + i);
 				return;
 			}
 		}
@@ -90,20 +95,24 @@ void BaseEntity::RemoveComponent(string Identifyer) //removes a component by its
 }
 
 
-void BaseEntity::Spawn() //puts entity in run time
+void BaseEntity::Spawn(BaseEntity* Ent) //puts entity in run time
 {
-	EntityiesInRunTime.push_back(this);
-	MyIndex = EntityiesInRunTime.size() -1;
-	Start(); 
+	EntityiesInRunTime.push_back(Ent);
+	Ent->MyIndex = EntityiesInRunTime.size() -1;
+	Ent->Start();
 }
 
-void BaseEntity::Remove() //removes self/this
+void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 {
-	for (int i = 0; i < MyComponents.size(); i++)
+	for (int i = 0; i < Ent->MyComponents.size(); i++)
 	{
-		MyComponents[i].SelfOwner = nullptr;
+		Ent->MyComponents[i]->OnRemove();
+		delete Ent->MyComponents[i];
 	}
-	EntityiesInRunTime.erase(EntityiesInRunTime.begin() + MyIndex);
+	Ent->OnRemove();
+	EntityiesInRunTime.erase(EntityiesInRunTime.begin() + Ent->MyIndex);
+
+	delete Ent;
 }
 
 void BaseEntity::RemoveAll()
@@ -112,7 +121,7 @@ void BaseEntity::RemoveAll()
 	{
 		try
 		{
-			EntityiesInRunTime[i]->Remove();
+			BaseEntity::Remove(EntityiesInRunTime[i]);
 		}
 		catch(...) {}
 	}
@@ -151,8 +160,8 @@ void BaseEntity::ProcessUpdate(float DeltaTime)
 
 			for (int o = 0; o < EntityiesInRunTime[i]->MyComponents.size(); o++) //then updates there components
 			{
-				EntityiesInRunTime[i]->MyComponents[o].SelfOwner = EntityiesInRunTime[i];
-				EntityiesInRunTime[i]->MyComponents[o].Update(DeltaTime);
+				EntityiesInRunTime[i]->MyComponents[o]->SelfOwner = EntityiesInRunTime[i];
+				EntityiesInRunTime[i]->MyComponents[o]->Update(DeltaTime);
 			}
 		}
 		catch (...) {}
@@ -162,7 +171,7 @@ void BaseEntity::ProcessUpdate(float DeltaTime)
 void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 {
 	int RendededCharizalImportance = 0;
-	string RendededCharizalToPush = "";
+	string RendededCharizalToPush = " ";
 	RenderingModifier* RendededCharizalRenderingModifyer = nullptr;
 
 	for (int i = 0; i < EntityiesInRunTime.size(); i++)
@@ -174,9 +183,9 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 			int CurrentOffsetY = EntityiesInRunTime[i]->MyRenderingInfo.OffsetY;
 			int CurrentImportance = EntityiesInRunTime[i]->MyRenderingInfo.Importance;
 
-			if (Y - CurrentOffsetY > 0 && Y + CurrentOffsetY < CurrentRenderContent.size()) //is with in screenbounds y
+			if (Y - CurrentOffsetY >= 0 && Y + CurrentOffsetY < CurrentRenderContent.size()) //is with in screenbounds y
 			{
-				if (X - CurrentOffsetX > 0 && X + CurrentOffsetX < CurrentRenderContent[Y - CurrentOffsetY].length()) //is with in screenbounds x
+				if (X - CurrentOffsetX >= 0 && X + CurrentOffsetX < CurrentRenderContent[Y - CurrentOffsetY].length()) //is with in screenbounds x
 				{
 					char CurrentCharizal = CurrentRenderContent[Y - CurrentOffsetY][X - CurrentOffsetX];
 
@@ -192,16 +201,19 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 		catch (...) {}
 	}
 
-	if (RendededCharizalRenderingModifyer != nullptr)
+	if (RenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
 	{
 		string NewToPush = RendededCharizalRenderingModifyer->PreRender(X, Y, RendededCharizalToPush); //runs the render modifyer that can be used to create stuff like flashing materials
 		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
 	}
 
+	//cout << RendededCharizalToPush;
+	//if (NewLineAfter == true) { cout << endl; }
+
 	fwrite(RendededCharizalToPush.c_str(), 1, 1, stdout);
 	if (NewLineAfter == true) { fwrite("\n", 1, 2, stdout); }
 
-	if (RendededCharizalRenderingModifyer != nullptr)
+	if (RenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
 	{
 		RendededCharizalRenderingModifyer->PostRender();
 	}

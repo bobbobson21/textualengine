@@ -8,6 +8,5 @@ class g_WorldLayer : virtual public BaseEntity //this is in game content because
 
 public:
 	void SetRenderContents(RenderingInfo Rend);
-
 };
 
