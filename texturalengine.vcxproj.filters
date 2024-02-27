@@ -68,5 +68,8 @@
     <ClInclude Include="GameContent\GameAssests\g_WorldLayer\g_WorldLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EngineContent\EngineSettings\EngineSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

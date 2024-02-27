@@ -65,7 +65,7 @@ BaseComponent *BaseEntity::GetComponent(BaseEntity* Ent, string Identifyer) //ge
 	{
 		try
 		{
-			if (Ent->MyComponents[i]->GetIdentifyer() == Identifyer) //found what we are looking for
+			if (Ent->MyComponents[i] != nullptr &&  Ent->MyComponents[i]->GetIdentifyer() == Identifyer) //found what we are looking for
 			{
 				return Ent->MyComponents[i];
 			}
@@ -77,15 +77,14 @@ BaseComponent *BaseEntity::GetComponent(BaseEntity* Ent, string Identifyer) //ge
 
 void BaseEntity::RemoveComponent(BaseEntity* Ent, string Identifyer) //removes a component form an entity by its idenifyer
 {
+
 	for (int i = 0; i < Ent->MyComponents.size(); i++)
 	{
 		try
 		{
-			if (Ent->MyComponents[i]->GetIdentifyer() == Identifyer) //found what we are looking for
+			if (Ent->MyComponents[i] != nullptr && Ent->MyComponents[i]->GetIdentifyer() == Identifyer) //found what we are looking for
 			{
 				Ent->MyComponents[i]->OnRemove();
-				delete Ent->MyComponents[i];
-
 				Ent->MyComponents.erase(Ent->MyComponents.begin() + i);
 				return;
 			}
@@ -107,12 +106,20 @@ void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 	for (int i = 0; i < Ent->MyComponents.size(); i++)
 	{
 		Ent->MyComponents[i]->OnRemove();
-		delete Ent->MyComponents[i];
+		try
+		{
+			Ent->MyComponents.erase(Ent->MyComponents.begin() + i);
+		}
+		catch (...) {}
 	}
-	Ent->OnRemove();
-	EntityiesInRunTime.erase(EntityiesInRunTime.begin() + Ent->MyIndex);
 
-	delete Ent;
+	Ent->OnRemove();
+
+	try
+	{
+		EntityiesInRunTime.erase(EntityiesInRunTime.begin() + Ent->MyIndex);
+	}
+	catch (...) {}
 }
 
 void BaseEntity::RemoveAll()
@@ -121,7 +128,31 @@ void BaseEntity::RemoveAll()
 	{
 		try
 		{
-			BaseEntity::Remove(EntityiesInRunTime[i]);
+			if (EntityiesInRunTime[i] != nullptr)
+			{
+				for (int o = 0; o < EntityiesInRunTime[i]->MyComponents.size(); o++)
+				{
+					if (EntityiesInRunTime[i]->MyComponents[o] != nullptr)
+					{
+						EntityiesInRunTime[i]->MyComponents[o]->OnRemove();
+						try
+						{
+							EntityiesInRunTime[i]->MyComponents.erase(EntityiesInRunTime[i]->MyComponents.begin() + o);
+						}
+						catch (...) {}
+					}
+				}
+
+				EntityiesInRunTime[i]->OnRemove();
+
+				try
+				{
+					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + EntityiesInRunTime[i]->MyIndex);
+					for (int i = 0; i < EntityiesInRunTime.size(); i++) //finds all entities and removes them
+					i--;
+				}
+				catch (...) {}
+			}
 		}
 		catch(...) {}
 	}
@@ -156,12 +187,22 @@ void BaseEntity::ProcessUpdate(float DeltaTime)
 	{
 		try
 		{
-			EntityiesInRunTime[i]->Update(DeltaTime); //updates all entities
-
-			for (int o = 0; o < EntityiesInRunTime[i]->MyComponents.size(); o++) //then updates there components
+			if (EntityiesInRunTime[i] != nullptr)
 			{
-				EntityiesInRunTime[i]->MyComponents[o]->SelfOwner = EntityiesInRunTime[i];
-				EntityiesInRunTime[i]->MyComponents[o]->Update(DeltaTime);
+				EntityiesInRunTime[i]->Update(DeltaTime); //updates all entities
+
+				for (int o = 0; o < EntityiesInRunTime[i]->MyComponents.size(); o++) //then updates there components
+				{
+					try
+					{
+						if (EntityiesInRunTime[i]->MyComponents[o] != nullptr)
+						{
+							EntityiesInRunTime[i]->MyComponents[o]->SelfOwner = EntityiesInRunTime[i];
+							EntityiesInRunTime[i]->MyComponents[o]->Update(DeltaTime);
+						}
+					}
+					catch (...) {}
+				}
 			}
 		}
 		catch (...) {}
@@ -178,22 +219,25 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 	{
 		try
 		{
-			vector<string> CurrentRenderContent = EntityiesInRunTime[i]->MyRenderingInfo.ContentsToRender;
-			int CurrentOffsetX = EntityiesInRunTime[i]->MyRenderingInfo.OffsetX;
-			int CurrentOffsetY = EntityiesInRunTime[i]->MyRenderingInfo.OffsetY;
-			int CurrentImportance = EntityiesInRunTime[i]->MyRenderingInfo.Importance;
-
-			if (Y - CurrentOffsetY >= 0 && Y + CurrentOffsetY < CurrentRenderContent.size()) //is with in screenbounds y
+			if (EntityiesInRunTime[i] != nullptr)
 			{
-				if (X - CurrentOffsetX >= 0 && X + CurrentOffsetX < CurrentRenderContent[Y - CurrentOffsetY].length()) //is with in screenbounds x
-				{
-					char CurrentCharizal = CurrentRenderContent[Y - CurrentOffsetY][X - CurrentOffsetX];
+				vector<string> CurrentRenderContent = EntityiesInRunTime[i]->MyRenderingInfo.ContentsToRender;
+				int CurrentOffsetX = EntityiesInRunTime[i]->MyRenderingInfo.OffsetX;
+				int CurrentOffsetY = EntityiesInRunTime[i]->MyRenderingInfo.OffsetY;
+				int CurrentImportance = EntityiesInRunTime[i]->MyRenderingInfo.Importance;
 
-					if (CurrentCharizal != ' ' && CurrentImportance >= RendededCharizalImportance) //is not an enpty pixle and is a pixle of higher importance
+				if (Y - CurrentOffsetY >= 0 && Y + CurrentOffsetY < CurrentRenderContent.size()) //is with in screenbounds y
+				{
+					if (X - CurrentOffsetX >= 0 && X + CurrentOffsetX < CurrentRenderContent[Y - CurrentOffsetY].length()) //is with in screenbounds x
 					{
-						RendededCharizalImportance = CurrentImportance; //sets the pixle data to the curent pixle to render
-						RendededCharizalToPush = CurrentCharizal;
-						RendededCharizalRenderingModifyer = EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
+						char CurrentCharizal = CurrentRenderContent[Y - CurrentOffsetY][X - CurrentOffsetX];
+
+						if (CurrentCharizal != ' ' && CurrentImportance >= RendededCharizalImportance) //is not an enpty pixle and is a pixle of higher importance
+						{
+							RendededCharizalImportance = CurrentImportance; //sets the pixle data to the curent pixle to render
+							RendededCharizalToPush = CurrentCharizal;
+							RendededCharizalRenderingModifyer = EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
+						}
 					}
 				}
 			}

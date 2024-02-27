@@ -137,6 +137,7 @@
     <ClCompile Include="texturalengine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EngineContent\EngineSettings\EngineSettings.h" />
     <ClInclude Include="GameContent\ConsoleReciver\ConsoleReciver.h" />
     <ClInclude Include="EngineContent\Audio\AudioBeepControl.h" />
     <ClInclude Include="EngineContent\BaseComponent\BaseComponent.h" />

@@ -1,11 +1,2 @@
-﻿  ConsoleReciver.cpp
-  BaseComponent.cpp
-  BaseEntity.cpp
-C:\Users\e017770n\OneDrive - Staffordshire University\non uni gits\textualengine\EngineContent\BaseEntity\BaseEntity.cpp(99,43): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  RenderingModifier.cpp
-  EntryPoint.h
-  g_m_WorldMat.cpp
-  g_WorldLayer.cpp
-  texturalengine.cpp
-  Generating Code...
+﻿  EntryPoint.h
   texturalengine.vcxproj -> C:\Users\e017770n\OneDrive - Staffordshire University\non uni gits\textualengine\x64\Debug\texturalengine.exe

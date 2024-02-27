@@ -38,8 +38,7 @@ string g_m_WorldMat::PreRender(int X, int Y, string RenderingFor)
 
 		return "@";
 	}
-
-	if (RenderingFor == "|")
+	else if (RenderingFor == "|")
 	{
 		srand(X + Y * 4);
 
@@ -59,6 +58,9 @@ string g_m_WorldMat::PreRender(int X, int Y, string RenderingFor)
 
 		case 4:
 			SetConsoleTextAttribute(OutHandle, 112);
+			break;
+		default:
+			SetConsoleTextAttribute(OutHandle, 7);
 			break;
 		}
 

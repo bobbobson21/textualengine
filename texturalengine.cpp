@@ -50,7 +50,7 @@ void ThreadRenderLoop()
 			for (int X = 0; X <= EngineSettings::XCharizals; X++) //renders a line of charizals
 			{
 				BaseEntity::ProcessRendering(X + EngineSettings::RenderOffsetX, Y + EngineSettings::RenderOffsetY,(X == EngineSettings::XCharizals) );
-				SetConsoleTextAttribute(ConOut, 7);
+				SetConsoleTextAttribute(ConOut, EngineSettings::VoidRenderColor);
 			}
 
 		}
@@ -68,6 +68,8 @@ void ThreadAudioLoop()
 
 void ThreadConsoleLoop()
 {
+	BaseEntity::Spawn(EngineSettings::CommandConsoleCMD);
+
 	while (true)
 	{
 		if (GetAsyncKeyState(47)) //do they want to run a command
@@ -86,15 +88,22 @@ void ThreadConsoleLoop()
 				OutputRight = Output.substr(Output.find(" ") + 1, Output.length() - (Output.find(" ") + 2));
 			}
 
-			EngineSettings::CommandConsoleCMD->Fire( OutputLeft, OutputRight ); //runs command
+			//EngineSettings::CommandConsoleCMD->Fire( OutputLeft, OutputRight ); //runs command
 		}
 
 		Sleep(EngineSettings::MinmalRenderDelayInMircoSeconds); //sleep so we problay wont mess up rendering
 	}
 }
 
+void ExitMain() //games ending
+{
+	BaseEntity::RemoveAll();
+}
+
 int main()
 {
+	atexit(ExitMain);
+
 	vector <thread> threads;
 
 	thread TUL(ThreadUpdateLoop);
