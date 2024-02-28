@@ -5,7 +5,7 @@
 
 void ConsoleReciver::ReceiveFireInstruction(string Message, string Value)
 {
-	if (Message == "TEST" && Value == "1")
+	if (Message == "KillTask" && Value == "1")
 	{
 		exit(0);
 	}
@@ -14,17 +14,17 @@ void ConsoleReciver::ReceiveFireInstruction(string Message, string Value)
 	{
 		try
 		{
-			EngineSettings::RenderOffsetX = stoi(Value);
+			EngineSettings::ChangeInRunTime( "RenderOffsetX", stoi(Value) );
 		}
 		catch (...) {}
 	}
 
 
-	if (Message == "SetRenderingOffsetX")
+	if (Message == "SetRenderingOffsetY")
 	{
 		try
 		{
-			EngineSettings::RenderOffsetY = stoi(Value);
+			EngineSettings::ChangeInRunTime("RenderOffsetY", stoi(Value));
 		}
 		catch (...) {}
 	}

@@ -39,6 +39,12 @@
     <ClCompile Include="StarterContent\Assests\g_WorldLayer\g_WorldLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StarterContent\Assests\g_ui_base\g_ui_base.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineContent\EngineSettings\EngineSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineContent\BaseEntity\BaseEntity.h">
@@ -69,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EngineContent\EngineSettings\EngineSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StarterContent\Assests\g_ui_base\g_ui_base.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

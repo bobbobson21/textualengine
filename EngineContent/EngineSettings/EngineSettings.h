@@ -3,6 +3,8 @@
 #include "../BaseEntity/BaseEntity.h"
 #include "../../StarterContent/ConsoleReciver/ConsoleReciver.h"
 
+#include <String>
+
 class BaseEntity;
 
 namespace EngineSettings
@@ -19,4 +21,11 @@ namespace EngineSettings
 
 	static BaseEntity *CommandConsoleCMD = new ConsoleReciver(); //the console
 	static bool ConsoleAllowed = true;
+
+	bool ChangeInRunTime(string Var, int Value); //do note not all values should be updated dureing runtime so not all values are
+	bool ChangeInRunTime(string Var, bool Value);
+
+	int GetUpToDateValue(string Var, int TYPEID);
+	bool GetUpToDateValue(string Var, bool TYPEID);
+
 }

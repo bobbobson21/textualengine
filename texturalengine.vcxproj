@@ -127,6 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EngineContent\EngineSettings\EngineSettings.cpp" />
+    <ClCompile Include="StarterContent\Assests\g_ui_base\g_ui_base.cpp" />
     <ClCompile Include="StarterContent\ConsoleReciver\ConsoleReciver.cpp" />
     <ClCompile Include="EngineContent\BaseComponent\BaseComponent.cpp" />
     <ClCompile Include="EngineContent\BaseEntity\BaseEntity.cpp" />
@@ -138,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineContent\EngineSettings\EngineSettings.h" />
+    <ClInclude Include="StarterContent\Assests\g_ui_base\g_ui_base.h" />
     <ClInclude Include="StarterContent\ConsoleReciver\ConsoleReciver.h" />
     <ClInclude Include="EngineContent\Audio\AudioBeepControl.h" />
     <ClInclude Include="EngineContent\BaseComponent\BaseComponent.h" />

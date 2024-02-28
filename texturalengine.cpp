@@ -15,19 +15,32 @@
 
 using namespace std;
 
+	float DeltaTime = 0;
+
+	bool IsRendering = false;
+	bool IsInConsole = false;
+	
+	bool ProgramInTermanation = false;
+
 void ThreadUpdateLoop()
 {
 	float LastDeltaTime = 0;
 
 	while (true)
 	{
-		auto start = chrono::high_resolution_clock::now(); //delta time start
+		if (ProgramInTermanation == true) { break; }
 
-		BaseEntity::ProcessUpdate(LastDeltaTime); //updates all entities
-		Sleep(EngineSettings::MinmalUpdateDelayInMircoSeconds);
+		if (IsInConsole == false)
+		{
+			auto start = chrono::high_resolution_clock::now(); //delta time start
 
-		auto end = chrono::high_resolution_clock::now(); //delta time end
-		LastDeltaTime = (float)(end - start).count(); //calulate delta time
+			BaseEntity::ProcessUpdate(LastDeltaTime); //updates all entities
+			Sleep(EngineSettings::MinmalUpdateDelayInMircoSeconds);
+
+			auto end = chrono::high_resolution_clock::now(); //delta time end
+			LastDeltaTime = (float)(end - start).count(); //calulate delta time
+			DeltaTime = LastDeltaTime;
+		}
 	}
 }
 
@@ -45,18 +58,27 @@ void ThreadRenderLoop()
 
 	while (true)
 	{
-		for (int Y = 0; Y <= EngineSettings::YCharizals; Y++) //what line should be rendered
+		if (ProgramInTermanation == true) { break; }
+
+		if (IsInConsole == false)
 		{
-			for (int X = 0; X <= EngineSettings::XCharizals; X++) //starts to render a line of charizals
+			IsRendering = true;
+
+			for (int Y = 0; Y <= EngineSettings::YCharizals; Y++) //what line should be rendered
 			{
-				BaseEntity::ProcessRendering(X + EngineSettings::RenderOffsetX, Y + EngineSettings::RenderOffsetY,(X == EngineSettings::XCharizals) ); //dose the real rendering
-				SetConsoleTextAttribute(ConOut, EngineSettings::VoidRenderColor); //the color of nothing
+				for (int X = 0; X <= EngineSettings::XCharizals; X++) //starts to render a line of charizals
+				{
+					BaseEntity::ProcessRendering(X + EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), Y + EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)), (X == EngineSettings::XCharizals)); //dose the real rendering
+					SetConsoleTextAttribute(ConOut, EngineSettings::GetUpToDateValue("VoidRenderColor", TYPE_REP(int))); //the color of nothing
+				}
+
 			}
 
-		}
+			Sleep(EngineSettings::MinmalRenderDelayInMircoSeconds);
+			IsRendering = false;
 
-		Sleep(EngineSettings::MinmalRenderDelayInMircoSeconds);
-		system("cls"); //clear last frame
+			system("cls"); //clear last frame
+		}
 	}
 
 }
@@ -72,26 +94,29 @@ void ThreadConsoleLoop()
 
 	while (true)
 	{
-		if (GetAsyncKeyState(47)) //do they want to run a command
+		if (GetAsyncKeyState('C') &&IsRendering == false) //do they want to run a command
 		{
+			IsInConsole = true;
+
 			string Output = "";
 
-			cout << endl << "/";
-			cin >> Output; //get command to run
+			cin.clear();
+			cin.fail();
+			getline(cin, Output); //get command to run
 
 			string OutputLeft = Output;
 			string OutputRight = "1";
 
 			if (Output.find(" ") != string::npos) //find value from input
 			{
-				OutputLeft = Output.substr(0, Output.find(" ") - 1);
-				OutputRight = Output.substr(Output.find(" ") + 1, Output.length() - (Output.find(" ") + 2));
+				OutputLeft = Output.substr(0, Output.find(" ") );
+				OutputRight = Output.substr(Output.find(" ") + 1, Output.length() - (Output.find(" ") + 1));
 			}
 
-			//EngineSettings::CommandConsoleCMD->Fire( OutputLeft, OutputRight ); //runs command
+			EngineSettings::CommandConsoleCMD->Fire( OutputLeft, OutputRight ); //runs command
+			IsInConsole = false;
 		}
 
-		Sleep(EngineSettings::MinmalRenderDelayInMircoSeconds); //sleep so we problay wont mess up rendering
 	}
 }
 
