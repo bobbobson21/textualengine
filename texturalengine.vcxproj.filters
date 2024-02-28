@@ -42,6 +42,9 @@
     <ClCompile Include="EngineContent\EngineSettings\EngineSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StarterContent\ConsoleReciver\ConsoleReciver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineContent\BaseEntity\BaseEntity.h">

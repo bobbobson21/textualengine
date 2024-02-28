@@ -135,6 +135,7 @@
     <ClCompile Include="GameContent\EntryPoint\EntryPoint.h" />
     <ClCompile Include="StarterContent\Assests\g_m_WorldMaterial\g_m_WorldMat.cpp" />
     <ClCompile Include="StarterContent\Assests\g_WorldLayer\g_WorldLayer.cpp" />
+    <ClCompile Include="StarterContent\ConsoleReciver\ConsoleReciver.cpp" />
     <ClCompile Include="texturalengine.cpp" />
   </ItemGroup>
   <ItemGroup>
