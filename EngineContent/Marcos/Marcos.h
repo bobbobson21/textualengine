@@ -9,4 +9,5 @@
 #define INT_INVALID INT_MIN +2
 
 #define TYPE_REP( x ) (x)0
+#define TYPE_REP_OBJ( x ) (x)x()
 

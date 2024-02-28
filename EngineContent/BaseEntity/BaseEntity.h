@@ -35,7 +35,6 @@ private:
 
 protected:
 	RenderingInfo MyRenderingInfo;
-	int MyIndex = 0;
 
 	virtual void ReceiveFireInstruction(string Message, string Value); //reacts to a message and value
 

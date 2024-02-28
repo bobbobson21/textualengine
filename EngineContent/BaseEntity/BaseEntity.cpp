@@ -97,7 +97,6 @@ void BaseEntity::RemoveComponent(BaseEntity* Ent, string Identifyer) //removes a
 void BaseEntity::Spawn(BaseEntity* Ent) //puts entity in run time
 {
 	EntityiesInRunTime.push_back(new unique_ptr<BaseEntity>{Ent});
-	Ent->MyIndex = EntityiesInRunTime.size() -1;
 	Ent->Start();
 }
 
@@ -105,26 +104,33 @@ void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 {
 	for (int i = 0; i < Ent->MyComponents.size(); i++)
 	{
-		Ent->MyComponents[i]->get()->OnRemove();
+		Ent->MyComponents[i]->get()->OnRemove(); //tels entities componets it will be removed soon
 		try
 		{
-			Ent->MyComponents.erase(Ent->MyComponents.begin() + i);
+			Ent->MyComponents.erase(Ent->MyComponents.begin() + i); //removes the components
 		}
 		catch (...) {}
 	}
 
 	Ent->OnRemove();
 
-	try
+	for (int i = 0; i < EntityiesInRunTime.size(); i++) 
 	{
-		EntityiesInRunTime.erase(EntityiesInRunTime.begin() + Ent->MyIndex);
+		try
+		{
+			if (EntityiesInRunTime[i]->get() == Ent) //finds ent spawned version
+			{
+				EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i); //destroys ent
+				return;
+			}
+		}
+		catch (...) {}
 	}
-	catch (...) {}
 }
 
 void BaseEntity::RemoveAll()
 {
-	for (int i = 0; i < EntityiesInRunTime.size(); i++) //finds all entities and removes them
+	for (int i = 0; i >= 0 && EntityiesInRunTime.size() > 0 && i < EntityiesInRunTime.size(); i++) //finds all entities and removes them
 	{
 		try
 		{
@@ -147,8 +153,7 @@ void BaseEntity::RemoveAll()
 
 				try
 				{
-					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + EntityiesInRunTime[i]->get()->MyIndex);
-					for (int i = 0; i < EntityiesInRunTime.size(); i++) //finds all entities and removes them
+					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i);
 					i--;
 				}
 				catch (...) {}

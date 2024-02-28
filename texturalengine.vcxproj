@@ -129,7 +129,6 @@
   <ItemGroup>
     <ClCompile Include="EngineContent\EngineSettings\EngineSettings.cpp" />
     <ClCompile Include="StarterContent\Assests\g_ui_base\g_ui_base.cpp" />
-    <ClCompile Include="StarterContent\ConsoleReciver\ConsoleReciver.cpp" />
     <ClCompile Include="EngineContent\BaseComponent\BaseComponent.cpp" />
     <ClCompile Include="EngineContent\BaseEntity\BaseEntity.cpp" />
     <ClCompile Include="EngineContent\RenderingModifier\RenderingModifier.cpp" />

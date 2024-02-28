@@ -90,8 +90,6 @@ void ThreadAudioLoop()
 
 void ThreadConsoleLoop()
 {
-	BaseEntity::Spawn(EngineSettings::CommandConsoleCMD);
-
 	while (true)
 	{
 		if (GetAsyncKeyState('C') &&IsRendering == false) //do they want to run a command
@@ -123,6 +121,7 @@ void ThreadConsoleLoop()
 void ExitMain() //games ending
 {
 	BaseEntity::RemoveAll();
+	delete EngineSettings::CommandConsoleCMD;
 }
 
 int main()
