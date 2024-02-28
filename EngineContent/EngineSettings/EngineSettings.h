@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../BaseEntity/BaseEntity.h"
-#include "../../GameContent/ConsoleReciver/ConsoleReciver.h"
+#include "../../StarterContent/ConsoleReciver/ConsoleReciver.h"
 
 class BaseEntity;
 

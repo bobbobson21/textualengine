@@ -4,8 +4,8 @@
 #include "../../EngineContent/BaseEntity/BaseEntity.h"
 #include "../../EngineContent/Audio/AudioBeepControl.h"
 
-#include "../GameAssests/g_WorldLayer/g_WorldLayer.h"
-#include "../GameAssests/g_m_WorldMaterial/g_m_WorldMat.h"
+#include "../../StarterContent/Assests/g_WorldLayer/g_WorldLayer.h"
+#include "../../StarterContent/Assests/g_m_WorldMaterial/g_m_WorldMat.h"
 
 static int GameMain()
 {

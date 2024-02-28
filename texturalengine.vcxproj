@@ -127,26 +127,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameContent\ConsoleReciver\ConsoleReciver.cpp" />
+    <ClCompile Include="StarterContent\ConsoleReciver\ConsoleReciver.cpp" />
     <ClCompile Include="EngineContent\BaseComponent\BaseComponent.cpp" />
     <ClCompile Include="EngineContent\BaseEntity\BaseEntity.cpp" />
     <ClCompile Include="EngineContent\RenderingModifier\RenderingModifier.cpp" />
     <ClCompile Include="GameContent\EntryPoint\EntryPoint.h" />
-    <ClCompile Include="GameContent\GameAssests\g_m_WorldMaterial\g_m_WorldMat.cpp" />
-    <ClCompile Include="GameContent\GameAssests\g_WorldLayer\g_WorldLayer.cpp" />
+    <ClCompile Include="StarterContent\Assests\g_m_WorldMaterial\g_m_WorldMat.cpp" />
+    <ClCompile Include="StarterContent\Assests\g_WorldLayer\g_WorldLayer.cpp" />
     <ClCompile Include="texturalengine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineContent\EngineSettings\EngineSettings.h" />
-    <ClInclude Include="GameContent\ConsoleReciver\ConsoleReciver.h" />
+    <ClInclude Include="StarterContent\ConsoleReciver\ConsoleReciver.h" />
     <ClInclude Include="EngineContent\Audio\AudioBeepControl.h" />
     <ClInclude Include="EngineContent\BaseComponent\BaseComponent.h" />
     <ClInclude Include="EngineContent\BaseEntity\BaseEntity.h" />
     <ClInclude Include="EngineContent\EngineSetting\EngineSetting.h" />
     <ClInclude Include="EngineContent\Marcos\Marcos.h" />
     <ClInclude Include="EngineContent\RenderingModifier\RenderingModifier.h" />
-    <ClInclude Include="GameContent\GameAssests\g_m_WorldMaterial\g_m_WorldMat.h" />
-    <ClInclude Include="GameContent\GameAssests\g_WorldLayer\g_WorldLayer.h" />
+    <ClInclude Include="StarterContent\Assests\g_m_WorldMaterial\g_m_WorldMat.h" />
+    <ClInclude Include="StarterContent\Assests\g_WorldLayer\g_WorldLayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

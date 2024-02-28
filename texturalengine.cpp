@@ -45,12 +45,12 @@ void ThreadRenderLoop()
 
 	while (true)
 	{
-		for (int Y = 0; Y <= EngineSettings::YCharizals; Y++) //renders all the charizals on the Y
+		for (int Y = 0; Y <= EngineSettings::YCharizals; Y++) //what line should be rendered
 		{
-			for (int X = 0; X <= EngineSettings::XCharizals; X++) //renders a line of charizals
+			for (int X = 0; X <= EngineSettings::XCharizals; X++) //starts to render a line of charizals
 			{
-				BaseEntity::ProcessRendering(X + EngineSettings::RenderOffsetX, Y + EngineSettings::RenderOffsetY,(X == EngineSettings::XCharizals) );
-				SetConsoleTextAttribute(ConOut, EngineSettings::VoidRenderColor);
+				BaseEntity::ProcessRendering(X + EngineSettings::RenderOffsetX, Y + EngineSettings::RenderOffsetY,(X == EngineSettings::XCharizals) ); //dose the real rendering
+				SetConsoleTextAttribute(ConOut, EngineSettings::VoidRenderColor); //the color of nothing
 			}
 
 		}

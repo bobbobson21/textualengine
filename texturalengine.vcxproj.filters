@@ -30,13 +30,13 @@
     <ClCompile Include="GameContent\EntryPoint\EntryPoint.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameContent\ConsoleReciver\ConsoleReciver.cpp">
+    <ClCompile Include="StarterContent\ConsoleReciver\ConsoleReciver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameContent\GameAssests\g_m_WorldMaterial\g_m_WorldMat.cpp">
+    <ClCompile Include="StarterContent\Assests\g_m_WorldMaterial\g_m_WorldMat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameContent\GameAssests\g_WorldLayer\g_WorldLayer.cpp">
+    <ClCompile Include="StarterContent\Assests\g_WorldLayer\g_WorldLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,13 +59,13 @@
     <ClInclude Include="EngineContent\Marcos\Marcos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameContent\ConsoleReciver\ConsoleReciver.h">
+    <ClInclude Include="StarterContent\ConsoleReciver\ConsoleReciver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameContent\GameAssests\g_m_WorldMaterial\g_m_WorldMat.h">
+    <ClInclude Include="StarterContent\Assests\g_m_WorldMaterial\g_m_WorldMat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameContent\GameAssests\g_WorldLayer\g_WorldLayer.h">
+    <ClInclude Include="StarterContent\Assests\g_WorldLayer\g_WorldLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EngineContent\EngineSettings\EngineSettings.h">
