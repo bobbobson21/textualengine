@@ -33,5 +33,4 @@ namespace EngineSettings
 
 	int GetConstValue(string Var, int TYPEID);
 	BaseEntity *GetConstValue(string Var, BaseEntity TYPEID);
-
 }
