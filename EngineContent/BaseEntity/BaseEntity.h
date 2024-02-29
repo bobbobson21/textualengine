@@ -35,10 +35,13 @@ private:
 
 protected:
 	RenderingInfo MyRenderingInfo;
+	string Identifyer = BASE_ENTITY_IDENTIFYER;
 
 	virtual void ReceiveFireInstruction(string Message, string Value); //reacts to a message and value
 
 public:
+	string GetIdentifyer();
+
 	virtual void Update(float DeltaTime); //runs on tick in endless loop
 	virtual void Start(); //runs after spawn
 	virtual void OnRemove();
@@ -49,12 +52,15 @@ public:
 	string GetValueOfKey(string Key); //gets the value of a setting
 	
 	static void AddComponent(BaseEntity* Ent, BaseComponent* Com); //Components are like mini entits that cant render or store keys but they can effect the entity there attached to
-	static BaseComponent* GetComponent(BaseEntity* Ent, string Identifyer);
-	static void RemoveComponent(BaseEntity* Ent, string Identifyer);
+	static vector<BaseComponent *> GetComponents(BaseEntity* Ent, string Identifyer);
+	static void RemoveAllComponentsOfID(BaseEntity* Ent, string Identifyer);
 
 	static void Spawn(BaseEntity* Ent); //regiestes the entity with the engine so it can render stuff and update
 	static void Remove(BaseEntity* Ent); //unregiestes the entity with engine
 	static void RemoveAll(); //destroys all entitys usful for unloading a level
+	static void RemoveAllOfID(string Identifyer); //destroys all entitys usful for unloading a level
+
+	static vector<BaseEntity *> GetEntities(string Identifyer); //destroys all entitys usful for unloading a level
 
 	static bool IsVaild(BaseEntity* Ent); //is a given ent valid (ie has it been spawned and is it not destroyed)
 	static void ProcessUpdate(float DeltaTime);

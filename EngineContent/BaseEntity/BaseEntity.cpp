@@ -2,6 +2,11 @@
 
 vector<unique_ptr<BaseEntity>*> BaseEntity::EntityiesInRunTime;
 
+string BaseEntity::GetIdentifyer()
+{
+	return Identifyer;
+}
+
 void BaseEntity::Update(float DeltaTime)
 {
 }
@@ -59,26 +64,28 @@ void BaseEntity::AddComponent(BaseEntity* Ent, BaseComponent* Com)
 	Com->Start();
 }
 
-BaseComponent *BaseEntity::GetComponent(BaseEntity* Ent, string Identifyer) //get component by identifyer
+vector<BaseComponent*> BaseEntity::GetComponents(BaseEntity* Ent, string Identifyer) //get component by identifyer
 {
+	vector<BaseComponent*> Components = vector<BaseComponent*>();
+
 	for (int i = 0; i < Ent->MyComponents.size(); i++)
 	{
 		try
 		{
 			if (Ent->MyComponents[i] != nullptr &&  Ent->MyComponents[i]->get()->GetIdentifyer() == Identifyer) //found what we are looking for
 			{
-				return Ent->MyComponents[i]->get();
+				Components.push_back( Ent->MyComponents[i]->get() );
 			}
 		}
 		catch (...) {}
 	}
-	return nullptr;
+	return Components;
 }
 
-void BaseEntity::RemoveComponent(BaseEntity* Ent, string Identifyer) //removes a component form an entity by its idenifyer
+void BaseEntity::RemoveAllComponentsOfID(BaseEntity* Ent, string Identifyer) //removes a component form an entity by its idenifyer
 {
 
-	for (int i = 0; i < Ent->MyComponents.size(); i++)
+	for (int i = 0; i >= 0 && Ent->MyComponents.size() > 0 && i < Ent->MyComponents.size(); i++)
 	{
 		try
 		{
@@ -86,7 +93,7 @@ void BaseEntity::RemoveComponent(BaseEntity* Ent, string Identifyer) //removes a
 			{
 				Ent->MyComponents[i]->get()->OnRemove();
 				Ent->MyComponents.erase(Ent->MyComponents.begin() + i);
-				return;
+				i--;
 			}
 		}
 		catch (...) {}
@@ -161,6 +168,60 @@ void BaseEntity::RemoveAll()
 		}
 		catch(...) {}
 	}
+}
+
+void BaseEntity::RemoveAllOfID(string Identifyer)
+{
+	for (int i = 0; i >= 0 && EntityiesInRunTime.size() > 0 && i < EntityiesInRunTime.size(); i++) //finds all entities and removes them
+	{
+		try
+		{
+			if (EntityiesInRunTime[i] != nullptr && EntityiesInRunTime[i]->get()->GetIdentifyer() == Identifyer)
+			{
+				for (int o = 0; o < EntityiesInRunTime[i]->get()->MyComponents.size(); o++)
+				{
+					if (EntityiesInRunTime[i]->get()->MyComponents[o] != nullptr)
+					{
+						EntityiesInRunTime[i]->get()->MyComponents[o]->get()->OnRemove();
+						try
+						{
+							EntityiesInRunTime[i]->get()->MyComponents.erase(EntityiesInRunTime[i]->get()->MyComponents.begin() + o);
+						}
+						catch (...) {}
+					}
+				}
+
+				EntityiesInRunTime[i]->get()->OnRemove();
+
+				try
+				{
+					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i);
+					i--;
+				}
+				catch (...) {}
+			}
+		}
+		catch (...) {}
+	}
+}
+
+vector<BaseEntity*> BaseEntity::GetEntities(string Identifyer)
+{
+	vector<BaseEntity*> Ents = vector<BaseEntity*>();
+
+	for (int i = 0; i < EntityiesInRunTime.size(); i++)
+	{
+		try
+		{
+			if (EntityiesInRunTime[i] != nullptr && EntityiesInRunTime[i]->get()->GetIdentifyer() == Identifyer)
+			{
+				Ents.push_back(EntityiesInRunTime[i]->get());
+			}
+		}
+		catch (...) {}
+
+	}
+	return Ents;
 }
 
 

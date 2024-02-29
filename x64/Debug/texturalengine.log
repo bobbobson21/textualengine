@@ -1,2 +1,14 @@
-﻿  ConsoleReciver.cpp
-  texturalengine.vcxproj -> C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\x64\Debug\texturalengine.exe
+﻿  BaseComponent.cpp
+  BaseEntity.cpp
+  EngineSettings.cpp
+  RenderingModifier.cpp
+  EntryPoint.h
+  g_WorldLayer.cpp
+  g_m_WorldMat.cpp
+  g_ui_base.cpp
+  ConsoleReciver.cpp
+  texturalengine.cpp
+C:\Users\e017770n.STUDENT.000\OneDrive - Staffordshire University\non uni gits\textualengine\texturalengine.cpp(96,12): warning C4834: discarding return value of function with 'nodiscard' attribute
+  Generating Code...
+  LINK : C:\Users\e017770n.STUDENT.000\OneDrive - Staffordshire University\non uni gits\textualengine\x64\Debug\texturalengine.exe not found or not built by the last incremental link; performing full link
+  texturalengine.vcxproj -> C:\Users\e017770n.STUDENT.000\OneDrive - Staffordshire University\non uni gits\textualengine\x64\Debug\texturalengine.exe

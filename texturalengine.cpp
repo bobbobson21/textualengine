@@ -19,8 +19,6 @@ using namespace std;
 
 	bool IsRendering = false;
 	bool IsInConsole = false;
-	
-	bool ProgramInTermanation = false;
 
 void ThreadUpdateLoop()
 {
@@ -28,15 +26,13 @@ void ThreadUpdateLoop()
 
 	while (true)
 	{
-		if (ProgramInTermanation == true) { break; }
-
 		if (IsInConsole == false)
 		{
 			auto start = chrono::high_resolution_clock::now(); //delta time start
 
 			BaseEntity::ProcessUpdate(LastDeltaTime); //updates all entities
-			Sleep(EngineSettings::MinmalUpdateDelayInMircoSeconds);
-
+			Sleep(EngineSettings::GetUpToDateValue("MinmalUpdateDelayInMircoSeconds", TYPE_REP(int)));
+			
 			auto end = chrono::high_resolution_clock::now(); //delta time end
 			LastDeltaTime = (float)(end - start).count(); //calulate delta time
 			DeltaTime = LastDeltaTime;
@@ -48,7 +44,7 @@ void ThreadRenderLoop()
 {
 	HANDLE ConOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	//for (size_t i = 0; i < 255; i++)
+	//for (int i = 0; i < 255; i++)
 	//{
 	//	SetConsoleTextAttribute(ConOut, i);
 
@@ -58,23 +54,21 @@ void ThreadRenderLoop()
 
 	while (true)
 	{
-		if (ProgramInTermanation == true) { break; }
-
 		if (IsInConsole == false)
 		{
 			IsRendering = true;
 
-			for (int Y = 0; Y <= EngineSettings::YCharizals; Y++) //what line should be rendered
+			for (int Y = 0; Y <= EngineSettings::GetConstValue("YCharizals", TYPE_REP(int)); Y++) //what line should be rendered
 			{
-				for (int X = 0; X <= EngineSettings::XCharizals; X++) //starts to render a line of charizals
+				for (int X = 0; X <= EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)); X++) //starts to render a line of charizals
 				{
-					BaseEntity::ProcessRendering(X + EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), Y + EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)), (X == EngineSettings::XCharizals)); //dose the real rendering
+					BaseEntity::ProcessRendering(X + EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), Y + EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)), (X == EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)))); //dose the real rendering
 					SetConsoleTextAttribute(ConOut, EngineSettings::GetUpToDateValue("VoidRenderColor", TYPE_REP(int))); //the color of nothing
 				}
 
 			}
 
-			Sleep(EngineSettings::MinmalRenderDelayInMircoSeconds);
+			Sleep(EngineSettings::GetUpToDateValue("MinmalRenderDelayInMircoSeconds", TYPE_REP(int)));
 			IsRendering = false;
 
 			system("cls"); //clear last frame
@@ -92,7 +86,7 @@ void ThreadConsoleLoop()
 {
 	while (true)
 	{
-		if (GetAsyncKeyState('C') &&IsRendering == false) //do they want to run a command
+		if (GetAsyncKeyState('C') && IsRendering == false) //do they want to run a command
 		{
 			IsInConsole = true;
 
@@ -111,7 +105,7 @@ void ThreadConsoleLoop()
 				OutputRight = Output.substr(Output.find(" ") + 1, Output.length() - (Output.find(" ") + 1));
 			}
 
-			EngineSettings::CommandConsoleCMD->Fire( OutputLeft, OutputRight ); //runs command
+			EngineSettings::GetConstValue( "CommandConsoleCMD", TYPE_REP(BaseEntity) )->Fire(OutputLeft, OutputRight); //runs command
 			IsInConsole = false;
 		}
 
@@ -121,7 +115,7 @@ void ThreadConsoleLoop()
 void ExitMain() //games ending
 {
 	BaseEntity::RemoveAll();
-	delete EngineSettings::CommandConsoleCMD;
+	delete EngineSettings::GetConstValue("CommandConsoleCMD", TYPE_REP(BaseEntity));
 }
 
 int main()
@@ -142,7 +136,7 @@ int main()
 	thread TGL(GameMain);
 	threads.push_back(move(TGL));
 
-	if (EngineSettings::ConsoleAllowed == true)
+	if (EngineSettings::GetUpToDateValue( "ConsoleAllowed", TYPE_REP(bool) ) == true)
 	{
 		thread TCL(ThreadConsoleLoop);
 		threads.push_back(move(TCL));
