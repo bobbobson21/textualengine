@@ -1,6 +1,10 @@
-﻿  EngineSettings.cpp
+﻿  BaseComponent.cpp
+  BaseEntity.cpp
+  EngineSettings.cpp
+  RenderingModifier.cpp
   EntryPoint.h
   g_WorldLayer.cpp
+  g_m_WorldMat.cpp
   g_ui_base.cpp
   ConsoleReciver.cpp
   texturalengine.cpp
