@@ -11,7 +11,7 @@ static int GameMain()
 {
 	g_WorldLayer *Grass = new g_WorldLayer();
 
-	RenderingInfo GrassRenderContent = RenderingInfo();
+	BaseEntity_RenderingInfo GrassRenderContent = BaseEntity_RenderingInfo();
 	GrassRenderContent.MyModifyer = new g_m_WorldMat();
 	GrassRenderContent.ContentsToRender.resize(27);
 	GrassRenderContent.ContentsToRender[0] = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG";

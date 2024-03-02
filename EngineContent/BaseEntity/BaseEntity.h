@@ -13,9 +13,10 @@
 
 using namespace std;
 
+class BaseEntity;
 class BaseComponent;
 
-struct RenderingInfo
+struct BaseEntity_RenderingInfo //for rendering
 {
 	int OffsetX = 0;
 	int OffsetY = 0;
@@ -24,29 +25,43 @@ struct RenderingInfo
 	RenderingModifier *MyModifyer = new RenderingModifier();
 };
 
+struct BaseEntity_FireOutInfo //for firing out to other ents
+{
+	BaseEntity *Ent = nullptr;
+	string Message = "";
+	string Value = "";
+};
+
 class BaseEntity
 {
 private:
 	map<string, string> KeyValueList;
-	static vector<unique_ptr<BaseEntity> *> EntityiesInRunTime;
-	vector<unique_ptr<BaseComponent> *> MyComponents;
+	static vector<BaseEntity*> EntityiesInRunTime;
+	vector<BaseComponent*> MyComponents;
 
-	unique_ptr<BaseEntity> Test;
+	map<string, vector<BaseEntity *>> FireOuts;
 
 protected:
-	RenderingInfo MyRenderingInfo;
-	string Identifyer = BASE_ENTITY_IDENTIFYER;
+	BaseEntity_RenderingInfo MyRenderingInfo;
+	string Identifyer = ""; //BASE_ENTITY_IDENTIFYER;
 
 	virtual void ReceiveFireInstruction(string Message, string Value); //reacts to a message and value
-
+	void FireOut(string Condition); //rasies a condition
 public:
+	virtual ~BaseEntity() {}; //we dont need it but we have it delete is a bitch
+
 	string GetIdentifyer();
 
 	virtual void Update(float DeltaTime); //runs on tick in endless loop
 	virtual void Start(); //runs after spawn
 	virtual void OnRemove();
 	
-	void Fire(string Message, string Value); //send a message and a value
+	void Fire(string Message, string Value); //send a message to an entatity
+	void AddFireOut( BaseEntity* FireOutTo, string Condition, string Message, string Value); //if condition is rasied a massage along with a value is sent to fire out //send message from entity
+	void RemoveAllFireOutByEnt(BaseEntity* FireOutTo, string Condition); //removes the fire outs
+	void RemoveAllFireOutByEnt(BaseEntity* FireOutTo); //removes the fire outs
+	void RemoveAllFireOutByID(string Identifyer, string Condition); //removes the fire outs
+	void RemoveAllFireOutByID(string Identifyer); //removes the fire outs
 
 	void SetKeyValue(string Key, string Value); //key = entity setting && value = what it should be set to
 	string GetValueOfKey(string Key); //gets the value of a setting

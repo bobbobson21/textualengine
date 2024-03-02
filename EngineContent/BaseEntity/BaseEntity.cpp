@@ -1,6 +1,19 @@
 #include "BaseEntity.h"
 
-vector<unique_ptr<BaseEntity>*> BaseEntity::EntityiesInRunTime;
+vector<BaseEntity *> BaseEntity::EntityiesInRunTime;
+
+void BaseEntity::ReceiveFireInstruction(string Message, string Value)
+{
+}
+
+void BaseEntity::FireOut(string Condition)
+{
+	if (KeyValueList.count(Condition) > 0)
+	{
+		
+
+	}
+}
 
 string BaseEntity::GetIdentifyer()
 {
@@ -19,11 +32,6 @@ void BaseEntity::OnRemove()
 {
 }
 
-void BaseEntity::ReceiveFireInstruction(string Message, string Value)
-{
-}
-
-
 void BaseEntity::Fire(string Message, string Value)
 {
 	ReceiveFireInstruction(Message, Value);
@@ -32,10 +40,14 @@ void BaseEntity::Fire(string Message, string Value)
 	{
 		try
 		{
-			MyComponents[i]->get()->ReceiveFireInstruction(Message, Value);
+			MyComponents[i]->ReceiveFireInstruction(Message, Value);
 		}
 		catch (...) {}
 	}
+}
+
+void BaseEntity::AddFireOut(BaseEntity* FireOutTo, string Condition, string Message, string Value)
+{
 }
 
 
@@ -60,7 +72,7 @@ string BaseEntity::GetValueOfKey(string Key)
 void BaseEntity::AddComponent(BaseEntity* Ent, BaseComponent* Com)
 {
 	Com->SelfOwner = Ent; //so the component knows who its boss is
-	Ent->MyComponents.push_back(new unique_ptr<BaseComponent>{Com});
+	Ent->MyComponents.push_back(Com);
 	Com->Start();
 }
 
@@ -72,27 +84,29 @@ vector<BaseComponent*> BaseEntity::GetComponents(BaseEntity* Ent, string Identif
 	{
 		try
 		{
-			if (Ent->MyComponents[i] != nullptr &&  Ent->MyComponents[i]->get()->GetIdentifyer() == Identifyer) //found what we are looking for
+			if (Ent->MyComponents[i] != nullptr &&  Ent->MyComponents[i]->GetIdentifyer() == Identifyer) //found what we are looking for
 			{
-				Components.push_back( Ent->MyComponents[i]->get() );
+				Components.push_back( Ent->MyComponents[i] ); //add it to returend items
 			}
 		}
 		catch (...) {}
 	}
+
 	return Components;
 }
 
 void BaseEntity::RemoveAllComponentsOfID(BaseEntity* Ent, string Identifyer) //removes a component form an entity by its idenifyer
 {
-
 	for (int i = 0; i >= 0 && Ent->MyComponents.size() > 0 && i < Ent->MyComponents.size(); i++)
 	{
 		try
 		{
-			if (Ent->MyComponents[i] != nullptr && Ent->MyComponents[i]->get()->GetIdentifyer() == Identifyer) //found what we are looking for
+			if (Ent->MyComponents[i] != nullptr && Ent->MyComponents[i]->GetIdentifyer() == Identifyer) //found what we are looking for
 			{
-				Ent->MyComponents[i]->get()->OnRemove();
-				Ent->MyComponents.erase(Ent->MyComponents.begin() + i);
+				Ent->MyComponents[i]->OnRemove();
+
+				delete Ent->MyComponents[i]; //DESTROY
+				Ent->MyComponents.erase(Ent->MyComponents.begin() + i); //destoy
 				i--;
 			}
 		}
@@ -103,7 +117,7 @@ void BaseEntity::RemoveAllComponentsOfID(BaseEntity* Ent, string Identifyer) //r
 
 void BaseEntity::Spawn(BaseEntity* Ent) //puts entity in run time
 {
-	EntityiesInRunTime.push_back(new unique_ptr<BaseEntity>{Ent});
+	EntityiesInRunTime.push_back(Ent);
 	Ent->Start();
 }
 
@@ -111,9 +125,10 @@ void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 {
 	for (int i = 0; i < Ent->MyComponents.size(); i++)
 	{
-		Ent->MyComponents[i]->get()->OnRemove(); //tels entities componets it will be removed soon
+		Ent->MyComponents[i]->OnRemove(); //tels entities componets it will be removed soon
 		try
 		{
+			delete Ent->MyComponents[i];
 			Ent->MyComponents.erase(Ent->MyComponents.begin() + i); //removes the components
 		}
 		catch (...) {}
@@ -125,9 +140,11 @@ void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 	{
 		try
 		{
-			if (EntityiesInRunTime[i]->get() == Ent) //finds ent spawned version
+			if (EntityiesInRunTime[i] == Ent) //finds ent spawned version
 			{
+				delete EntityiesInRunTime[i];
 				EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i); //destroys ent
+				i--;
 				return;
 			}
 		}
@@ -141,26 +158,28 @@ void BaseEntity::RemoveAll()
 	{
 		try
 		{
+			EntityiesInRunTime[i]->OnRemove();//tesl the ent your going to die now wahaha
+
 			if (EntityiesInRunTime[i] != nullptr)
 			{
-				for (int o = 0; o < EntityiesInRunTime[i]->get()->MyComponents.size(); o++)
+				for (int o = 0; o < EntityiesInRunTime[i]->MyComponents.size(); o++) //destroys ents components
 				{
-					if (EntityiesInRunTime[i]->get()->MyComponents[o] != nullptr)
+					if (EntityiesInRunTime[i]->MyComponents[o] != nullptr)
 					{
-						EntityiesInRunTime[i]->get()->MyComponents[o]->get()->OnRemove();
+						EntityiesInRunTime[i]->MyComponents[o]->OnRemove(); //tells destruction
 						try
 						{
-							EntityiesInRunTime[i]->get()->MyComponents.erase(EntityiesInRunTime[i]->get()->MyComponents.begin() + o);
+							delete EntityiesInRunTime[i]->MyComponents[o];
+							EntityiesInRunTime[i]->MyComponents.erase(EntityiesInRunTime[i]->MyComponents.begin() + o); //dose destruction
 						}
 						catch (...) {}
 					}
 				}
 
-				EntityiesInRunTime[i]->get()->OnRemove();
-
 				try
 				{
-					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i);
+					delete EntityiesInRunTime[i];
+					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i);//destroys ent
 					i--;
 				}
 				catch (...) {}
@@ -176,26 +195,28 @@ void BaseEntity::RemoveAllOfID(string Identifyer)
 	{
 		try
 		{
-			if (EntityiesInRunTime[i] != nullptr && EntityiesInRunTime[i]->get()->GetIdentifyer() == Identifyer)
+			if (EntityiesInRunTime[i] != nullptr && EntityiesInRunTime[i]->GetIdentifyer() == Identifyer)
 			{
-				for (int o = 0; o < EntityiesInRunTime[i]->get()->MyComponents.size(); o++)
+				EntityiesInRunTime[i]->OnRemove(); //alert ent of there death
+
+				for (int o = 0; o < EntityiesInRunTime[i]->MyComponents.size(); o++) //destroys ents components
 				{
-					if (EntityiesInRunTime[i]->get()->MyComponents[o] != nullptr)
+					if (EntityiesInRunTime[i]->MyComponents[o] != nullptr)
 					{
-						EntityiesInRunTime[i]->get()->MyComponents[o]->get()->OnRemove();
+						EntityiesInRunTime[i]->MyComponents[o]->OnRemove(); //tells comps they will be destroyed
 						try
 						{
-							EntityiesInRunTime[i]->get()->MyComponents.erase(EntityiesInRunTime[i]->get()->MyComponents.begin() + o);
+							delete EntityiesInRunTime[i]->MyComponents[o];
+							EntityiesInRunTime[i]->MyComponents.erase(EntityiesInRunTime[i]->MyComponents.begin() + o); //dose destruction
 						}
 						catch (...) {}
 					}
 				}
 
-				EntityiesInRunTime[i]->get()->OnRemove();
-
 				try
 				{
-					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i);
+					delete EntityiesInRunTime[i];
+					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i); //destroys ent
 					i--;
 				}
 				catch (...) {}
@@ -213,9 +234,9 @@ vector<BaseEntity*> BaseEntity::GetEntities(string Identifyer)
 	{
 		try
 		{
-			if (EntityiesInRunTime[i] != nullptr && EntityiesInRunTime[i]->get()->GetIdentifyer() == Identifyer)
+			if (EntityiesInRunTime[i] != nullptr && EntityiesInRunTime[i]->GetIdentifyer() == Identifyer)
 			{
-				Ents.push_back(EntityiesInRunTime[i]->get());
+				Ents.push_back(EntityiesInRunTime[i]); //this ent == identifyer add it to return
 			}
 		}
 		catch (...) {}
@@ -223,7 +244,6 @@ vector<BaseEntity*> BaseEntity::GetEntities(string Identifyer)
 	}
 	return Ents;
 }
-
 
 bool BaseEntity::IsVaild(BaseEntity* Ent)
 {
@@ -233,7 +253,7 @@ bool BaseEntity::IsVaild(BaseEntity* Ent)
 		{
 			for (int i = 0; i < EntityiesInRunTime.size(); i++)
 			{
-				if (EntityiesInRunTime[i]->get() == Ent)
+				if (EntityiesInRunTime[i] == Ent)
 				{
 					return true;
 				}
@@ -255,16 +275,16 @@ void BaseEntity::ProcessUpdate(float DeltaTime)
 		{
 			if (EntityiesInRunTime[i] != nullptr)
 			{
-				EntityiesInRunTime[i]->get()->Update(DeltaTime); //updates all entities
+				EntityiesInRunTime[i]->Update(DeltaTime); //updates all entities
 
-				for (int o = 0; o < EntityiesInRunTime[i]->get()->MyComponents.size(); o++) //then updates there components
+				for (int o = 0; o < EntityiesInRunTime[i]->MyComponents.size(); o++) //then updates there components
 				{
 					try
 					{
-						if (EntityiesInRunTime[i]->get()->MyComponents[o] != nullptr)
+						if (EntityiesInRunTime[i]->MyComponents[o] != nullptr)
 						{
-							EntityiesInRunTime[i]->get()->MyComponents[o]->get()->SelfOwner = EntityiesInRunTime[i]->get();
-							EntityiesInRunTime[i]->get()->MyComponents[o]->get()->Update(DeltaTime);
+							EntityiesInRunTime[i]->MyComponents[o]->SelfOwner = EntityiesInRunTime[i];
+							EntityiesInRunTime[i]->MyComponents[o]->Update(DeltaTime);
 						}
 					}
 					catch (...) {}
@@ -287,10 +307,10 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 		{
 			if (EntityiesInRunTime[i] != nullptr)
 			{
-				vector<string> CurrentRenderContent = EntityiesInRunTime[i]->get()->MyRenderingInfo.ContentsToRender;
-				int CurrentOffsetX = EntityiesInRunTime[i]->get()->MyRenderingInfo.OffsetX;
-				int CurrentOffsetY = EntityiesInRunTime[i]->get()->MyRenderingInfo.OffsetY;
-				int CurrentImportance = EntityiesInRunTime[i]->get()->MyRenderingInfo.Importance;
+				vector<string> CurrentRenderContent = EntityiesInRunTime[i]->MyRenderingInfo.ContentsToRender;
+				int CurrentOffsetX = EntityiesInRunTime[i]->MyRenderingInfo.OffsetX;
+				int CurrentOffsetY = EntityiesInRunTime[i]->MyRenderingInfo.OffsetY;
+				int CurrentImportance = EntityiesInRunTime[i]->MyRenderingInfo.Importance;
 
 				if (Y - CurrentOffsetY >= 0 && Y + CurrentOffsetY < CurrentRenderContent.size()) //is with in screenbounds y
 				{
@@ -302,7 +322,7 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 						{
 							RendededCharizalImportance = CurrentImportance; //sets the pixle data to the curent pixle to render
 							RendededCharizalToPush = CurrentCharizal;
-							RendededCharizalRenderingModifyer = EntityiesInRunTime[i]->get()->MyRenderingInfo.MyModifyer;
+							RendededCharizalRenderingModifyer = EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
 						}
 					}
 				}
@@ -326,8 +346,6 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 	if (RenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
 	{
 		RendededCharizalRenderingModifyer->PostRender();
-	}
-	
-
+	}	
 }
 

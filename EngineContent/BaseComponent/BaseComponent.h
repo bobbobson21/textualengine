@@ -16,6 +16,8 @@ protected:
 	string Identifyer = BASE_COMPONENT_IDENTIFYER; //used to tell ents which component is which
 
 public:
+	virtual ~BaseComponent() {}
+
 	BaseEntity *SelfOwner = nullptr; //which ent do we belong to
 
 	string GetIdentifyer();

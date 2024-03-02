@@ -7,10 +7,10 @@
 #include <chrono>
 #include <Windows.h>
 
-#include "EngineContent/EngineSettings/EngineSettings.h"
+//#include "EngineContent/EngineSettings/EngineSettings.h"
 #include "EngineContent/BaseEntity/BaseEntity.h"
-#include "EngineContent/Audio/AudioBeepControl.h"
-
+//#include "EngineContent/Audio/AudioBeepControl.h"
+//
 #include "GameContent/EntryPoint/EntryPoint.h"
 
 using namespace std;
@@ -74,7 +74,6 @@ void ThreadRenderLoop()
 			system("cls"); //clear last frame
 		}
 	}
-
 }
 
 void ThreadAudioLoop()
@@ -108,7 +107,6 @@ void ThreadConsoleLoop()
 			EngineSettings::GetConstValue( "CommandConsoleCMD", TYPE_REP(BaseEntity) )->Fire(OutputLeft, OutputRight); //runs command
 			IsInConsole = false;
 		}
-
 	}
 }
 
