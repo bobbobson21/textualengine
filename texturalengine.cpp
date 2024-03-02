@@ -92,7 +92,6 @@ void ThreadConsoleLoop()
 			string Output = "";
 
 			cin.clear();
-			cin.fail();
 			getline(cin, Output); //get command to run
 
 			string OutputLeft = Output;

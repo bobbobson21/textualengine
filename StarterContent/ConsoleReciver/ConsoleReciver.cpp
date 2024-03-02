@@ -19,7 +19,6 @@ void ConsoleReciver::ReceiveFireInstruction(string Message, string Value)
 		catch (...) {}
 	}
 
-
 	if (Message == "SetRenderingOffsetY")
 	{
 		try

@@ -39,7 +39,7 @@ private:
 	static vector<BaseEntity*> EntityiesInRunTime;
 	vector<BaseComponent*> MyComponents;
 
-	map<string, vector<BaseEntity *>> FireOuts;
+	map<string, vector<BaseEntity_FireOutInfo>> FireOuts;
 
 protected:
 	BaseEntity_RenderingInfo MyRenderingInfo;
@@ -58,6 +58,7 @@ public:
 	
 	void Fire(string Message, string Value); //send a message to an entatity
 	void AddFireOut( BaseEntity* FireOutTo, string Condition, string Message, string Value); //if condition is rasied a massage along with a value is sent to fire out //send message from entity
+	void RemoveAllFireOut();
 	void RemoveAllFireOutByEnt(BaseEntity* FireOutTo, string Condition); //removes the fire outs
 	void RemoveAllFireOutByEnt(BaseEntity* FireOutTo); //removes the fire outs
 	void RemoveAllFireOutByID(string Identifyer, string Condition); //removes the fire outs

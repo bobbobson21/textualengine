@@ -8,10 +8,19 @@ void BaseEntity::ReceiveFireInstruction(string Message, string Value)
 
 void BaseEntity::FireOut(string Condition)
 {
-	if (KeyValueList.count(Condition) > 0)
+	if (FireOuts.count(Condition) > 0)
 	{
-		
-
+		for (int i = 0; i < FireOuts[Condition].size(); i++)
+		{
+			try
+			{
+				if (FireOuts[Condition][i].Ent != nullptr)
+				{
+					FireOuts[Condition][i].Ent->Fire(FireOuts[Condition][i].Message, FireOuts[Condition][i].Value);
+				}
+			}
+			catch (...) {}
+		}
 	}
 }
 
@@ -48,6 +57,103 @@ void BaseEntity::Fire(string Message, string Value)
 
 void BaseEntity::AddFireOut(BaseEntity* FireOutTo, string Condition, string Message, string Value)
 {
+	if (FireOuts.count(Condition) > 0)
+	{
+		FireOuts[Condition].push_back(BaseEntity_FireOutInfo{FireOutTo,Message,Value});
+	}
+	else
+	{
+		FireOuts[Condition] = vector<BaseEntity_FireOutInfo>{ BaseEntity_FireOutInfo{FireOutTo,Message,Value} };
+	}
+}
+
+void BaseEntity::RemoveAllFireOut()
+{
+	FireOuts.clear();
+}
+
+void BaseEntity::RemoveAllFireOutByEnt(BaseEntity* FireOutTo, string Condition)
+{
+	if (FireOuts.count(Condition) > 0) //condition is valid
+	{
+		for (int i = 0; i < FireOuts[Condition].size(); i++)
+		{
+			try
+			{
+				if (FireOuts[Condition][i].Ent == FireOutTo) //found our ent
+				{
+					FireOuts[Condition].erase(FireOuts[Condition].begin() + i); //removes fire
+					i--;
+				}
+			}
+			catch (...) {}
+		}
+	}
+}
+
+void BaseEntity::RemoveAllFireOutByEnt(BaseEntity* FireOutTo)
+{
+	for (std::map<string, vector<BaseEntity_FireOutInfo>>::iterator i = FireOuts.begin(); i != FireOuts.end(); ++i) //gose thougth evey condition
+	{
+		try
+		{
+			for (int o = 0; o < i->second.size(); o++) //gose thougth all fire outs for a given condition
+			{
+				try
+				{
+					if (i->second[o].Ent == FireOutTo) //found our ent
+					{
+						i->second.erase(i->second.begin() + o); //removes fire
+						o--;
+					}
+				}
+				catch (...) {}
+			}
+		}
+		catch (...) {}
+	}
+}
+
+void BaseEntity::RemoveAllFireOutByID(string Identifyer, string Condition)
+{
+	if (FireOuts.count(Condition) > 0) //condition is valid
+	{
+		for (int i = 0; i < FireOuts[Condition].size(); i++)
+		{
+			try
+			{
+				if (FireOuts[Condition][i].Ent->GetIdentifyer() == Identifyer) //found our ent by id
+				{
+					FireOuts[Condition].erase(FireOuts[Condition].begin() + i); //removes fire
+					i--;
+				}
+			}
+			catch (...) {}
+		}
+	}
+}
+
+void BaseEntity::RemoveAllFireOutByID(string Identifyer)
+{
+	for (std::map<string, vector<BaseEntity_FireOutInfo>>::iterator i = FireOuts.begin(); i != FireOuts.end(); ++i) //gose thougth evey condition
+	{
+		try
+		{
+			for (int o = 0; o < i->second.size(); o++) //gose thougth all fire outs for a given condition
+			{
+				try
+				{
+					if (i->second[o].Ent->GetIdentifyer() == Identifyer) //found our ent
+					{
+						i->second.erase(i->second.begin() + o); //removes fire
+						o--;
+					}
+				}
+				catch (...) {}
+			}
+		}
+		catch (...) {}
+	}
 }
 
 
