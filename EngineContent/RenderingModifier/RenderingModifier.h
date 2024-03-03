@@ -10,6 +10,8 @@ using namespace std;
 class RenderingModifier
 {
 public:
+	virtual ~RenderingModifier() {}
+
 	HANDLE OutHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	int ColorOveride = -1;
 

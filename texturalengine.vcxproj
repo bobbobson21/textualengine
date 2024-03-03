@@ -128,6 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EngineContent\EngineSettings\EngineSettings.cpp" />
+    <ClCompile Include="StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.cpp" />
+    <ClCompile Include="StarterContent\Assests\g_e_Collider\g_e_Collider.cpp" />
+    <ClCompile Include="StarterContent\Assests\g_e_Player\g_e_Player.cpp" />
+    <ClCompile Include="StarterContent\Assests\g_m_playermat\g_m_PlayerMat.cpp" />
     <ClCompile Include="StarterContent\Assests\g_ui_base\g_ui_base.cpp" />
     <ClCompile Include="EngineContent\BaseComponent\BaseComponent.cpp" />
     <ClCompile Include="EngineContent\BaseEntity\BaseEntity.cpp" />
@@ -140,6 +144,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineContent\EngineSettings\EngineSettings.h" />
+    <ClInclude Include="StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.h" />
+    <ClInclude Include="StarterContent\Assests\g_e_Collider\g_e_Collider.h" />
+    <ClInclude Include="StarterContent\Assests\g_e_Player\g_e_Player.h" />
+    <ClInclude Include="StarterContent\Assests\g_m_playermat\g_m_PlayerMat.h" />
     <ClInclude Include="StarterContent\Assests\g_ui_base\g_ui_base.h" />
     <ClInclude Include="StarterContent\ConsoleReciver\ConsoleReciver.h" />
     <ClInclude Include="EngineContent\Audio\AudioBeepControl.h" />

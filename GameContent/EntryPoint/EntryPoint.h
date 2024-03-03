@@ -4,12 +4,15 @@
 #include "../../EngineContent/BaseEntity/BaseEntity.h"
 #include "../../EngineContent/Audio/AudioBeepControl.h"
 
+#include "../../StarterContent/Assests/g_e_Player/g_e_Player.h"
+
 #include "../../StarterContent/Assests/g_WorldLayer/g_WorldLayer.h"
 #include "../../StarterContent/Assests/g_m_WorldMaterial/g_m_WorldMat.h"
 
 static int GameMain()
 {
 	g_WorldLayer *Grass = new g_WorldLayer();
+	BaseEntity::Spawn(Grass);
 
 	BaseEntity_RenderingInfo GrassRenderContent = BaseEntity_RenderingInfo();
 	GrassRenderContent.MyModifyer = new g_m_WorldMat();
@@ -42,8 +45,12 @@ static int GameMain()
 	GrassRenderContent.ContentsToRender[25] = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG";
 	GrassRenderContent.ContentsToRender[26] = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG";
 
-	Grass->SetRenderContents(GrassRenderContent);
-	BaseEntity::Spawn( Grass );
+	Grass->SetRenderContents(GrassRenderContent);;
+
+	g_e_Player* Player = new g_e_Player();
+	BaseEntity::Spawn(Player);
+	Player->SetKeyValue("PosX", "10");
+	Player->SetKeyValue("PosY", "10");
 
 	return 0;
 }

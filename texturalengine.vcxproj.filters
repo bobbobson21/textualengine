@@ -45,6 +45,18 @@
     <ClCompile Include="StarterContent\ConsoleReciver\ConsoleReciver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StarterContent\Assests\g_e_Player\g_e_Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StarterContent\Assests\g_m_playermat\g_m_PlayerMat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StarterContent\Assests\g_e_Collider\g_e_Collider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineContent\BaseEntity\BaseEntity.h">
@@ -78,6 +90,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StarterContent\Assests\g_ui_base\g_ui_base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StarterContent\Assests\g_e_Player\g_e_Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StarterContent\Assests\g_m_playermat\g_m_PlayerMat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StarterContent\Assests\g_e_Collider\g_e_Collider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -22,7 +22,7 @@ struct BaseEntity_RenderingInfo //for rendering
 	int OffsetY = 0;
 	vector<string> ContentsToRender = vector<string>();
 	int Importance = 0;
-	RenderingModifier *MyModifyer = new RenderingModifier();
+	RenderingModifier *MyModifyer = nullptr;
 };
 
 struct BaseEntity_FireOutInfo //for firing out to other ents
@@ -46,7 +46,10 @@ protected:
 	string Identifyer = ""; //BASE_ENTITY_IDENTIFYER;
 
 	virtual void ReceiveFireInstruction(string Message, string Value); //reacts to a message and value
+	virtual void OnKeyValueSet(string Key, string Value);
+
 	void FireOut(string Condition); //rasies a condition
+	void SetKeyValue(string Key, string Value, bool Hidden); //dont alert OnKeyValueSet
 public:
 	virtual ~BaseEntity() {}; //we dont need it but we have it delete is a bitch
 

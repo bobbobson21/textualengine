@@ -24,6 +24,28 @@ void BaseEntity::FireOut(string Condition)
 	}
 }
 
+void BaseEntity::OnKeyValueSet(string Key, string Value)
+{
+}
+
+void BaseEntity::SetKeyValue(string Key, string Value, bool Hidden) //only works inside of the class defanition
+{
+	KeyValueList[Key] = Value;
+	if (Hidden == false) 
+	{
+		for (int i = 0; i < MyComponents.size(); i++)
+		{
+			try
+			{
+				MyComponents[i]->OnKeyValueSet(Key, Value); //sends message to ent components
+			}
+			catch (...) {}
+		}
+
+		OnKeyValueSet(Key, Value); 
+	}
+}
+
 string BaseEntity::GetIdentifyer()
 {
 	return Identifyer;
@@ -41,21 +63,22 @@ void BaseEntity::OnRemove()
 {
 }
 
-void BaseEntity::Fire(string Message, string Value)
+
+void BaseEntity::Fire(string Message, string Value) 
 {
-	ReceiveFireInstruction(Message, Value);
+	ReceiveFireInstruction(Message, Value); //sends message to ent
 
 	for (int i = 0; i < MyComponents.size(); i++)
 	{
 		try
 		{
-			MyComponents[i]->ReceiveFireInstruction(Message, Value);
+			MyComponents[i]->ReceiveFireInstruction(Message, Value); //sends message to ent components
 		}
 		catch (...) {}
 	}
 }
 
-void BaseEntity::AddFireOut(BaseEntity* FireOutTo, string Condition, string Message, string Value)
+void BaseEntity::AddFireOut(BaseEntity* FireOutTo, string Condition, string Message, string Value) //sends message to ent if a condition is rasied
 {
 	if (FireOuts.count(Condition) > 0)
 	{
@@ -157,9 +180,20 @@ void BaseEntity::RemoveAllFireOutByID(string Identifyer)
 }
 
 
-void BaseEntity::SetKeyValue(string Key, string value)
+void BaseEntity::SetKeyValue(string Key, string Value) //sets key value but cant be hidden
 {
-	KeyValueList[Key] = value;
+	KeyValueList[Key] = Value;
+
+	for (int i = 0; i < MyComponents.size(); i++)
+	{
+		try
+		{
+			MyComponents[i]->OnKeyValueSet(Key, Value); //sends message to ent components
+		}
+		catch (...) {}
+	}
+
+	OnKeyValueSet(Key, Value);
 }
 
 string BaseEntity::GetValueOfKey(string Key)
@@ -248,6 +282,11 @@ void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 		{
 			if (EntityiesInRunTime[i] == Ent) //finds ent spawned version
 			{
+				if (RenderingModifier::IsValid( EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer ) == true)
+				{
+					delete EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
+				}
+
 				delete EntityiesInRunTime[i];
 				EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i); //destroys ent
 				i--;
@@ -284,6 +323,11 @@ void BaseEntity::RemoveAll()
 
 				try
 				{
+					if (RenderingModifier::IsValid(EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer) == true)
+					{
+						delete EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
+					}
+
 					delete EntityiesInRunTime[i];
 					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i);//destroys ent
 					i--;
@@ -321,6 +365,11 @@ void BaseEntity::RemoveAllOfID(string Identifyer)
 
 				try
 				{
+					if (RenderingModifier::IsValid(EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer) == true)
+					{
+						delete EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
+					}
+
 					delete EntityiesInRunTime[i];
 					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i); //destroys ent
 					i--;
@@ -359,10 +408,14 @@ bool BaseEntity::IsVaild(BaseEntity* Ent)
 		{
 			for (int i = 0; i < EntityiesInRunTime.size(); i++)
 			{
-				if (EntityiesInRunTime[i] == Ent)
+				try
 				{
-					return true;
+					if (EntityiesInRunTime[i] == Ent)
+					{
+						return true;
+					}
 				}
+				catch (...) {}
 			}
 		}
 		return false;
@@ -418,9 +471,9 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 				int CurrentOffsetY = EntityiesInRunTime[i]->MyRenderingInfo.OffsetY;
 				int CurrentImportance = EntityiesInRunTime[i]->MyRenderingInfo.Importance;
 
-				if (Y - CurrentOffsetY >= 0 && Y + CurrentOffsetY < CurrentRenderContent.size()) //is with in screenbounds y
+				if (Y - CurrentOffsetY >= 0 && Y - CurrentOffsetY < CurrentRenderContent.size()) //is with in screenbounds y
 				{
-					if (X - CurrentOffsetX >= 0 && X + CurrentOffsetX < CurrentRenderContent[Y - CurrentOffsetY].length()) //is with in screenbounds x
+					if (X - CurrentOffsetX >= 0 && X - CurrentOffsetX < CurrentRenderContent[Y - CurrentOffsetY].length()) //is with in screenbounds x
 					{
 						char CurrentCharizal = CurrentRenderContent[Y - CurrentOffsetY][X - CurrentOffsetX];
 

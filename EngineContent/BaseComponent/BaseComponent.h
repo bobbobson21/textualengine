@@ -22,6 +22,7 @@ public:
 
 	string GetIdentifyer();
 
+	virtual void OnKeyValueSet(string Key, string Value);
 	virtual void ReceiveFireInstruction(string Message, string Value);
 	virtual void Update(float DeltaTime); //all of this is the same as the ent
 	virtual void Start();

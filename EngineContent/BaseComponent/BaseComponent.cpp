@@ -13,6 +13,10 @@ string BaseComponent::GetIdentifyer()
 	return Identifyer;
 }
 
+void BaseComponent::OnKeyValueSet(string Key, string Value)
+{
+}
+
 void BaseComponent::ReceiveFireInstruction(string Message, string Value)
 {
 }
