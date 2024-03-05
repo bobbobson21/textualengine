@@ -17,7 +17,7 @@ public:
 
 	static bool IsValid(RenderingModifier* Material);
 
-	virtual string PreRender(int X, int Y, string RenderingFor);
+	virtual string PreRender(int X, int Y, string RenderingFor, string OldRenderingFor);
 	virtual void PostRender();
 };
 

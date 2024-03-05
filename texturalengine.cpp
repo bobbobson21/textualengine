@@ -7,10 +7,10 @@
 #include <chrono>
 #include <Windows.h>
 
-//#include "EngineContent/EngineSettings/EngineSettings.h"
+#include "EngineContent/EngineSettings/EngineSettings.h"
 #include "EngineContent/BaseEntity/BaseEntity.h"
-//#include "EngineContent/Audio/AudioBeepControl.h"
-//
+#include "EngineContent/Audio/AudioBeepControl.h"
+
 #include "GameContent/EntryPoint/EntryPoint.h"
 
 using namespace std;
@@ -62,7 +62,7 @@ void ThreadRenderLoop()
 			{
 				for (int X = 0; X <= EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)); X++) //starts to render a line of charizals
 				{
-					BaseEntity::ProcessRendering(X + EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), Y + EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)), (X == EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)))); //dose the real rendering
+					BaseEntity::ProcessRendering(X + EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), Y + EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)), (X == EngineSettings::GetConstValue("XCharizals", TYPE_REP(int))), EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier))); //dose the real rendering
 					SetConsoleTextAttribute(ConOut, EngineSettings::GetUpToDateValue("VoidRenderColor", TYPE_REP(int))); //the color of nothing
 				}
 
@@ -103,7 +103,10 @@ void ThreadConsoleLoop()
 				OutputRight = Output.substr(Output.find(" ") + 1, Output.length() - (Output.find(" ") + 1));
 			}
 
-			EngineSettings::GetConstValue( "CommandConsoleCMD", TYPE_REP(BaseEntity) )->Fire(OutputLeft, OutputRight); //runs command
+			if (EngineSettings::GetConstValue("CommandConsoleCMD", TYPE_REP(BaseEntity)) != nullptr)
+			{
+				EngineSettings::GetConstValue("CommandConsoleCMD", TYPE_REP(BaseEntity))->Fire(OutputLeft, OutputRight); //runs command
+			}
 			IsInConsole = false;
 		}
 	}
@@ -112,7 +115,16 @@ void ThreadConsoleLoop()
 void ExitMain() //games ending
 {
 	BaseEntity::RemoveAll();
-	delete EngineSettings::GetConstValue("CommandConsoleCMD", TYPE_REP(BaseEntity));
+
+	if (EngineSettings::GetConstValue("CommandConsoleCMD", TYPE_REP(BaseEntity)) != nullptr)
+	{
+		delete EngineSettings::GetConstValue("CommandConsoleCMD", TYPE_REP(BaseEntity));
+	}
+
+	if (EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier)) != nullptr)
+	{
+		delete EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier));
+	}
 }
 
 int main()

@@ -1,6 +1,6 @@
 #include "g_m_WorldMat.h"
 
-string g_m_WorldMat::PreRender(int X, int Y, string RenderingFor)
+string g_m_WorldMat::PreRender(int X, int Y, string RenderingFor, string OldRenderingFor)
 {
 	if (RenderingFor == "G")
 	{

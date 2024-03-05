@@ -454,7 +454,7 @@ void BaseEntity::ProcessUpdate(float DeltaTime)
 	}
 }
 
-void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
+void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModifier* PostProcessing = nullptr)
 {
 	int RendededCharizalImportance = 0;
 	string RendededCharizalToPush = " ";
@@ -490,9 +490,16 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 		catch (...) {}
 	}
 
+	string OldRendededCharizalToPush = RendededCharizalToPush; //this is for the post processer
 	if (RenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
 	{
-		string NewToPush = RendededCharizalRenderingModifyer->PreRender(X, Y, RendededCharizalToPush); //runs the render modifyer that can be used to create stuff like flashing materials
+		string NewToPush = RendededCharizalRenderingModifyer->PreRender(X, Y, RendededCharizalToPush, STR_NULL); //runs the render modifyer that can be used to create stuff like flashing materials
+		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
+	}
+
+	if (RenderingModifier::IsValid(PostProcessing) == true)
+	{
+		string NewToPush = PostProcessing->PreRender(X, Y, RendededCharizalToPush, OldRendededCharizalToPush);
 		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
 	}
 
@@ -500,11 +507,16 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter)
 	//if (NewLineAfter == true) { cout << endl; }
 
 	fwrite(RendededCharizalToPush.c_str(), 1, 1, stdout);
-	if (NewLineAfter == true) { fwrite("\n", 1, 2, stdout); }
+	if (NewLineAfter == true) { fwrite( "\n", 1, 2, stdout); }
 
 	if (RenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
 	{
 		RendededCharizalRenderingModifyer->PostRender();
-	}	
+	}
+
+	if (RenderingModifier::IsValid(PostProcessing) == true)
+	{
+		PostProcessing->PostRender();
+	}
 }
 

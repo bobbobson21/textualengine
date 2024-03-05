@@ -20,8 +20,9 @@ struct BaseEntity_RenderingInfo //for rendering
 {
 	int OffsetX = 0;
 	int OffsetY = 0;
-	vector<string> ContentsToRender = vector<string>();
 	int Importance = 0;
+	bool PostProcessingProof = false;
+	vector<string> ContentsToRender = vector<string>();
 	RenderingModifier *MyModifyer = nullptr;
 };
 
@@ -43,7 +44,7 @@ private:
 
 protected:
 	BaseEntity_RenderingInfo MyRenderingInfo;
-	string Identifyer = ""; //BASE_ENTITY_IDENTIFYER;
+	string Identifyer = BASE_ENTITY_IDENTIFYER;
 
 	virtual void ReceiveFireInstruction(string Message, string Value); //reacts to a message and value
 	virtual void OnKeyValueSet(string Key, string Value);
@@ -83,6 +84,6 @@ public:
 
 	static bool IsVaild(BaseEntity* Ent); //is a given ent valid (ie has it been spawned and is it not destroyed)
 	static void ProcessUpdate(float DeltaTime);
-	static void ProcessRendering(int X, int Y, bool NewLineAfter); //renders a charizals into the console //charizals are like pixles but for letters
+	static void ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModifier* PostProcessing); //renders a charizals into the console //charizals are like pixles but for letters
 	
 };
