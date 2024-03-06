@@ -6,6 +6,46 @@ void BaseEntity::ReceiveFireInstruction(string Message, string Value)
 {
 }
 
+void BaseEntity::FireOut(string Condition)
+{
+	if (FireOuts.count(Condition) > 0)
+	{
+		for (int i = 0; i < FireOuts[Condition].size(); i++)
+		{
+			try
+			{
+				if (FireOuts[Condition][i].Ent != nullptr)
+				{
+					FireOuts[Condition][i].Ent->Fire(FireOuts[Condition][i].Message, FireOuts[Condition][i].Value);
+				}
+			}
+			catch (...) {}
+		}
+	}
+}
+
+void BaseEntity::OnKeyValueSet(string Key, string Value)
+{
+}
+
+void BaseEntity::SetKeyValue(string Key, string Value, bool Hidden) //only works inside of the class defanition
+{
+	KeyValueList[Key] = Value;
+	if (Hidden == false) 
+	{
+		for (int i = 0; i < MyComponents.size(); i++)
+		{
+			try
+			{
+				MyComponents[i]->OnKeyValueSet(Key, Value); //sends message to ent components
+			}
+			catch (...) {}
+		}
+
+		OnKeyValueSet(Key, Value); 
+	}
+}
+
 string BaseEntity::GetIdentifyer()
 {
 	return Identifyer;
@@ -24,29 +64,6 @@ void BaseEntity::OnRemove()
 }
 
 
-void BaseEntity::OnKeyValueSet(string Key, string Value)
-{
-}
-
-void BaseEntity::SetKeyValue(string Key, string Value, bool Hidden) //only works inside of the class defanition
-{
-	KeyValueList[Key] = Value;
-	if (Hidden == false)
-	{
-		for (int i = 0; i < MyComponents.size(); i++)
-		{
-			try
-			{
-				MyComponents[i]->OnKeyValueSet(Key, Value); //sends message to ent components
-			}
-			catch (...) {}
-		}
-
-		OnKeyValueSet(Key, Value);
-	}
-}
-
-
 void BaseEntity::Fire(string Message, string Value) 
 {
 	ReceiveFireInstruction(Message, Value); //sends message to ent
@@ -58,24 +75,6 @@ void BaseEntity::Fire(string Message, string Value)
 			MyComponents[i]->ReceiveFireInstruction(Message, Value); //sends message to ent components
 		}
 		catch (...) {}
-	}
-}
-
-void BaseEntity::FireOut(string Condition)
-{
-	if (FireOuts.count(Condition) > 0)
-	{
-		for (int i = 0; i < FireOuts[Condition].size(); i++)
-		{
-			try
-			{
-				if (FireOuts[Condition][i].Ent != nullptr)
-				{
-					FireOuts[Condition][i].Ent->Fire(FireOuts[Condition][i].Message, FireOuts[Condition][i].Value);
-				}
-			}
-			catch (...) {}
-		}
 	}
 }
 
@@ -460,7 +459,6 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModi
 	int RendededCharizalImportance = 0;
 	string RendededCharizalToPush = " ";
 	RenderingModifier* RendededCharizalRenderingModifyer = nullptr;
-	bool RendededBlockPostProcessing = false;
 
 	for (int i = 0; i < EntityiesInRunTime.size(); i++)
 	{
@@ -484,7 +482,6 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModi
 							RendededCharizalImportance = CurrentImportance; //sets the pixle data to the curent pixle to render
 							RendededCharizalToPush = CurrentCharizal;
 							RendededCharizalRenderingModifyer = EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
-							RendededBlockPostProcessing = EntityiesInRunTime[i]->MyRenderingInfo.PostProcessingProof;
 						}
 					}
 				}
@@ -500,7 +497,7 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModi
 		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
 	}
 
-	if (RendededBlockPostProcessing != true && RenderingModifier::IsValid(PostProcessing) == true)
+	if (RenderingModifier::IsValid(PostProcessing) == true)
 	{
 		string NewToPush = PostProcessing->PreRender(X, Y, RendededCharizalToPush, OldRendededCharizalToPush);
 		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
@@ -517,7 +514,7 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModi
 		RendededCharizalRenderingModifyer->PostRender();
 	}
 
-	if (RendededBlockPostProcessing != true && RenderingModifier::IsValid(PostProcessing) == true)
+	if (RenderingModifier::IsValid(PostProcessing) == true)
 	{
 		PostProcessing->PostRender();
 	}

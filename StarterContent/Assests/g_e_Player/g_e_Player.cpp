@@ -2,9 +2,6 @@
 
 void g_e_Player::Start()
 {
-	Collider = new g_ec_MotionCollider();
-	BaseEntity::AddComponent(this, Collider);
-
 	MyRenderingInfo.Importance = 4;
 	MyRenderingInfo.ContentsToRender.push_back("@@");
 	MyRenderingInfo.ContentsToRender.push_back("@@");
@@ -13,6 +10,8 @@ void g_e_Player::Start()
 	SetKeyValue("Health", "100");
 	SetKeyValue("SizeX", "2");
 	SetKeyValue("SizeY", "2");
+
+	BaseEntity::AddComponent( this, Collider );
 }
 
 void g_e_Player::OnKeyValueSet(string Key, string Value)
@@ -81,7 +80,7 @@ void g_e_Player::Update(float DeltaTime)
 		if (Collider->DoCollisionCheck(MyRenderingInfo.OffsetX + 2, MyRenderingInfo.OffsetY + 2) == false) { Temp = 2; }
 		if (Temp == 0) { return; }
 
-		MyRenderingInfo.OffsetX += Temp;
+		MyRenderingInfo.OffsetX += 2;
 		SetKeyValue("PosX", to_string(MyRenderingInfo.OffsetX), true);
 		EngineSettings::ChangeInRunTime("RenderOffsetX", (MyRenderingInfo.OffsetX - (EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)) / 2)) + 1);
 	}

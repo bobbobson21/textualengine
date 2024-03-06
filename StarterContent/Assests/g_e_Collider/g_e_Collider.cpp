@@ -61,18 +61,6 @@ void g_e_Collider::OnKeyValueSet(string Key, string Value)
 		}
 		catch (...) {};
 	}
-
-	if (Key == "Enabled")
-	{
-		if (Value == "0")
-		{
-			FireOut("OnDisable");
-		}
-		else
-		{
-			FireOut("OnDisable");
-		}
-	}
 }
 
 void g_e_Collider::ReceiveFireInstruction(string Message, string Value)
@@ -90,7 +78,7 @@ void g_e_Collider::ReceiveFireInstruction(string Message, string Value)
 
 bool g_e_Collider::IsOverlaping(int X, int Y, int SX, int SY)
 {
-	if (X <= MyOffsetX +MySizeX && MyOffsetX <= X +SX && Y <= MyOffsetY +MySizeY && MyOffsetY <= Y +SY )
+	if (X < MyOffsetX +MySizeX && MyOffsetX < X +SX && Y < MyOffsetY +MySizeY && MyOffsetY < Y +SY )
 	{
 		return true;
 	}
@@ -105,8 +93,7 @@ bool g_e_Collider::IsOverlapingAnyCollider(int X, int Y, int SX, int SY, string 
 		{
 			if (StaticColliderList[i] != nullptr && StaticColliderList[i]->IsOverlaping(X, Y, SX, SY) == true)
 			{
-				string ToFind = StaticColliderList[i]->GetValueOfKey("Layer").c_str();
-				if (IngoreLayers.find(ToFind) == string::npos && StaticColliderList[i]->GetValueOfKey("Enabled") != "0")
+				if (IngoreLayers.find(StaticColliderList[i]->GetValueOfKey("Layer").c_str()) == string::npos && StaticColliderList[i]->GetValueOfKey("Enabled") != "0")
 				{
 					return true;
 				}
@@ -114,7 +101,6 @@ bool g_e_Collider::IsOverlapingAnyCollider(int X, int Y, int SX, int SY, string 
 		}
 		catch (...) {}
 	}
-
 	return false;
 }
 

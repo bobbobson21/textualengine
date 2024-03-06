@@ -46,21 +46,21 @@ protected:
 	BaseEntity_RenderingInfo MyRenderingInfo;
 	string Identifyer = BASE_ENTITY_IDENTIFYER;
 
-	virtual void Update(float DeltaTime); //runs on tick in endless loop
-	virtual void Start(); //runs after spawn
-	virtual void OnRemove();
 	virtual void ReceiveFireInstruction(string Message, string Value); //reacts to a message and value
-	
 	virtual void OnKeyValueSet(string Key, string Value);
-	void SetKeyValue(string Key, string Value, bool Hidden); //dont alert OnKeyValueSet
 
+	void FireOut(string Condition); //rasies a condition
+	void SetKeyValue(string Key, string Value, bool Hidden); //dont alert OnKeyValueSet
 public:
 	virtual ~BaseEntity() {}; //we dont need it but we have it delete is a bitch
 
 	string GetIdentifyer();
+
+	virtual void Update(float DeltaTime); //runs on tick in endless loop
+	virtual void Start(); //runs after spawn
+	virtual void OnRemove();
 	
-	void Fire(string Message, string Value); //send a message to an entity
-	void FireOut(string Condition); //rasies a condition
+	void Fire(string Message, string Value); //send a message to an entatity
 	void AddFireOut( BaseEntity* FireOutTo, string Condition, string Message, string Value); //if condition is rasied a massage along with a value is sent to fire out //send message from entity
 	void RemoveAllFireOut();
 	void RemoveAllFireOutByEnt(BaseEntity* FireOutTo, string Condition); //removes the fire outs
