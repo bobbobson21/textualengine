@@ -8,6 +8,7 @@ void g_ui_base::Update(float DeltaTime)
 
 void g_ui_base::MatainScreenAttachment()
 {
+	MyRenderingInfo.PostProcessingProof = true;
 	MyRenderingInfo.OffsetX = EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)) + (EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)) * AnchorX) + (AnchorOffsetX * AnchorOffsetMulX);
 	MyRenderingInfo.OffsetY = EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)) + (EngineSettings::GetConstValue("YCharizals", TYPE_REP(int)) * AnchorY) + (AnchorOffsetY * AnchorOffsetMulY);
 }

@@ -2,7 +2,7 @@ c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\vc143.pd
 c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\vc143.idb
 c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.obj
 c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\consolereciver.obj
-c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_worldlayer.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_e_worldlayer.obj
 c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_m_worldmat.obj
 c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\entrypoint.obj
 c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\renderingmodifier.obj
@@ -11,6 +11,8 @@ c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\basecomp
 c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_ui_base.obj
 c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_m_playermat.obj
 c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_e_player.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_e_collider.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_ec_motioncollider.obj
 c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\enginesettings.obj
 c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.exe
 c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.ilk

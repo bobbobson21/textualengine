@@ -11,7 +11,7 @@ class g_e_Player : virtual public BaseEntity //this is in game content because w
 {//unless it is to change settings
 
 private:
-		g_ec_MotionCollider* Collider = new g_ec_MotionCollider();
+	g_ec_MotionCollider* Collider = nullptr;
 
 public:
 	void Start() override;
