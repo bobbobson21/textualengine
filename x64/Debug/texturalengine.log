@@ -2,14 +2,17 @@
   g_ec_MotionCollider.cpp
   g_e_Collider.cpp
   g_e_Player.cpp
+  g_e_trigger.cpp
+  g_e_WorldLayer.cpp
+  g_m_PlayerMat.cpp
   g_ui_base.cpp
   BaseComponent.cpp
   BaseEntity.cpp
+  RenderingModifier.cpp
   EntryPoint.h
+  g_m_WorldMat.cpp
   g_WorldLayer.cpp
   ConsoleReciver.cpp
   texturalengine.cpp
   Generating Code...
-C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.cpp(51): warning C4715: 'g_ec_MotionCollider::DoCollisionCheck': not all control paths return a value
-  LINK : C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\x64\Debug\texturalengine.exe not found or not built by the last incremental link; performing full link
   texturalengine.vcxproj -> C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\x64\Debug\texturalengine.exe
