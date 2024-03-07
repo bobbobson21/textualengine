@@ -70,7 +70,7 @@ static int GameMain()
 	g_e_Collider* ColliderC = new g_e_Collider();
 	BaseEntity::Spawn(ColliderC);
 	ColliderC->SetKeyValue("PosX", "9");
-	ColliderC->SetKeyValue("PosY", "1");
+	ColliderC->SetKeyValue("PosY", "2");
 	ColliderC->SetKeyValue("SizeX", "11");
 	ColliderC->SetKeyValue("SizeY", "1");
 
