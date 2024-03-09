@@ -4,7 +4,7 @@
 
 class g_m_WorldMat : public virtual RenderingModifier
 {
-public:
+protected:
 	string PreRender(int X, int Y, string RenderingFor, string OldRenderingFor) override;
 };
 

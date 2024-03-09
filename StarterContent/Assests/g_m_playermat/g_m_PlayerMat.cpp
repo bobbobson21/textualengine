@@ -4,12 +4,12 @@ string g_m_PlayerMat::PreRender(int X, int Y, string RenderingFor, string OldRen
 {
 	if (RenderingFor == "@")
 	{
-		SetConsoleTextAttribute(OutHandle, 153);
+		SetReturnAttribute(153);
 		return " ";
 	}
 	else if (RenderingFor == "#")
 	{
-		SetConsoleTextAttribute(OutHandle, 102);
+		SetReturnAttribute(102);
 		return " ";
 	}
 

@@ -1,6 +1,7 @@
 #include "BaseEntity.h"
 
 vector<BaseEntity *> BaseEntity::EntityiesInRunTime;
+HANDLE BaseEntity::ConOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
 void BaseEntity::ReceiveFireInstruction(string Message, string Value)
 {
@@ -455,7 +456,8 @@ void BaseEntity::ProcessUpdate(float DeltaTime)
 	}
 }
 
-void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModifier* PostProcessing = nullptr)
+
+void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModifier* PostProcessing)
 {
 	int RendededCharizalImportance = 0;
 	string RendededCharizalToPush = " ";
@@ -497,20 +499,25 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModi
 	if (RenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
 	{
 		string NewToPush = RendededCharizalRenderingModifyer->PreRender(X, Y, RendededCharizalToPush, STR_NULL); //runs the render modifyer that can be used to create stuff like flashing materials
+		SetConsoleTextAttribute(ConOut, RendededCharizalRenderingModifyer->GetReturnAttribute());
+
 		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
 	}
 
 	if (RendededBlockPostProcessing != true && RenderingModifier::IsValid(PostProcessing) == true)
 	{
 		string NewToPush = PostProcessing->PreRender(X, Y, RendededCharizalToPush, OldRendededCharizalToPush);
+		SetConsoleTextAttribute(ConOut, PostProcessing->GetReturnAttribute());
+
 		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
 	}
 
-	//cout << RendededCharizalToPush;
-	//if (NewLineAfter == true) { cout << endl; }
+		//cout << RendededCharizalToPush;
+		//if (NewLineAfter == true) { cout << endl; }
 
 	fwrite(RendededCharizalToPush.c_str(), 1, 1, stdout);
-	if (NewLineAfter == true) { fwrite( "\n", 1, 2, stdout); }
+	if (NewLineAfter == true) { fwrite("\n", 1, 2, stdout); }
+	
 
 	if (RenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
 	{
@@ -522,4 +529,3 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModi
 		PostProcessing->PostRender();
 	}
 }
-

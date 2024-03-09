@@ -13,7 +13,7 @@ class g_e_Player : virtual public BaseEntity //this is in game content because w
 private:
 	g_ec_MotionCollider* Collider = nullptr;
 
-public:
+protected:
 	void Start() override;
 	void Update(float DeltaTime) override;
 	void OnKeyValueSet(string Key, string Value) override;

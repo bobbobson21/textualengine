@@ -11,3 +11,5 @@
 
 #define TYPE_REP( X ) X()
 
+#define CHARIZAL_AS_PIXLES_X 9
+#define CHARIZAL_AS_PIXLES_Y 19

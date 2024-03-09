@@ -12,10 +12,12 @@ private:
 
 	static vector<g_e_Collider *> StaticColliderList;
 
-public:
+protected:
 	void Start() override;
 	void OnRemove() override;
 	void OnKeyValueSet(string Key, string Value) override;
+
+public:
 	void ReceiveFireInstruction(string Message, string Value) override;
 	bool IsOverlaping(int X, int Y, int SX, int SY);
 	

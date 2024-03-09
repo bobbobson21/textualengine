@@ -19,6 +19,7 @@ using namespace std;
 
 	bool IsRendering = false;
 	bool IsInConsole = false;
+	bool BreakRendering = false;
 
 void ThreadUpdateLoop()
 {
@@ -51,7 +52,6 @@ void ThreadRenderLoop()
 	//	cout << i << endl;
 	//}
 
-
 	while (true)
 	{
 		if (IsInConsole == false)
@@ -69,9 +69,8 @@ void ThreadRenderLoop()
 			}
 
 			Sleep(EngineSettings::GetUpToDateValue("MinmalRenderDelayInMircoSeconds", TYPE_REP(int)));
+			system("cls");
 			IsRendering = false;
-
-			system("cls"); //clear last frame
 		}
 	}
 }
@@ -114,6 +113,8 @@ void ThreadConsoleLoop()
 
 void ExitMain() //games ending
 {
+	BreakRendering = true;
+
 	BaseEntity::RemoveAll();
 
 	if (EngineSettings::GetConstValue("CommandConsoleCMD", TYPE_REP(BaseEntity)) != nullptr)

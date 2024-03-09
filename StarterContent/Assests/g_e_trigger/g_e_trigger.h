@@ -15,12 +15,13 @@ private:
 
 	static vector<BaseEntity*> TestTriggerOn;
 
-public:
+protected:
 	void Start() override;
 	void Update(float DeltaTime) override;
 	void OnKeyValueSet(string Key, string Value) override;
 	void ReceiveFireInstruction(string Message, string Value) override;
 
+public:
 	bool IsOverlaping(int X, int Y, int SX, int SY);
 	static void AllowEntToInterractWithTriggers(BaseEntity* Ent); //this entity can overlap with triggers
 

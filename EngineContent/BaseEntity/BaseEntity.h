@@ -36,8 +36,10 @@ struct BaseEntity_FireOutInfo //for firing out to other ents
 class BaseEntity
 {
 private:
-	map<string, string> KeyValueList;
 	static vector<BaseEntity*> EntityiesInRunTime;
+	static HANDLE ConOut; //for rendering
+
+	map<string, string> KeyValueList;
 	vector<BaseComponent*> MyComponents;
 
 	map<string, vector<BaseEntity_FireOutInfo>> FireOuts;
@@ -84,6 +86,6 @@ public:
 
 	static bool IsVaild(BaseEntity* Ent); //is a given ent valid (ie has it been spawned and is it not destroyed)
 	static void ProcessUpdate(float DeltaTime);
-	static void ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModifier* PostProcessing); //renders a charizals into the console //charizals are like pixles but for letters
-	
+
+	static void ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModifier* PostProcessing = nullptr); //renders a charizals into the console //charizals are like pixles but for letters
 };

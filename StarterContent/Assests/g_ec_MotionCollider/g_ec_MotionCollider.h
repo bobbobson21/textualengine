@@ -10,6 +10,7 @@ private:
 	int MySizeX;
 	int MySizeY;
 
+protected:
 	void Start() override;
 	void OnKeyValueSet(string Key, string Value) override;
 	void ReceiveFireInstruction(string Message, string Value) override;

@@ -22,7 +22,7 @@ void g_e_Player::OnKeyValueSet(string Key, string Value)
 		try
 		{
 			MyRenderingInfo.OffsetX = stoi(Value);
-			EngineSettings::ChangeInRunTime("RenderOffsetX", (MyRenderingInfo.OffsetX - (EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)) / 2)) + 1);
+			EngineSettings::ChangeInRunTime("RenderOffsetX", (MyRenderingInfo.OffsetX - (EngineSettings::GetConstValue("XCharizals", TYPE_REP(int) ) / 2)) + 1);
 		}
 		catch(...) {};
 	}

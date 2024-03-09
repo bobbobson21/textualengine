@@ -4,6 +4,7 @@
 
 class g_ui_base : virtual public BaseEntity //use this to UI elements
 {
+protected:
 	int AnchorX = 0;
 	int AnchorY = 0;
 
@@ -14,6 +15,8 @@ class g_ui_base : virtual public BaseEntity //use this to UI elements
 	int AnchorOffsetMulY = 0;
 
 	void Update(float DeltaTime) override;
+
+public:
 	void MatainScreenAttachment(); //put this in update to make UI move with screen
 };
 

@@ -9,27 +9,27 @@ string g_m_WorldMat::PreRender(int X, int Y, string RenderingFor, string OldRend
 		switch ((int)rand() % 7)
 		{
 		case 1:
-			SetConsoleTextAttribute(OutHandle, 170);
+			SetReturnAttribute(170);
 			break;
 
 		case 2:
-			SetConsoleTextAttribute(OutHandle, 162);
+			SetReturnAttribute(162);
 			break;
 
 		case 3:
-			SetConsoleTextAttribute(OutHandle, 34);
+			SetReturnAttribute(34);
 			break;
 
 		case 4:
-			SetConsoleTextAttribute(OutHandle, 42);
+			SetReturnAttribute(42);
 			break;
 
 		case 5:
-			SetConsoleTextAttribute(OutHandle, 43);
+			SetReturnAttribute(43);
 			break;
 
 		case 6: default:
-			SetConsoleTextAttribute(OutHandle, 171);
+			SetReturnAttribute(171);
 			break;
 		}
 
@@ -45,22 +45,22 @@ string g_m_WorldMat::PreRender(int X, int Y, string RenderingFor, string OldRend
 		switch ((int)rand() % 7)
 		{
 		case 1:
-			SetConsoleTextAttribute(OutHandle, 120);
+			SetReturnAttribute(120);
 			break;
 
 		case 2:
-			SetConsoleTextAttribute(OutHandle, 127);
+			SetReturnAttribute(127);
 			break;
 
 		case 3:
-			SetConsoleTextAttribute(OutHandle, 128);
+			SetReturnAttribute(128);
 			break;
 
 		case 4:
-			SetConsoleTextAttribute(OutHandle, 112);
+			SetReturnAttribute(112);
 			break;
 		default:
-			SetConsoleTextAttribute(OutHandle, 7);
+			SetReturnAttribute(7);
 			break;
 		}
 
