@@ -5,6 +5,7 @@ int g_e_trigger::TriggerCount;
 
 void g_e_trigger::Start()
 {
+	Identifyer = "Trigger";
 	MyUniqueIndexInCount = TriggerCount;
 	TriggerCount++;
 }

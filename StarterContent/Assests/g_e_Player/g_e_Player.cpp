@@ -2,6 +2,8 @@
 
 void g_e_Player::Start()
 {
+	Identifyer = "PlayerCharter";
+
 	Collider = new g_ec_MotionCollider();
 	BaseEntity::AddComponent(this, Collider);
 

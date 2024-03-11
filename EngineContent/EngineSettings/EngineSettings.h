@@ -2,6 +2,7 @@
 
 #include "../BaseEntity/BaseEntity.h"
 #include "../../StarterContent/ConsoleReciver/ConsoleReciver.h"
+#include "../../StarterContent/Assests/g_m_GenericPostProcessingMat/g_m_GenericPostProcessingMat.h"
 
 #include <String>
 
@@ -20,7 +21,7 @@ namespace EngineSettings
 		static int RenderOffsetX = 0; //rendering offset
 		static int RenderOffsetY = 0;
 		static int VoidRenderColor = 7; //the color of nothing
-		static RenderingModifier* PostPorcessingShader = nullptr;
+		static RenderingModifier* PostPorcessingShader = nullptr; //new g_m_GenericPostProcessingMat();
 
 		static BaseEntity* CommandConsoleCMD = new ConsoleReciver(); //the console //PS this is an entity because they can store stuff othere ents and components may want to access in KV formating but this ent is also never validated meaning it has to be destroy manually
 		static bool ConsoleAllowed = true; //technically CommandConsoleCMD is not const but technically it cant change during run time

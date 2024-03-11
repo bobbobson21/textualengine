@@ -502,14 +502,14 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModi
 		SetConsoleTextAttribute(ConOut, RendededCharizalRenderingModifyer->GetReturnAttribute());
 
 		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
-	}
 
-	if (RendededBlockPostProcessing != true && RenderingModifier::IsValid(PostProcessing) == true)
-	{
-		string NewToPush = PostProcessing->PreRender(X, Y, RendededCharizalToPush, OldRendededCharizalToPush);
-		SetConsoleTextAttribute(ConOut, PostProcessing->GetReturnAttribute());
+		if (RendededBlockPostProcessing != true && RenderingModifier::IsValid(PostProcessing) == true) //post processing for mat
+		{
+			string NewToPush = PostProcessing->PreRender(X, Y, RendededCharizalToPush, OldRendededCharizalToPush);
+			SetConsoleTextAttribute(ConOut, PostProcessing->GetReturnAttribute());
 
-		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
+			if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
+		}
 	}
 
 		//cout << RendededCharizalToPush;
@@ -522,10 +522,10 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModi
 	if (RenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
 	{
 		RendededCharizalRenderingModifyer->PostRender();
-	}
 
-	if (RendededBlockPostProcessing != true && RenderingModifier::IsValid(PostProcessing) == true)
-	{
-		PostProcessing->PostRender();
+		if (RendededBlockPostProcessing != true && RenderingModifier::IsValid(PostProcessing) == true) //post processing
+		{
+			PostProcessing->PostRender();
+		}
 	}
 }

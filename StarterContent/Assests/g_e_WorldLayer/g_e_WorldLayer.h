@@ -7,12 +7,7 @@ class g_e_WorldLayer : virtual public BaseEntity //this is in game content becau
 {//unless it is to change settings
 
 public:
+	void Start() override;
 	void SetRenderContents(BaseEntity_RenderingInfo Rend);
-
-	g_e_WorldLayer()
-	{
-		Identifyer = "g_e_WorldLayer";
-	}
-
 };
 

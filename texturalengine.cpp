@@ -56,6 +56,8 @@ void ThreadRenderLoop()
 	{
 		if (IsInConsole == false)
 		{
+			RenderingModifier::SetScreenCord(EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)));
+
 			IsRendering = true;
 
 			for (int Y = 0; Y <= EngineSettings::GetConstValue("YCharizals", TYPE_REP(int)); Y++) //what line should be rendered

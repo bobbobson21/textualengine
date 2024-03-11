@@ -2,7 +2,7 @@
 
 void g_ec_MotionCollider::Start()
 {
-	Identifyer = "g_ec_MotionCollider";
+	Identifyer = "MotionCollider_Component";
 }
 
 void g_ec_MotionCollider::OnKeyValueSet(string Key, string Value)

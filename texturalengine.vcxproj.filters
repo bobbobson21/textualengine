@@ -63,6 +63,9 @@
     <ClCompile Include="StarterContent\Assests\g_e_trigger\g_e_trigger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StarterContent\Assests\g_m_GenericPostProcessingMat\g_m_GenericPostProcessingMat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineContent\BaseEntity\BaseEntity.h">
@@ -114,6 +117,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StarterContent\Assests\g_e_trigger\g_e_trigger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StarterContent\Assests\g_m_GenericPostProcessingMat\g_m_GenericPostProcessingMat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

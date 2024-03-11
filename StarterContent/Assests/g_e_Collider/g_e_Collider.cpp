@@ -4,7 +4,7 @@ vector<g_e_Collider*> g_e_Collider::StaticColliderList;
 
 void g_e_Collider::Start()
 {
-	Identifyer = "g_e_Collider";
+	Identifyer = "StaticCollider";
 	StaticColliderList.push_back(this);
 }
 
