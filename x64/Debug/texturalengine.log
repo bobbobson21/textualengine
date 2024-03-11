@@ -1,19 +1,2 @@
-﻿  BaseComponent.cpp
-  BaseEntity.cpp
-  EngineSettings.cpp
-  RenderingModifier.cpp
-  EntryPoint.h
-  g_WorldLayer.cpp
-  g_e_Collider.cpp
-  g_e_Player.cpp
-  g_e_WorldLayer.cpp
-  g_e_trigger.cpp
-  g_ec_MotionCollider.cpp
-  g_m_GenericPostProcessingMat.cpp
-  g_m_WorldMat.cpp
-  g_m_PlayerMat.cpp
-  g_ui_base.cpp
-  ConsoleReciver.cpp
-  texturalengine.cpp
-  Generating Code...
+﻿  texturalengine.cpp
   texturalengine.vcxproj -> C:\Users\e017770n\OneDrive - Staffordshire University\non uni gits\textualengine\x64\Debug\texturalengine.exe
