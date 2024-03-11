@@ -45,11 +45,12 @@ void ConsoleReciver::ReceiveFireInstruction(string Message, string Value)
 		BaseEntity::RemoveAllOfID( Value );
 	}
 
-	if (Message == "SetPostProcessingEffect")
+	if (Message == "SetPostProcessingMaterial")
 	{
 		if (RenderingModifier::IsValid(EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier))) == true) //gets rid of old post processing effect
 		{
 			delete EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier));
+			EngineSettings::ChangeInRunTime("PostPorcessingShader", (RenderingModifier*)nullptr);
 		}
 
 		if (Value == "GPPM")

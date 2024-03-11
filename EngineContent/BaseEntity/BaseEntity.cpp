@@ -247,7 +247,7 @@ void BaseEntity::RemoveAllComponentsOfID(BaseEntity* Ent, string Identifyer) //r
 			{
 				Ent->MyComponents[i]->OnRemove();
 
-				delete Ent->MyComponents[i]; //DESTROY
+				INVALIDATE_DELETE(Ent->MyComponents[i]);
 				Ent->MyComponents.erase(Ent->MyComponents.begin() + i); //destoy
 				i--;
 			}
@@ -270,7 +270,7 @@ void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 		Ent->MyComponents[i]->OnRemove(); //tels entities componets it will be removed soon
 		try
 		{
-			delete Ent->MyComponents[i];
+			INVALIDATE_DELETE(Ent->MyComponents[i]);
 			Ent->MyComponents.erase(Ent->MyComponents.begin() + i); //removes the components
 		}
 		catch (...) {}
@@ -286,10 +286,10 @@ void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 			{
 				if (RenderingModifier::IsValid( EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer ) == true)
 				{
-					delete EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
+					INVALIDATE_DELETE(EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer);
 				}
 
-				delete EntityiesInRunTime[i];
+				INVALIDATE_DELETE(EntityiesInRunTime[i]);
 				EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i); //destroys ent
 				i--;
 				return;
@@ -316,7 +316,7 @@ void BaseEntity::RemoveAll()
 						EntityiesInRunTime[i]->MyComponents[o]->OnRemove(); //tells destruction
 						try
 						{
-							delete EntityiesInRunTime[i]->MyComponents[o];
+							INVALIDATE_DELETE(EntityiesInRunTime[i]->MyComponents[o]);
 							EntityiesInRunTime[i]->MyComponents.erase(EntityiesInRunTime[i]->MyComponents.begin() + o); //dose destruction
 						}
 						catch (...) {}
@@ -328,9 +328,10 @@ void BaseEntity::RemoveAll()
 					if (RenderingModifier::IsValid(EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer) == true)
 					{
 						delete EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
+						EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer = nullptr;
 					}
 
-					delete EntityiesInRunTime[i];
+					INVALIDATE_DELETE(EntityiesInRunTime[i]);
 					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i);//destroys ent
 					i--;
 				}
@@ -358,7 +359,7 @@ void BaseEntity::RemoveAllOfID(string Identifyer)
 						EntityiesInRunTime[i]->MyComponents[o]->OnRemove(); //tells comps they will be destroyed
 						try
 						{
-							delete EntityiesInRunTime[i]->MyComponents[o];
+							INVALIDATE_DELETE(EntityiesInRunTime[i]->MyComponents[o]);
 							EntityiesInRunTime[i]->MyComponents.erase(EntityiesInRunTime[i]->MyComponents.begin() + o); //dose destruction
 						}
 						catch (...) {}
@@ -369,10 +370,10 @@ void BaseEntity::RemoveAllOfID(string Identifyer)
 				{
 					if (RenderingModifier::IsValid(EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer) == true)
 					{
-						delete EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
+						INVALIDATE_DELETE(EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer);
 					}
 
-					delete EntityiesInRunTime[i];
+					INVALIDATE_DELETE(EntityiesInRunTime[i]);
 					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i); //destroys ent
 					i--;
 				}
