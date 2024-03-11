@@ -29,13 +29,13 @@ void ThreadUpdateLoop()
 	{
 		if (IsInConsole == false)
 		{
-			auto start = chrono::high_resolution_clock::now(); //delta time start
+			auto Start = chrono::high_resolution_clock::now(); //delta time start
 
 			BaseEntity::ProcessUpdate(LastDeltaTime); //updates all entities
 			Sleep(EngineSettings::GetUpToDateValue("MinmalUpdateDelayInMircoSeconds", TYPE_REP(int)));
 			
-			auto end = chrono::high_resolution_clock::now(); //delta time end
-			LastDeltaTime = (float)(end - start).count(); //calulate delta time
+			auto End = chrono::high_resolution_clock::now(); //delta time end
+			LastDeltaTime = (float)(End - Start).count(); //calulate delta time
 			DeltaTime = LastDeltaTime;
 		}
 	}
