@@ -35,7 +35,7 @@ void ThreadUpdateLoop()
 			Sleep(EngineSettings::GetUpToDateValue("MinmalUpdateDelayInMircoSeconds", TYPE_REP(int)));
 			
 			auto End = chrono::high_resolution_clock::now(); //delta time end
-			LastDeltaTime = (float)(End - Start).count(); //calulate delta time
+			LastDeltaTime = (float)(End - Start).count() / 1e+9; //calulate delta time
 			DeltaTime = LastDeltaTime;
 		}
 	}
