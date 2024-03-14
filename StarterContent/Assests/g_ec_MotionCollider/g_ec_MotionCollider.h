@@ -10,6 +10,13 @@ private:
 	int MySizeX;
 	int MySizeY;
 
+	int MySizeOffsetX;
+	int MySizeOffsetY;
+
+	int MoveX;
+	int MoveY;
+	int MoveAmount;
+
 protected:
 	void Start() override;
 	void OnKeyValueSet(string Key, string Value) override;
@@ -17,5 +24,6 @@ protected:
 
 public:
 	bool DoCollisionCheck(int X, int Y);
+	bool Move();//returend value = if it was sucessful at moving the object
 };
 

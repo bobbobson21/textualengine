@@ -11,7 +11,7 @@ void g_ec_MotionCollider::OnKeyValueSet(string Key, string Value)
 	{
 		try
 		{
-			MySizeX = stoi(Value);
+			MySizeX = (int)stof(Value);
 		}
 		catch (...) {};
 	}
@@ -20,7 +20,52 @@ void g_ec_MotionCollider::OnKeyValueSet(string Key, string Value)
 	{
 		try
 		{
-			MySizeY = stoi(Value);
+			MySizeY = (int)stof(Value);
+		}
+		catch (...) {};
+	}
+
+	if (Key == "MotionColliderMoveDirX")
+	{
+		try
+		{
+			MoveX = stof(Value);
+		}
+		catch (...) {};
+	}
+
+	if (Key == "MotionColliderMoveDirY")
+	{
+		try
+		{
+			MoveY = stof(Value);
+		}
+		catch (...) {};
+	}
+
+	if (Key == "SizeOffsetX")
+	{
+		try
+		{
+			MySizeOffsetX = stof(Value);
+		}
+		catch (...) {};
+	}
+
+	if (Key == "SizeOffsetY")
+	{
+		try
+		{
+			MySizeOffsetY = stof(Value);
+		}
+		catch (...) {};
+	}
+
+	if (Key == "MotionColliderMoveDirAmount") //basically this is speed
+	{
+		try
+		{
+			MoveAmount = stof(Value);
 		}
 		catch (...) {};
 	}
@@ -40,12 +85,12 @@ void g_ec_MotionCollider::OnKeyValueSet(string Key, string Value)
 
 void g_ec_MotionCollider::ReceiveFireInstruction(string Message, string Value)
 {
-	if (Message == "Enable")
+	if (Message == "MotionColliderEnable")
 	{
 		SelfOwner->SetKeyValue("C_MC_Enabled", "1");
 	}
 
-	if (Message == "Disable")
+	if (Message == "MotionColliderDisable")
 	{
 		SelfOwner->SetKeyValue("C_MC_Enabled", "0");
 	}
@@ -61,4 +106,31 @@ bool g_ec_MotionCollider::DoCollisionCheck(int X, int Y)
 		return g_e_Collider::IsOverlapingAnyCollider(X, Y,MySizeX,MySizeY, Layers);
 	}
 	return false;
+}
+
+bool g_ec_MotionCollider::Move()
+{
+	try
+	{
+		float PosX = stof(SelfOwner->GetValueOfKey("PosX"));
+		float PosY = stof(SelfOwner->GetValueOfKey("PosY"));
+		int CurrentMoveAmount = MoveAmount;
+
+		while (CurrentMoveAmount >= 0)
+		{
+			if (g_ec_MotionCollider::DoCollisionCheck(PosX + MySizeOffsetX + (MoveX * CurrentMoveAmount), PosY + MySizeOffsetY + (MoveY * CurrentMoveAmount)) == false)
+			{
+				SelfOwner->SetKeyValue("PosX", to_string(PosX + (MoveX * CurrentMoveAmount)));
+				SelfOwner->SetKeyValue("PosY", to_string(PosY + (MoveY * CurrentMoveAmount)));
+				break;
+			}
+			CurrentMoveAmount--;
+		}
+
+		return true;
+	}
+	catch (...) 
+	{
+		return false;
+	}
 }
