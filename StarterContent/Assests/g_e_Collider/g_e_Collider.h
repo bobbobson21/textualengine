@@ -19,8 +19,10 @@ protected:
 
 public:
 	void ReceiveFireInstruction(string Message, string Value) override;
-	bool IsOverlaping(int X, int Y, int SX, int SY);
-	
-	static bool IsOverlapingAnyCollider(int X, int Y, int SX, int SY, string IngoreLayers);
-};
 
+	bool IsOverlaping(int X, int Y, int SX, int SY);
+	bool IsOverlaping(float X, float Y, float SX, float SY);
+
+	static bool IsOverlapingAnyCollider(int X, int Y, int SX, int SY, string IngoreLayers);
+	static bool IsOverlapingAnyCollider(float X, float Y, float SX, float SY, string IngoreLayers);
+};

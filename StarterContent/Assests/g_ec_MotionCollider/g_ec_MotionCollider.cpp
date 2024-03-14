@@ -70,7 +70,7 @@ void g_ec_MotionCollider::OnKeyValueSet(string Key, string Value)
 		catch (...) {};
 	}
 
-	if (Key == "C_MC_Enabled")
+	if (Key == "ColliderEnabled")
 	{
 		if (Value == "0")
 		{
@@ -87,16 +87,16 @@ void g_ec_MotionCollider::ReceiveFireInstruction(string Message, string Value)
 {
 	if (Message == "MotionColliderEnable")
 	{
-		SelfOwner->SetKeyValue("C_MC_Enabled", "1");
+		SelfOwner->SetKeyValue("ColliderEnabled", "1");
 	}
 
 	if (Message == "MotionColliderDisable")
 	{
-		SelfOwner->SetKeyValue("C_MC_Enabled", "0");
+		SelfOwner->SetKeyValue("ColliderEnabled", "0");
 	}
 }
 
-bool g_ec_MotionCollider::DoCollisionCheck(int X, int Y)
+bool g_ec_MotionCollider::DoCollisionCheck(float X, float Y)
 {
 	if (SelfOwner->GetValueOfKey("C_MC_Enabled") != "0")
 	{
@@ -108,23 +108,48 @@ bool g_ec_MotionCollider::DoCollisionCheck(int X, int Y)
 	return false;
 }
 
-bool g_ec_MotionCollider::Move()
+bool g_ec_MotionCollider::Move(float DeltaTime)
 {
 	try
 	{
 		float PosX = stof(SelfOwner->GetValueOfKey("PosX"));
 		float PosY = stof(SelfOwner->GetValueOfKey("PosY"));
-		int CurrentMoveAmount = MoveAmount;
+		int CurrentMoveAmount = 0;
 
-		while (CurrentMoveAmount >= 0)
+		while (CurrentMoveAmount +0.01 < MoveAmount)
 		{
-			if (g_ec_MotionCollider::DoCollisionCheck(PosX + MySizeOffsetX + (MoveX * CurrentMoveAmount), PosY + MySizeOffsetY + (MoveY * CurrentMoveAmount)) == false)
+ 			if (g_ec_MotionCollider::DoCollisionCheck(PosX + MySizeOffsetX + (MoveX * (CurrentMoveAmount +1)), PosY + MySizeOffsetY + (MoveY * (CurrentMoveAmount +1))) == true)
 			{
-				SelfOwner->SetKeyValue("PosX", to_string(PosX + (MoveX * CurrentMoveAmount)));
-				SelfOwner->SetKeyValue("PosY", to_string(PosY + (MoveY * CurrentMoveAmount)));
 				break;
 			}
-			CurrentMoveAmount--;
+			CurrentMoveAmount = min(CurrentMoveAmount + 1, MoveAmount + 1);
+		}
+
+		SelfOwner->SetKeyValue("PosX", to_string(PosX + (MoveX * CurrentMoveAmount)));
+		SelfOwner->SetKeyValue("PosY", to_string(PosY + (MoveY * CurrentMoveAmount)));
+
+		if (CurrentMoveAmount +0.01 > MoveAmount)
+		{
+			float CurrentDelta = 0;
+
+			for (CurrentDelta = 0; CurrentDelta +0.01 < DeltaTime; CurrentDelta = min(CurrentDelta + 1, DeltaTime))
+			{
+				if (g_ec_MotionCollider::DoCollisionCheck(PosX + MySizeOffsetX + ((MoveX * CurrentMoveAmount +1) * CurrentDelta), PosY + MySizeOffsetY + ((MoveY * CurrentMoveAmount +1) * CurrentDelta)) == true)
+				{
+					SelfOwner->SetKeyValue("PosX", to_string(PosX + (MoveX * CurrentMoveAmount) * CurrentDelta -1));
+					SelfOwner->SetKeyValue("PosY", to_string(PosY + (MoveY * CurrentMoveAmount) * CurrentDelta -1));
+					break;
+				}
+			}
+
+			if (CurrentDelta +0.02 >= DeltaTime)
+			{
+				if (g_ec_MotionCollider::DoCollisionCheck(PosX + MySizeOffsetX + ((MoveX * CurrentMoveAmount + 1) * DeltaTime), PosY + MySizeOffsetY + ((MoveY * CurrentMoveAmount + 1) * DeltaTime)) == true)
+				{
+					SelfOwner->SetKeyValue("PosX", to_string(PosX + (MoveX * CurrentMoveAmount) * DeltaTime));
+					SelfOwner->SetKeyValue("PosY", to_string(PosY + (MoveY * CurrentMoveAmount) * DeltaTime));
+				}
+			}
 		}
 
 		return true;

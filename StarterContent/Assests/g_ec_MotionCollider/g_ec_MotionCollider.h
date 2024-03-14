@@ -7,8 +7,8 @@ class g_ec_MotionCollider : virtual public BaseComponent //this is in game conte
 {//unless it is to change settings
 
 private:
-	int MySizeX;
-	int MySizeY;
+	float MySizeX;
+	float MySizeY;
 
 	int MySizeOffsetX;
 	int MySizeOffsetY;
@@ -23,7 +23,7 @@ protected:
 	void ReceiveFireInstruction(string Message, string Value) override;
 
 public:
-	bool DoCollisionCheck(int X, int Y);
-	bool Move();//returend value = if it was sucessful at moving the object
+	bool DoCollisionCheck(float X, float Y);
+	bool Move(float DeltaTime);//returend value = if it was sucessful at moving the object
 };
 

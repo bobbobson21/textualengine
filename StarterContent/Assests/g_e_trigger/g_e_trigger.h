@@ -22,7 +22,7 @@ protected:
 	void ReceiveFireInstruction(string Message, string Value) override;
 
 public:
-	bool IsOverlaping(int X, int Y, int SX, int SY);
+	bool IsOverlaping(int X, int Y, int SX, int SY); //should only be int so it is accuarte with visuals
 	static void AllowEntToInterractWithTriggers(BaseEntity* Ent); //this entity can overlap with triggers
 
 };

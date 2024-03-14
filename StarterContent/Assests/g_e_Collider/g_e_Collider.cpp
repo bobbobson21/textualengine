@@ -90,12 +90,22 @@ void g_e_Collider::ReceiveFireInstruction(string Message, string Value)
 
 bool g_e_Collider::IsOverlaping(int X, int Y, int SX, int SY)
 {
-	if (X <= MyOffsetX +MySizeX && MyOffsetX <= X +SX && Y <= MyOffsetY +MySizeY && MyOffsetY <= Y +SY )
+	if (X <= MyOffsetX + MySizeX && MyOffsetX <= X + SX && Y <= MyOffsetY + MySizeY && MyOffsetY <= Y + SY)
 	{
 		return true;
 	}
 	return false;
 }
+
+bool g_e_Collider::IsOverlaping(float X, float Y, float SX, float SY)
+{
+	if (X <= MyOffsetX + MySizeX && MyOffsetX <= X + SX && Y <= MyOffsetY + MySizeY && MyOffsetY <= Y + SY)
+	{
+		return true;
+	}
+	return false;
+}
+
 
 bool g_e_Collider::IsOverlapingAnyCollider(int X, int Y, int SX, int SY, string IngoreLayers)
 {
@@ -114,7 +124,26 @@ bool g_e_Collider::IsOverlapingAnyCollider(int X, int Y, int SX, int SY, string 
 		}
 		catch (...) {}
 	}
+	return false;
+}
 
+bool g_e_Collider::IsOverlapingAnyCollider(float X, float Y, float SX, float SY, string IngoreLayers)
+{
+	for (int i = 0; i < StaticColliderList.size(); i++)
+	{
+		try
+		{
+			if (StaticColliderList[i] != nullptr && StaticColliderList[i]->IsOverlaping(X, Y, SX, SY) == true)
+			{
+				string ToFind = StaticColliderList[i]->GetValueOfKey("Layer").c_str();
+				if (IngoreLayers.find(ToFind) == string::npos && StaticColliderList[i]->GetValueOfKey("Enabled") != "0")
+				{
+					return true;
+				}
+			}
+		}
+		catch (...) {}
+	}
 	return false;
 }
 

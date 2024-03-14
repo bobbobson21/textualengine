@@ -53,24 +53,24 @@ void g_e_Player::Update(float DeltaTime)
 	{
 		SetKeyValue("MotionColliderMoveDirX", "0");
 		SetKeyValue("MotionColliderMoveDirY", "-1");
-		Collider->Move();
+		Collider->Move(DELTA_SHINK( DeltaTime ));
 	}
 	else if (GetAsyncKeyState(VK_DOWN))
 	{
 		SetKeyValue("MotionColliderMoveDirX", "0");
 		SetKeyValue("MotionColliderMoveDirY", "1");
-		Collider->Move();
+		Collider->Move(DELTA_SHINK(DeltaTime));
 	}
 	else if (GetAsyncKeyState(VK_LEFT))
 	{
 		SetKeyValue("MotionColliderMoveDirX", "-1");
 		SetKeyValue("MotionColliderMoveDirY", "0");
-		Collider->Move();
+		Collider->Move(DELTA_SHINK(DeltaTime));
 	}
 	else if (GetAsyncKeyState(VK_RIGHT))
 	{
 		SetKeyValue("MotionColliderMoveDirX", "1");
 		SetKeyValue("MotionColliderMoveDirY", "0");
-		Collider->Move();
+		Collider->Move(DELTA_SHINK(DeltaTime));
 	}
 }
