@@ -3,6 +3,7 @@
 #include "../../EngineContent/EngineSettings/EngineSettings.h"
 #include "../../EngineContent/BaseEntity/BaseEntity.h"
 #include "../../EngineContent/Audio/AudioBeepControl.h"
+#include "../../EngineContent/BaseLevelSystem/BaseLevelSystem.h"
 
 #include "../../StarterContent/Assests/g_e_Player/g_e_Player.h"
 #include "../../StarterContent/Assests/g_e_WorldLayer/g_e_WorldLayer.h"

@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EngineContent\BaseLevelSystem\BaseLevelSystem.cpp" />
     <ClCompile Include="EngineContent\EngineSettings\EngineSettings.cpp" />
     <ClCompile Include="StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.cpp" />
     <ClCompile Include="StarterContent\Assests\g_e_Collider\g_e_Collider.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="texturalengine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EngineContent\BaseLevelSystem\BaseLevelSystem.h" />
     <ClInclude Include="EngineContent\EngineSettings\EngineSettings.h" />
     <ClInclude Include="StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.h" />
     <ClInclude Include="StarterContent\Assests\g_e_Collider\g_e_Collider.h" />
