@@ -403,6 +403,25 @@ vector<BaseEntity*> BaseEntity::GetEntities(string Identifyer)
 	return Ents;
 }
 
+vector<BaseEntity*> BaseEntity::GetEntitiesByKeyValue(string Key, string Value)
+{
+	vector<BaseEntity*> Ents = vector<BaseEntity*>();
+
+	for (int i = 0; i < EntityiesInRunTime.size(); i++)
+	{
+		try
+		{
+			if (EntityiesInRunTime[i] != nullptr && EntityiesInRunTime[i]->GetValueOfKey(Key) == Value)
+			{
+				Ents.push_back(EntityiesInRunTime[i]); //this ent == identifyer add it to return
+			}
+		}
+		catch (...) {}
+
+	}
+	return Ents;
+}
+
 bool BaseEntity::IsVaild(BaseEntity* Ent)
 {
 	try

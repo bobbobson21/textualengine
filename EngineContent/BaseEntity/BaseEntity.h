@@ -82,7 +82,8 @@ public:
 	static void RemoveAll(); //destroys all entitys usful for unloading a level
 	static void RemoveAllOfID(string Identifyer); //destroys all entitys usful for unloading a level
 
-	static vector<BaseEntity *> GetEntities(string Identifyer); //destroys all entitys usful for unloading a level
+	static vector<BaseEntity *> GetEntities(string Identifyer); //find all ents with idenifyer/type
+	static vector<BaseEntity*> GetEntitiesByKeyValue(string Key, string Value); //finds all ents by key value
 
 	static bool IsVaild(BaseEntity* Ent); //is a given ent valid (ie has it been spawned and is it not destroyed)
 	static void ProcessUpdate(float DeltaTime);
