@@ -27,6 +27,20 @@ string BaseLevelSystem::ImproveFormatting(string Input)
     return Output;
 }
 
+vector<string> BaseLevelSystem::ExtractViaComma(string Input)
+{
+    Input += ",";  //it splits a string up by a charter btw
+    vector<string> Output;
+
+    while (Input.find(",") != string::npos)
+    {
+        Output.push_back(Input.substr(0, Input.find(",")));
+        Input = Input.substr(Input.find(","), Input.length());
+    }
+
+    return Output;
+}
+
 
 template<typename T>
 void BaseLevelSystem::RegisterEntitySpawnData(string ClassId )
@@ -49,7 +63,7 @@ void BaseLevelSystem::RegisterMaterialData(string MaterialId)
             return NewEnt;
         };
 
-    MaterialDataStorage[ClassId] = &SpawnEnt;
+    MaterialDataStorage[MaterialId] = &SpawnEnt;
 }
 
 
