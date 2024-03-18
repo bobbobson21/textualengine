@@ -190,18 +190,25 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssest)
 
             if (IncaspulationLevel == 3 && Processes[1] == "FireOut" && Ent != nullptr) //fires out
             {
-                //if (CurrentLine.find("=") != string::npos) //FINISH THIS
-                //{
-                //    string Message = BaseLevelSystem::ImproveFormatting(CurrentLine.substr(0, CurrentLine.find("=") - 1));
-                //    string Value = BaseLevelSystem::ImproveFormatting(CurrentLine.substr(CurrentLine.find("=") + 1, CurrentLine.size() - CurrentLine.find("=")));
+                if (CurrentLine.find(",") != string::npos)
+                {
+                    vector<string> Data = BaseLevelSystem::ExtractViaComma(BaseLevelSystem::ImproveFormatting(CurrentLine));
 
-                //    Ent->AddFireOut();
-                //}
+                    if (Data.size() >= 4)
+                    {
+                        vector<BaseEntity*> Ents = BaseEntity::GetEntitiesByKeyValue("Name", Data[0]);
+
+                        for (int i = 0; i < Ents.size(); i++)
+                        {
+                            Ent->AddFireOut(Ents[i], Data[1], Data[2], Data[3]);
+                        }
+                    }
+                }
             }
 
         }
 
-        if (Processes[0] == "Commands")
+        if (Processes[0] == "Commands") //runs commands
         {
             if (CurrentLine.find("=") != string::npos)
             {
@@ -209,6 +216,10 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssest)
                 string Value = BaseLevelSystem::ImproveFormatting(CurrentLine.substr(CurrentLine.find("=") + 1, CurrentLine.size() - CurrentLine.find("=")));
 
                 EngineSettings::GetConstValue("CommandConsoleCMD", TYPE_REP(BaseEntity))->Fire(Message, Value);
+            }
+            else
+            {
+                EngineSettings::GetConstValue("CommandConsoleCMD", TYPE_REP(BaseEntity))->Fire(BaseLevelSystem::ImproveFormatting(CurrentLine), "1");
             }
         }
 

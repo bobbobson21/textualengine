@@ -19,6 +19,7 @@ private:
 	static BaseEntity_RenderingInfo RenderingDataDump;
 
 	static string ImproveFormatting(string Input);
+	static vector<string> ExtractViaComma(string Input); //DO THIS AT HOME
 
 public:
 	template<typename T>
