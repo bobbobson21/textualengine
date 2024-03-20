@@ -102,16 +102,31 @@ void BaseLevelSystem::RequestEntityToCollectRendingData(BaseEntity* Ent)
 }
 
 
-void BaseLevelSystem::LoadLevel(vector<string> LevelAssest)
+void BaseLevelSystem::LoadLevel(string PathToAssest)
+{
+    ifstream File("PathToAssest");
+    string Line;
+
+    vector<string> ToVector = vector<string>();
+
+    for (string Line; getline(File, Line); )
+    {
+        ToVector.push_back(Line);
+    }
+
+    BaseLevelSystem::LoadLevel(ToVector);
+}
+
+void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
 {
     int IncaspulationLevel = 0;
     string Processes[8];
 
     BaseEntity* Ent = nullptr;
 
-    for (int i = 0; i < LevelAssest.size(); i++)
+    for (int i = 0; i < LevelAssestAsVector.size(); i++)
     {
-        string CurrentLine = LevelAssest[i];
+        string CurrentLine = LevelAssestAsVector[i];
 
         if (IncaspulationLevel == 0) { Processes[0] = BaseLevelSystem::ImproveFormatting(CurrentLine); } //set as root process
         if (CurrentLine.find("{") != string::npos) { IncaspulationLevel++; } //incapsulate

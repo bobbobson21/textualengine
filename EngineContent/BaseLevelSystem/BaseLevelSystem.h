@@ -1,8 +1,11 @@
 #pragma once
 
 #include <functional>
+#include <iostream>
 #include <String>
 #include <Map>
+
+#include <fstream>
 
 #include "../BaseEntity/BaseEntity.h"
 
@@ -34,7 +37,8 @@ public:
 	static BaseEntity_RenderingInfo CollectRenderingData();
 	static void RequestEntityToCollectRendingData(BaseEntity* Ent);
 
-	static void LoadLevel(vector<string> LevelAssest);
+	static void LoadLevel(string PathToAssest);
+	static void LoadLevel(vector<string> LevelAssestAsVector);
 	static void UnLoadLevel();
 };
 
