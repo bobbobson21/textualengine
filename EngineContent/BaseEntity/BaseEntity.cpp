@@ -254,6 +254,8 @@ void BaseEntity::RemoveAllComponentsOfID(BaseEntity* Ent, string Identifyer) //r
 		}
 		catch (...) {}
 	}
+
+	Ent->MyComponents.shrink_to_fit();
 }
 
 
@@ -265,6 +267,8 @@ void BaseEntity::Spawn(BaseEntity* Ent) //puts entity in run time
 
 void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 {
+	Ent->OnRemove();
+
 	for (int i = 0; i < Ent->MyComponents.size(); i++)
 	{
 		Ent->MyComponents[i]->OnRemove(); //tels entities componets it will be removed soon
@@ -276,7 +280,7 @@ void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 		catch (...) {}
 	}
 
-	Ent->OnRemove();
+	Ent->MyComponents.shrink_to_fit(); //just encase momory isnt being auto removed on ent destruction
 
 	for (int i = 0; i < EntityiesInRunTime.size(); i++) 
 	{
@@ -297,6 +301,8 @@ void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 		}
 		catch (...) {}
 	}
+
+	EntityiesInRunTime.shrink_to_fit();
 }
 
 void BaseEntity::RemoveAll()
@@ -323,6 +329,8 @@ void BaseEntity::RemoveAll()
 					}
 				}
 
+				EntityiesInRunTime[i]->MyComponents.shrink_to_fit(); //just encase
+
 				try
 				{
 					if (RenderingModifier::IsValid(EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer) == true)
@@ -340,6 +348,8 @@ void BaseEntity::RemoveAll()
 		}
 		catch(...) {}
 	}
+
+	EntityiesInRunTime.shrink_to_fit();
 }
 
 void BaseEntity::RemoveAllOfID(string Identifyer)
@@ -366,6 +376,8 @@ void BaseEntity::RemoveAllOfID(string Identifyer)
 					}
 				}
 
+				EntityiesInRunTime[i]->MyComponents.shrink_to_fit(); //just encase
+
 				try
 				{
 					if (RenderingModifier::IsValid(EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer) == true)
@@ -382,6 +394,8 @@ void BaseEntity::RemoveAllOfID(string Identifyer)
 		}
 		catch (...) {}
 	}
+
+	EntityiesInRunTime.shrink_to_fit();
 }
 
 vector<BaseEntity*> BaseEntity::GetEntities(string Identifyer)

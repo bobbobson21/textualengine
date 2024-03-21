@@ -64,14 +64,17 @@ void ThreadRenderLoop()
 			{
 				for (int X = 0; X <= EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)); X++) //starts to render a line of charizals
 				{
-					BaseEntity::ProcessRendering(X + EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), Y + EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)), (X == EngineSettings::GetConstValue("XCharizals", TYPE_REP(int))), EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier))); //dose the real rendering
+					BaseEntity::ProcessRendering(X + EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), Y + EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)), (X == EngineSettings::GetConstValue("XCharizals", TYPE_REP(int))), EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier))); //dose the real rendering howver it dose not do screen refreshes
 					SetConsoleTextAttribute(ConOut, EngineSettings::GetUpToDateValue("VoidRenderColor", TYPE_REP(int))); //the color of nothing
 				}
 
 			}
 
-			Sleep(EngineSettings::GetUpToDateValue("MinmalRenderDelayInMircoSeconds", TYPE_REP(int)));
-			system("cls");
+			Sleep(EngineSettings::GetUpToDateValue("MinmalRenderDelayInMircoSeconds", TYPE_REP(int))); //pause it
+			
+			//system("cls");
+			cout << "\033[10" + to_string(EngineSettings::GetConstValue("YCharizals", TYPE_REP(int))) + "A"; //better way of doing a screen refresh
+
 			IsRendering = false;
 		}
 	}
