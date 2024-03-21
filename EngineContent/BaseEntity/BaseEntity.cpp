@@ -477,7 +477,7 @@ void BaseEntity::ProcessUpdate(float DeltaTime)
 }
 
 
-void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModifier* PostProcessing)
+void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModifier* PostProcessing) //https://www.youtube.com/results?search_query=ansi+c%2B%2B
 {
 	int RendededCharizalImportance = 0;
 	string RendededCharizalToPush = " ";
