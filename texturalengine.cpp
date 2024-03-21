@@ -135,6 +135,8 @@ void ExitMain() //games ending
 
 int main()
 {
+	system("cls"); //running this alllows ansi codes work ... I dont know why set console mode ENABLE_VERTURAL_TERMINAL_PROCESSING dosent do that and that is fustrating
+
 	atexit(ExitMain);
 
 	vector <thread> threads;
