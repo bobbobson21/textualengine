@@ -18,6 +18,7 @@ string BaseLevelSystem::ImproveFormatting(string Input)
                 if (Output[i] == ' ' || Output[i] == '\t' || Output[i] == '\n' || Output[i] == '\r')
                 {
                     Output.erase(Output.begin() + i);
+                    i--;
                 }
             }
         }
@@ -42,28 +43,14 @@ vector<string> BaseLevelSystem::ExtractViaComma(string Input)
 }
 
 
-template<typename T>
-void BaseLevelSystem::RegisterEntitySpawnData(string ClassId )
+void BaseLevelSystem::RegisterEntitySpawnData(string ClassId, std::function<BaseEntity*()> Function)
 {
-    BaseEntity SpawnEnt = []()
-        {
-            T NewEnt = new T();
-            return NewEnt;
-        };
-
-    EntitySpawnDataStorage[ClassId] = & SpawnEnt;
+    EntitySpawnDataStorage[ClassId] = Function;
 }
 
-template<typename T>
-void BaseLevelSystem::RegisterMaterialData(string MaterialId)
+void BaseLevelSystem::RegisterMaterialData(string MaterialId, function<RenderingModifier* ()> Function)
 {
-    RenderingModifier SpawnEnt = []()
-        {
-            T NewEnt = new T();
-            return NewEnt;
-        };
-
-    MaterialDataStorage[MaterialId] = &SpawnEnt;
+    MaterialDataStorage[MaterialId] = Function;
 }
 
 
@@ -104,7 +91,7 @@ void BaseLevelSystem::RequestEntityToCollectRendingData(BaseEntity* Ent)
 
 void BaseLevelSystem::LoadLevel(string PathToAssest)
 {
-    ifstream File("PathToAssest");
+    ifstream File(PathToAssest);
     string Line;
 
     vector<string> ToVector = vector<string>();
@@ -128,15 +115,18 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
     {
         string CurrentLine = LevelAssestAsVector[i];
 
-        if (IncaspulationLevel == 0) { Processes[0] = BaseLevelSystem::ImproveFormatting(CurrentLine); } //set as root process
         if (CurrentLine.find("{") != string::npos) { IncaspulationLevel++; } //incapsulate
+        if (IncaspulationLevel == 0) { Processes[0] = BaseLevelSystem::ImproveFormatting(CurrentLine); } //set as root process
 
         if (Processes[0] == "Entities")
         {
             if (IncaspulationLevel == 1) //creates an entity
             {
                 Ent = BaseLevelSystem::CreateNewEntity(BaseLevelSystem::ImproveFormatting(CurrentLine));
-                BaseEntity::Spawn(Ent);
+                if (Ent != nullptr)
+                {
+                    BaseEntity::Spawn(Ent);
+                }
             }
 
             if (IncaspulationLevel == 2 && Ent != nullptr) // adds key values to that entity
@@ -150,7 +140,10 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
                 }
                 else
                 {
-                    Processes[1] = BaseLevelSystem::ImproveFormatting(CurrentLine);
+                    if (CurrentLine.find("}") == string::npos && CurrentLine.find("{") == string::npos)
+                    {
+                        Processes[1] = BaseLevelSystem::ImproveFormatting(CurrentLine);
+                    }
                 }
             }
 
@@ -185,14 +178,14 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
                     {
                         try
                         {
-                            RenderingDataDump.OffsetY = stoi(Value);
+                            RenderingDataDump.OffsetY = stoi(Value); 
                         }
                         catch (...) {}
                     }
-                    else if (Key == "Contents")
-                    {
-                        Processes[2] = "Contents";
-                    }
+                }
+                else if (BaseLevelSystem::ImproveFormatting(CurrentLine) == "Contents")
+                {
+                    Processes[2] = "Contents";
                 }
 
                 if (CurrentLine.find("}") != string::npos) //tells the ent that there rendering data is redy for collection
@@ -203,7 +196,10 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
 
             if (IncaspulationLevel == 4 && Processes[2] == "Contents" && Ent != nullptr) // adds rendering contents ...imagine this is in the first bracket you see above as that is easier to understand
             {
-                RenderingDataDump.ContentsToRender.push_back(CurrentLine);
+                if (BaseLevelSystem::ImproveFormatting(CurrentLine).length() > 1)
+                {
+                    RenderingDataDump.ContentsToRender.push_back(CurrentLine);
+                }
             }
 
             if (IncaspulationLevel == 3 && Processes[1] == "Fire" && Ent != nullptr) //fires to
@@ -251,7 +247,6 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
                 EngineSettings::GetConstValue("CommandConsoleCMD", TYPE_REP(BaseEntity))->Fire(BaseLevelSystem::ImproveFormatting(CurrentLine), "1");
             }
         }
-
 
         if (CurrentLine.find("}") != string::npos) { IncaspulationLevel--; }
     }
