@@ -15,7 +15,7 @@ string BaseLevelSystem::ImproveFormatting(string Input)
         {
             if (i > -1)
             {
-                if (Output[i] == ' ' || Output[i] == '\t' || Output[i] == '\n' || Output[i] == '\r')
+                if (Output[i] == ' ' || Output[i] == ';' || Output[i] == '\t' || Output[i] == '\n' || Output[i] == '\r')
                 {
                     Output.erase(Output.begin() + i);
                     i--;
