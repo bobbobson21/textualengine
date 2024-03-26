@@ -87,19 +87,23 @@ void ThreadAudioLoop()
 
 void ThreadConsoleLoop()
 {
+	HANDLE ConOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
 	while (true)
 	{
 		if (GetAsyncKeyState('C') && IsRendering == false) //do they want to run a command
 		{
 			IsInConsole = true;
-
 			string Output = "";
 
 			cin.clear();
 			getline(cin, Output); //get command to run
+			cin.clear();
 
 			string OutputLeft = Output;
 			string OutputRight = "1";
+
+			system("cls");
 
 			if (Output.find(" ") != string::npos) //find value from input
 			{

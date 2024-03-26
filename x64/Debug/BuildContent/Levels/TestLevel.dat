@@ -1,6 +1,6 @@
 Commands
 {
-	//SetPostProcessingMaterial = GPPM
+	SetPostProcessingMaterial = GPPM
 }
 
 Entities
