@@ -26,6 +26,20 @@ void g_e_Collider::OnRemove()
 
 void g_e_Collider::OnKeyValueSet(string Key, string Value)
 {
+	if (Key == "Pos")
+	{
+		if (Key.find(" ") != string::npos)
+		{
+			try
+			{
+				SetKeyValue("PosX", Key.substr(0, Key.find(" ") - 1));
+				SetKeyValue("PosY", Key.substr(Key.find(" ") + 1, Key.size() - Key.find(" ")));
+			}
+			catch (...) {}
+		}
+
+	}
+
 	if (Key == "PosX")
 	{
 		try

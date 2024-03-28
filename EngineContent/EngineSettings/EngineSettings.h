@@ -12,8 +12,8 @@ namespace EngineSettings
 {
 	namespace Setting //set default settings in here
 	{
-		static int MinmalUpdateDelayInMircoSeconds = 20; //min delay between things like movement
-		static int MinmalRenderDelayInMircoSeconds = 20; //max delay between frames
+		static int MinmalUpdateDelayInMilliSeconds = 20; //min delay between things like movement
+		static int MinmalRenderDelayInMilliSeconds = 20; //max delay between frames
 
 		static const int XCharizals = 55; //pixles across
 		static const int YCharizals = 20; //pixles down

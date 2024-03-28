@@ -66,6 +66,12 @@
     <ClCompile Include="EngineContent\BaseLevelSystem\BaseLevelSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EngineContent\BaseSaveObject\BaseSaveObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineContent\BaseSaveSystem\BaseSaveSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineContent\BaseEntity\BaseEntity.h">
@@ -120,6 +126,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EngineContent\BaseLevelSystem\BaseLevelSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineContent\BaseSaveSystem\BaseSaveSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineContent\BaseSaveObject\BaseSaveObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

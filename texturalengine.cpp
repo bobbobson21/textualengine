@@ -9,6 +9,7 @@
 
 #include "EngineContent/EngineSettings/EngineSettings.h"
 #include "EngineContent/BaseEntity/BaseEntity.h"
+#include "EngineContent/BaseSaveSystem/BaseSaveSystem.h"
 #include "EngineContent/Audio/AudioBeepControl.h"
 
 #include "GameContent/EntryPoint/EntryPoint.h"
@@ -32,8 +33,9 @@ void ThreadUpdateLoop()
 			auto Start = chrono::high_resolution_clock::now(); //delta time start
 
 			BaseEntity::ProcessUpdate(LastDeltaTime); //updates all entities
-			Sleep(EngineSettings::GetUpToDateValue("MinmalUpdateDelayInMircoSeconds", TYPE_REP(int)));
-			
+
+			this_thread::sleep_for(std::chrono::milliseconds(EngineSettings::GetUpToDateValue("MinmalUpdateDelayInMilliSeconds", TYPE_REP(int))));
+
 			auto End = chrono::high_resolution_clock::now(); //delta time end
 			LastDeltaTime = (float)(End - Start).count() /100000; //calulate delta time
 			DeltaTime = LastDeltaTime;
@@ -70,8 +72,8 @@ void ThreadRenderLoop()
 
 			}
 
-			Sleep(EngineSettings::GetUpToDateValue("MinmalRenderDelayInMircoSeconds", TYPE_REP(int))); //pause it
-			
+			this_thread::sleep_for(std::chrono::milliseconds(EngineSettings::GetUpToDateValue("MinmalRenderDelayInMilliSeconds", TYPE_REP(int))));
+
 			//system("cls");
 			cout << "\033[10" + to_string(EngineSettings::GetConstValue("YCharizals", TYPE_REP(int))) + "A"; //better way of doing a screen refresh
 

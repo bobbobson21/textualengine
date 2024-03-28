@@ -162,7 +162,7 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
                     {
                         try
                         {
-                            RenderingDataDump.Importance = stoi(Value);
+                            RenderingDataDump.Importance = (int)stof(Value);
                         }
                         catch (...) {}
                     }
@@ -170,7 +170,7 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
                     {
                         try
                         {
-                            RenderingDataDump.OffsetX = stoi(Value);
+                            RenderingDataDump.OffsetX = (int)stof(Value);
                         }
                         catch (...) {}
                     }
@@ -178,7 +178,16 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
                     {
                         try
                         {
-                            RenderingDataDump.OffsetY = stoi(Value); 
+                            RenderingDataDump.OffsetY = (int)stof(Value);
+                        }
+                        catch (...) {}
+                    }
+                    else if (Key == "Offset")
+                    {
+                        try
+                        {
+                            RenderingDataDump.OffsetX = (int)stof(BaseLevelSystem::ImproveFormatting(Value.substr(0, Value.find(",") - 1)));
+                            RenderingDataDump.OffsetY = (int)stof(BaseLevelSystem::ImproveFormatting(Value.substr(Value.find(",") + 1, Value.size() - Value.find(","))));
                         }
                         catch (...) {}
                     }

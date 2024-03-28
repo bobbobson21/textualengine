@@ -5,8 +5,8 @@
 
 	bool EngineSettings::ChangeInRunTime(string Var, int Value) //so setting can be chaged in runtime because you cant change static namespace values unless in namespace
 	{
-		EngineSettingsRunTimeSet(Var, Value, MinmalUpdateDelayInMircoSeconds);
-		EngineSettingsRunTimeSet(Var, Value, MinmalRenderDelayInMircoSeconds);
+		EngineSettingsRunTimeSet(Var, Value, MinmalUpdateDelayInMilliSeconds);
+		EngineSettingsRunTimeSet(Var, Value, MinmalRenderDelayInMilliSeconds);
 		EngineSettingsRunTimeSet(Var, Value, RenderOffsetX);
 		EngineSettingsRunTimeSet(Var, Value, RenderOffsetY);
 		EngineSettingsRunTimeSet(Var, Value, VoidRenderColor);
@@ -31,8 +31,8 @@
 
 	int EngineSettings::GetUpToDateValue(string Var, int TYPEID)
 	{
-		EngineSettingsGet(Var, MinmalUpdateDelayInMircoSeconds);
-		EngineSettingsGet(Var, MinmalRenderDelayInMircoSeconds);
+		EngineSettingsGet(Var, MinmalUpdateDelayInMilliSeconds);
+		EngineSettingsGet(Var, MinmalRenderDelayInMilliSeconds);
 		EngineSettingsGet(Var, RenderOffsetX);
 		EngineSettingsGet(Var, RenderOffsetY);
 		EngineSettingsGet(Var, VoidRenderColor);
