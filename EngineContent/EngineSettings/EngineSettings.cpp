@@ -59,6 +59,7 @@
 	{
 		EngineSettingsGet(Var, XCharizals);
 		EngineSettingsGet(Var, YCharizals);
+		EngineSettingsGet(Var, SaveObjectSize);
 
 		return INT_INVALID;
 	}

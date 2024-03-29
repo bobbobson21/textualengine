@@ -18,6 +18,8 @@ namespace EngineSettings
 		static const int XCharizals = 55; //pixles across
 		static const int YCharizals = 20; //pixles down
 
+		static const int SaveObjectSize = 80;
+
 		static int RenderOffsetX = 0; //rendering offset
 		static int RenderOffsetY = 0;
 		static int VoidRenderColor = 7; //the color of nothing
