@@ -136,14 +136,15 @@
     <ClCompile Include="StarterContent\Assests\g_e_Player\g_e_Player.cpp" />
     <ClCompile Include="StarterContent\Assests\g_e_trigger\g_e_trigger.cpp" />
     <ClCompile Include="StarterContent\Assests\g_m_GenericPostProcessingMat\g_m_GenericPostProcessingMat.cpp" />
-    <ClCompile Include="StarterContent\Assests\g_m_playermat\g_m_PlayerMat.cpp" />
-    <ClCompile Include="StarterContent\Assests\g_ui_base\g_ui_base.cpp" />
+    <ClCompile Include="StarterContent\Assests\g_m_PlayerMat\g_m_PlayerMat.cpp" />
+    <ClCompile Include="StarterContent\Assests\g_ui_Base\g_ui_Base.cpp" />
     <ClCompile Include="EngineContent\BaseComponent\BaseComponent.cpp" />
     <ClCompile Include="EngineContent\BaseEntity\BaseEntity.cpp" />
     <ClCompile Include="EngineContent\RenderingModifier\RenderingModifier.cpp" />
     <ClCompile Include="GameContent\EntryPoint\EntryPoint.h" />
     <ClCompile Include="StarterContent\Assests\g_m_WorldMaterial\g_m_WorldMat.cpp" />
     <ClCompile Include="StarterContent\Assests\g_e_WorldLayer\g_e_WorldLayer.cpp" />
+    <ClCompile Include="StarterContent\Assests\g_ui_ProgressBar\g_ui_ProgressBar.cpp" />
     <ClCompile Include="StarterContent\ConsoleReciver\ConsoleReciver.cpp" />
     <ClCompile Include="texturalengine.cpp" />
   </ItemGroup>
@@ -157,8 +158,9 @@
     <ClInclude Include="StarterContent\Assests\g_e_Player\g_e_Player.h" />
     <ClInclude Include="StarterContent\Assests\g_e_trigger\g_e_trigger.h" />
     <ClInclude Include="StarterContent\Assests\g_m_GenericPostProcessingMat\g_m_GenericPostProcessingMat.h" />
-    <ClInclude Include="StarterContent\Assests\g_m_playermat\g_m_PlayerMat.h" />
-    <ClInclude Include="StarterContent\Assests\g_ui_base\g_ui_base.h" />
+    <ClInclude Include="StarterContent\Assests\g_m_PlayerMat\g_m_PlayerMat.h" />
+    <ClInclude Include="StarterContent\Assests\g_ui_Base\g_ui_Base.h" />
+    <ClInclude Include="StarterContent\Assests\g_ui_ProgressBar\g_ui_ProgressBar.h" />
     <ClInclude Include="StarterContent\ConsoleReciver\ConsoleReciver.h" />
     <ClInclude Include="EngineContent\Audio\AudioBeepControl.h" />
     <ClInclude Include="EngineContent\BaseComponent\BaseComponent.h" />

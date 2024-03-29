@@ -36,7 +36,7 @@
     <ClCompile Include="StarterContent\Assests\g_e_WorldLayer\g_e_WorldLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StarterContent\Assests\g_ui_base\g_ui_base.cpp">
+    <ClCompile Include="StarterContent\Assests\g_ui_Base\g_ui_Base.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EngineContent\EngineSettings\EngineSettings.cpp">
@@ -48,7 +48,7 @@
     <ClCompile Include="StarterContent\Assests\g_e_Player\g_e_Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StarterContent\Assests\g_m_playermat\g_m_PlayerMat.cpp">
+    <ClCompile Include="StarterContent\Assests\g_m_PlayerMat\g_m_PlayerMat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StarterContent\Assests\g_e_Collider\g_e_Collider.cpp">
@@ -70,6 +70,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EngineContent\BaseSaveSystem\BaseSaveSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StarterContent\Assests\g_ui_ProgressBar\g_ui_ProgressBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,13 +107,13 @@
     <ClInclude Include="EngineContent\EngineSettings\EngineSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StarterContent\Assests\g_ui_base\g_ui_base.h">
+    <ClInclude Include="StarterContent\Assests\g_ui_Base\g_ui_Base.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StarterContent\Assests\g_e_Player\g_e_Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StarterContent\Assests\g_m_playermat\g_m_PlayerMat.h">
+    <ClInclude Include="StarterContent\Assests\g_m_PlayerMat\g_m_PlayerMat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StarterContent\Assests\g_e_Collider\g_e_Collider.h">
@@ -132,6 +135,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EngineContent\BaseSaveObject\BaseSaveObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StarterContent\Assests\g_ui_ProgressBar\g_ui_ProgressBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

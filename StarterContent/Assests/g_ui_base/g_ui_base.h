@@ -2,19 +2,20 @@
 
 #include "../../../EngineContent/BaseEntity/BaseEntity.h"
 
-class g_ui_base : virtual public BaseEntity //use this to UI elements
+class g_ui_Base : virtual public BaseEntity //use this to UI elements
 {
 protected:
-	int AnchorX = 0;
-	int AnchorY = 0;
+	float AnchorX = 0;
+	float AnchorY = 0;
 
-	int AnchorOffsetX = 0;
-	int AnchorOffsetY = 0;
+	float AnchorDirectionX = 0;
+	float AnchorDirectionY = 0;
 
-	int AnchorOffsetMulX = 0;
-	int AnchorOffsetMulY = 0;
+	float AnchorSizeX = 0;
+	float AnchorSizeY = 0;
 
 	void Update(float DeltaTime) override;
+	void OnKeyValueSet(string Key, string Value) override;
 
 public:
 	void MatainScreenAttachment(); //put this in update to make UI move with screen
