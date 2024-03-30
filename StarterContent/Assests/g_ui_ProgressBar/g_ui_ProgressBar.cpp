@@ -88,9 +88,3 @@ void g_ui_ProgressBar::UpdateRender()
 		MyRenderingInfo.ContentsToRender[Y] = ProgressBarSmall;
 	}
 }
-
-void g_ui_ProgressBar::SetRenderingModifer(RenderingModifier *RenderMod)
-{
-	delete MyRenderingInfo.MyModifyer;
-	MyRenderingInfo.MyModifyer = RenderMod;
-}

@@ -122,3 +122,14 @@ void g_ui_Base::MatainScreenAttachment()
 	MyRenderingInfo.OffsetX = (int)((float)EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)) + ((float)EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)) * AnchorX) + ((float)AnchorSizeX * AnchorDirectionX));
 	MyRenderingInfo.OffsetY = (int)((float)EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)) + ((float)EngineSettings::GetConstValue("YCharizals", TYPE_REP(int)) * AnchorY) + ((float)AnchorSizeY * AnchorDirectionX));
 }
+
+void g_ui_Base::SetRenderingModifer(RenderingModifier* RenderMod)
+{
+	delete MyRenderingInfo.MyModifyer;
+	MyRenderingInfo.MyModifyer = RenderMod;
+}
+
+void g_ui_Base::SetImportance(int Importance)
+{
+	MyRenderingInfo.Importance = Importance;
+}

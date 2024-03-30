@@ -15,6 +15,5 @@ protected:
 
 private:
 	void UpdateRender();
-	void SetRenderingModifer(RenderingModifier* RenderMod);
 };
 
