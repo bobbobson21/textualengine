@@ -29,6 +29,7 @@ public:
 	static void SetScreenCord(int X, int Y);
 	static vector<int> GetScreenCord();
 
+	virtual void SetRenderingModifierData(string Key, string Value);
 	virtual string PreRender(int X, int Y, string RenderingFor, string OldRenderingFor);
 	virtual void PostRender();
 };

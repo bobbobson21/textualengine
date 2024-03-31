@@ -37,6 +37,10 @@ vector<int> RenderingModifier::GetScreenCord()
 	return ScreenCord;
 }
 
+void RenderingModifier::SetRenderingModifierData(string Key, string Value)
+{
+}
+
 string RenderingModifier::PreRender(int X, int Y, string RenderingFor, string OldRenderingFor)
 {
 	return STR_NULL;
