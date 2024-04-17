@@ -8,9 +8,7 @@ void g_ui_Panel::Update(float DeltaTime)
 
 void g_ui_Panel::OnKeyValueSet(string Key, string Value)
 {
-	g_ui_Base::OnKeyValueSet(Key, Value);
-
-	
+	OnKeyValueSetBase(Key, Value);
 }
 
 void g_ui_Panel::UpdateRender()

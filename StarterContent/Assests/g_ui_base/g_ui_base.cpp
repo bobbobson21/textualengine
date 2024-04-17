@@ -8,6 +8,11 @@ void g_ui_Base::Update(float DeltaTime)
 
 void g_ui_Base::OnKeyValueSet(string Key, string Value)
 {
+	OnKeyValueSetBase(Key, Value);
+}
+
+void g_ui_Base::OnKeyValueSetBase(string Key, string Value)
+{
 	if (Key == "Anchor")
 	{
 		if (Key.find(" ") != string::npos)

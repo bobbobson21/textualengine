@@ -146,6 +146,7 @@
     <ClCompile Include="StarterContent\Assests\g_e_WorldLayer\g_e_WorldLayer.cpp" />
     <ClCompile Include="StarterContent\Assests\g_ui_Panel\g_ui_Panel.cpp" />
     <ClCompile Include="StarterContent\Assests\g_ui_ProgressBar\g_ui_ProgressBar.cpp" />
+    <ClCompile Include="StarterContent\Assests\g_ui_TextElement\g_ui_TextElement.cpp" />
     <ClCompile Include="StarterContent\ConsoleReciver\ConsoleReciver.cpp" />
     <ClCompile Include="texturalengine.cpp" />
   </ItemGroup>
@@ -163,6 +164,7 @@
     <ClInclude Include="StarterContent\Assests\g_ui_Base\g_ui_Base.h" />
     <ClInclude Include="StarterContent\Assests\g_ui_Panel\g_ui_Panel.h" />
     <ClInclude Include="StarterContent\Assests\g_ui_ProgressBar\g_ui_ProgressBar.h" />
+    <ClInclude Include="StarterContent\Assests\g_ui_TextElement\g_ui_TextElement.h" />
     <ClInclude Include="StarterContent\ConsoleReciver\ConsoleReciver.h" />
     <ClInclude Include="EngineContent\Audio\AudioBeepControl.h" />
     <ClInclude Include="EngineContent\BaseComponent\BaseComponent.h" />

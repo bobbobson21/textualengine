@@ -8,7 +8,7 @@ void g_ui_ProgressBar::Update(float DeltaTime)
 
 void g_ui_ProgressBar::OnKeyValueSet(string Key, string Value)
 {
-	g_ui_Base::OnKeyValueSet(Key, Value);
+	OnKeyValueSetBase(Key, Value);
 
 	if (Key == "Percentage")
 	{

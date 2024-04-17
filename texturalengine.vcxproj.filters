@@ -78,6 +78,9 @@
     <ClCompile Include="StarterContent\Assests\g_ui_Panel\g_ui_Panel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StarterContent\Assests\g_ui_TextElement\g_ui_TextElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineContent\BaseEntity\BaseEntity.h">
@@ -144,6 +147,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StarterContent\Assests\g_ui_Panel\g_ui_Panel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StarterContent\Assests\g_ui_TextElement\g_ui_TextElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

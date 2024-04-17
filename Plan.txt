@@ -1,8 +1,8 @@
    --o make level system
    --o make save system
    --o add a progress bar UI element
-   o add panel UI element
-   o add text UI element
+   --o add panel UI element
+   --o add text UI element
    o add loading screen
    o add pushable objects
    o make a bullet controler

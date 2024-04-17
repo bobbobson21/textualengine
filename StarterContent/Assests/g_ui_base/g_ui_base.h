@@ -16,6 +16,7 @@ protected:
 
 	void Update(float DeltaTime) override;
 	void OnKeyValueSet(string Key, string Value) override;
+	void OnKeyValueSetBase(string Key, string Value);
 
 public:
 	void MatainScreenAttachment(); //put this in update to make UI move with screen
