@@ -3,7 +3,6 @@
 void g_ui_TextElement::Update(float DeltaTime)
 {
 	MatainScreenAttachment();
-	UpdateRender();
 }
 
 void g_ui_TextElement::OnKeyValueSet(string Key, string Value)
@@ -34,4 +33,6 @@ void g_ui_TextElement::SetTextAuto(string Text)
 		AutoTextData.push_back(CurrentLine);
 		Text = Text.substr(LastSpacePos + 1, Text.size() + (LastSpacePos));
 	}
+
+	MyRenderingInfo.ContentsToRender = AutoTextData;
 }

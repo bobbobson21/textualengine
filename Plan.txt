@@ -4,8 +4,5 @@
    --o add panel UI element
    --o add text UI element
    o add loading screen
-   o add pushable objects
-   o make a bullet controler
-   o make a screen shaker
    o make a game instance entity
    o make a post processing volume entity
