@@ -154,7 +154,11 @@
     <ClInclude Include="EngineContent\BaseSaveObject\BaseSaveObject.h" />
     <ClInclude Include="EngineContent\BaseSaveSystem\BaseSaveSystem.h" />
     <ClInclude Include="EngineContent\BaseLevelSystem\BaseLevelSystem.h" />
+    <ClInclude Include="EngineContent\BaseVectors\vec2D.h" />
+    <ClInclude Include="EngineContent\BaseVectors\vec3D.h" />
+    <ClInclude Include="EngineContent\BaseVectors\vec4D.h" />
     <ClInclude Include="EngineContent\EngineSettings\EngineSettings.h" />
+    <ClInclude Include="EngineContent\StringPlus\String+.h" />
     <ClInclude Include="StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.h" />
     <ClInclude Include="StarterContent\Assests\g_e_Collider\g_e_Collider.h" />
     <ClInclude Include="StarterContent\Assests\g_e_Player\g_e_Player.h" />

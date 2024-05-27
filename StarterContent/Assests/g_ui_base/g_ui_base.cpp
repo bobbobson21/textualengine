@@ -111,11 +111,11 @@ void g_ui_Base::OnKeyValueSetBase(string Key, string Value)
 		catch (...) {};
 	}
 
-	if (Key == "Importance")
+	if (Key == "ZLayer")
 	{
 		try
 		{
-			MyRenderingInfo.Importance = (int)stof(Value);
+			MyRenderingInfo.Offset.Z = (int)stof(Value);
 		}
 		catch (...) {};
 	}
@@ -124,8 +124,8 @@ void g_ui_Base::OnKeyValueSetBase(string Key, string Value)
 void g_ui_Base::MatainScreenAttachment()
 {
 	MyRenderingInfo.PostProcessingProof = true;
-	MyRenderingInfo.OffsetX = (int)((float)EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)) + ((float)EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)) * AnchorX) + ((float)AnchorSizeX * AnchorDirectionX));
-	MyRenderingInfo.OffsetY = (int)((float)EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)) + ((float)EngineSettings::GetConstValue("YCharizals", TYPE_REP(int)) * AnchorY) + ((float)AnchorSizeY * AnchorDirectionX));
+	MyRenderingInfo.Offset.X = (int)((float)EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)) + ((float)EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)) * AnchorX) + ((float)AnchorSizeX * AnchorDirectionX));
+	MyRenderingInfo.Offset.Y = (int)((float)EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)) + ((float)EngineSettings::GetConstValue("YCharizals", TYPE_REP(int)) * AnchorY) + ((float)AnchorSizeY * AnchorDirectionX));
 }
 
 void g_ui_Base::SetRenderingModifer(RenderingModifier* RenderMod)
@@ -136,5 +136,5 @@ void g_ui_Base::SetRenderingModifer(RenderingModifier* RenderMod)
 
 void g_ui_Base::SetImportance(int Importance)
 {
-	MyRenderingInfo.Importance = Importance;
+	MyRenderingInfo.Offset.Z = Importance;
 }

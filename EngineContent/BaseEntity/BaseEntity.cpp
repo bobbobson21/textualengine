@@ -1,6 +1,9 @@
 #include "BaseEntity.h"
 
-vector<BaseEntity *> BaseEntity::EntityiesInRunTime;
+vector<BaseEntity*> BaseEntity::EntityiesInRunTime;
+vector<BaseEntity*> BaseEntity::EntityiesInRemoveal;
+vector<BaseComponent*> BaseEntity::ComponentsInRemoveal;
+
 HANDLE BaseEntity::ConOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
 void BaseEntity::ReceiveFireInstruction(string Message, string Value)
@@ -21,6 +24,10 @@ void BaseEntity::Start()
 }
 
 void BaseEntity::OnRemove()
+{
+}
+
+void BaseEntity::OnFinalRemove()
 {
 }
 
@@ -247,7 +254,7 @@ void BaseEntity::RemoveAllComponentsOfID(BaseEntity* Ent, string Identifyer) //r
 			{
 				Ent->MyComponents[i]->OnRemove();
 
-				INVALIDATE_DELETE(Ent->MyComponents[i]);
+				ComponentsInRemoveal.push_back(Ent->MyComponents[i]);
 				Ent->MyComponents.erase(Ent->MyComponents.begin() + i); //destoy
 				i--;
 			}
@@ -274,7 +281,7 @@ void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 		Ent->MyComponents[i]->OnRemove(); //tels entities componets it will be removed soon
 		try
 		{
-			INVALIDATE_DELETE(Ent->MyComponents[i]);
+			ComponentsInRemoveal.push_back(Ent->MyComponents[i]);
 			Ent->MyComponents.erase(Ent->MyComponents.begin() + i); //removes the components
 		}
 		catch (...) {}
@@ -288,12 +295,7 @@ void BaseEntity::Remove(BaseEntity* Ent) //removes a given entity from the game
 		{
 			if (EntityiesInRunTime[i] == Ent) //finds ent spawned version
 			{
-				if (RenderingModifier::IsValid( EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer ) == true)
-				{
-					INVALIDATE_DELETE(EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer);
-				}
-
-				INVALIDATE_DELETE(EntityiesInRunTime[i]);
+				EntityiesInRemoveal.push_back(EntityiesInRunTime[i]);
 				EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i); //destroys ent
 				i--;
 				return;
@@ -322,7 +324,7 @@ void BaseEntity::RemoveAll()
 						EntityiesInRunTime[i]->MyComponents[o]->OnRemove(); //tells destruction
 						try
 						{
-							INVALIDATE_DELETE(EntityiesInRunTime[i]->MyComponents[o]);
+							ComponentsInRemoveal.push_back(EntityiesInRunTime[i]->MyComponents[o]);
 							EntityiesInRunTime[i]->MyComponents.erase(EntityiesInRunTime[i]->MyComponents.begin() + o); //dose destruction
 						}
 						catch (...) {}
@@ -333,13 +335,7 @@ void BaseEntity::RemoveAll()
 
 				try
 				{
-					if (RenderingModifier::IsValid(EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer) == true)
-					{
-						delete EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer;
-						EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer = nullptr;
-					}
-
-					INVALIDATE_DELETE(EntityiesInRunTime[i]);
+					EntityiesInRemoveal.push_back(EntityiesInRunTime[i]);
 					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i);//destroys ent
 					i--;
 				}
@@ -369,7 +365,7 @@ void BaseEntity::RemoveAllOfID(string Identifyer)
 						EntityiesInRunTime[i]->MyComponents[o]->OnRemove(); //tells comps they will be destroyed
 						try
 						{
-							INVALIDATE_DELETE(EntityiesInRunTime[i]->MyComponents[o]);
+							ComponentsInRemoveal.push_back(EntityiesInRunTime[i]->MyComponents[o]);
 							EntityiesInRunTime[i]->MyComponents.erase(EntityiesInRunTime[i]->MyComponents.begin() + o); //dose destruction
 						}
 						catch (...) {}
@@ -380,12 +376,7 @@ void BaseEntity::RemoveAllOfID(string Identifyer)
 
 				try
 				{
-					if (RenderingModifier::IsValid(EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer) == true)
-					{
-						INVALIDATE_DELETE(EntityiesInRunTime[i]->MyRenderingInfo.MyModifyer);
-					}
-
-					INVALIDATE_DELETE(EntityiesInRunTime[i]);
+					EntityiesInRemoveal.push_back(EntityiesInRunTime[i]);
 					EntityiesInRunTime.erase(EntityiesInRunTime.begin() + i); //destroys ent
 					i--;
 				}
@@ -491,7 +482,7 @@ void BaseEntity::ProcessUpdate(float DeltaTime)
 }
 
 
-void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModifier* PostProcessing) //https://www.youtube.com/results?search_query=ansi+c%2B%2B
+void BaseEntity::ProcessRendering(Vector2D<int> Pos, bool NewLineAfter, RenderingModifier* PostProcessing) //https://www.youtube.com/results?search_query=ansi+c%2B%2B
 {
 	int RendededCharizalImportance = 0;
 	string RendededCharizalToPush = " ";
@@ -505,15 +496,15 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModi
 			if (EntityiesInRunTime[i] != nullptr)
 			{
 				vector<string> CurrentRenderContent = EntityiesInRunTime[i]->MyRenderingInfo.ContentsToRender;
-				int CurrentOffsetX = EntityiesInRunTime[i]->MyRenderingInfo.OffsetX;
-				int CurrentOffsetY = EntityiesInRunTime[i]->MyRenderingInfo.OffsetY;
-				int CurrentImportance = EntityiesInRunTime[i]->MyRenderingInfo.Importance;
+				int CurrentOffsetX = EntityiesInRunTime[i]->MyRenderingInfo.Offset.X;
+				int CurrentOffsetY = EntityiesInRunTime[i]->MyRenderingInfo.Offset.Y;
+				int CurrentImportance = EntityiesInRunTime[i]->MyRenderingInfo.Offset.Z; //HIGHER = RENDER ABOVE AEVERYTHING WITH A LOWER Z VALUE
 
-				if (Y - CurrentOffsetY >= 0 && Y - CurrentOffsetY < CurrentRenderContent.size()) //is with in screenbounds y
+				if (Pos.Y - CurrentOffsetY >= 0 && Pos.Y - CurrentOffsetY < CurrentRenderContent.size()) //is with in screenbounds y
 				{
-					if (X - CurrentOffsetX >= 0 && X - CurrentOffsetX < CurrentRenderContent[Y - CurrentOffsetY].length()) //is with in screenbounds x
+					if (Pos.X - CurrentOffsetX >= 0 && Pos.X - CurrentOffsetX < CurrentRenderContent[Pos.Y - CurrentOffsetY].length()) //is with in screenbounds x
 					{
-						char CurrentCharizal = CurrentRenderContent[Y - CurrentOffsetY][X - CurrentOffsetX];
+						char CurrentCharizal = CurrentRenderContent[Pos.Y - CurrentOffsetY][Pos.X - CurrentOffsetX];
 
 						if (CurrentCharizal != ' ' && CurrentImportance >= RendededCharizalImportance) //is not an enpty pixle and is a pixle of higher importance
 						{
@@ -532,14 +523,14 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModi
 	string OldRendededCharizalToPush = RendededCharizalToPush; //this is for the post processer
 	if (RenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
 	{
-		string NewToPush = RendededCharizalRenderingModifyer->PreRender(X, Y, RendededCharizalToPush, STR_NULL); //runs the render modifyer that can be used to create stuff like flashing materials
+		string NewToPush = RendededCharizalRenderingModifyer->PreRender(Pos.X, Pos.Y, RendededCharizalToPush, STR_NULL); //runs the render modifyer that can be used to create stuff like flashing materials
 		SetConsoleTextAttribute(ConOut, RendededCharizalRenderingModifyer->GetReturnAttribute());
 
 		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
 
 		if (RendededBlockPostProcessing != true && RenderingModifier::IsValid(PostProcessing) == true) //post processing for mat
 		{
-			string NewToPush = PostProcessing->PreRender(X, Y, RendededCharizalToPush, OldRendededCharizalToPush);
+			string NewToPush = PostProcessing->PreRender(Pos.X, Pos.Y, RendededCharizalToPush, OldRendededCharizalToPush);
 			SetConsoleTextAttribute(ConOut, PostProcessing->GetReturnAttribute());
 
 			if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
@@ -562,4 +553,26 @@ void BaseEntity::ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModi
 			PostProcessing->PostRender();
 		}
 	}
+}
+
+void BaseEntity::ProcessFinalRemoval()
+{
+	for (int i = 0; i < ComponentsInRemoveal.size(); i++)
+	{
+		ComponentsInRemoveal[i]->OnFinalRemove();
+		delete ComponentsInRemoveal[i];
+	}
+
+
+	for (int i = 0; i < EntityiesInRemoveal.size(); i++)
+	{
+		EntityiesInRemoveal[i]->OnFinalRemove();
+		delete EntityiesInRemoveal[i];
+	}
+
+	ComponentsInRemoveal.clear();
+	EntityiesInRemoveal.clear();
+
+	ComponentsInRemoveal.shrink_to_fit();
+	EntityiesInRemoveal.shrink_to_fit();
 }

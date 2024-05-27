@@ -152,5 +152,17 @@
     <ClInclude Include="StarterContent\Assests\g_ui_TextElement\g_ui_TextElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EngineContent\BaseVectors\vec2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineContent\BaseVectors\vec3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineContent\BaseVectors\vec4D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineContent\StringPlus\String+.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

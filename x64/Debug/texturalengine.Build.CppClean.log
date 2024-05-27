@@ -1,31 +1,34 @@
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\vc143.pdb
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\vc143.idb
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\texturalengine.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\consolereciver.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\g_e_worldlayer.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\g_m_worldmat.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\entrypoint.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\renderingmodifier.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\baseentity.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\basecomponent.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\g_ui_base.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\g_m_playermat.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\g_m_genericpostprocessingmat.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\g_e_trigger.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\g_e_player.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\g_e_collider.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\g_ec_motioncollider.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\enginesettings.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\basesavesystem.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\baselevelsystem.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\basesaveobject.obj
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\texturalengine.exe
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\texturalengine.ilk
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\texturalengine.pdb
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\texturalengine.tlog\cl.command.1.tlog
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\texturalengine.tlog\cl.items.tlog
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\texturalengine.tlog\cl.read.1.tlog
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\texturalengine.tlog\cl.write.1.tlog
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\texturalengine.tlog\link.command.1.tlog
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\texturalengine.tlog\link.read.1.tlog
-c:\users\e017770n.student\onedrive - staffordshire university\non uni gits\textualengine\x64\debug\texturalengine.tlog\link.write.1.tlog
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\vc143.pdb
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\vc143.idb
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_ui_textelement.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_ui_progressbar.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_ui_panel.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_e_worldlayer.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_m_worldmat.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\entrypoint.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\renderingmodifier.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\baseentity.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\basecomponent.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_ui_base.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_m_playermat.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_m_genericpostprocessingmat.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_e_trigger.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_e_player.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_e_collider.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\g_ec_motioncollider.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\enginesettings.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\basesavesystem.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\baselevelsystem.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\basesaveobject.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\consolereciver.obj
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.exe
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.ilk
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.pdb
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.tlog\cl.command.1.tlog
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.tlog\cl.items.tlog
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.tlog\cl.read.1.tlog
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.tlog\cl.write.1.tlog
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.tlog\link.command.1.tlog
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.tlog\link.read.1.tlog
+c:\users\dsbkh\onedrive\desktop\github projects\textualengine\x64\debug\texturalengine.tlog\link.write.1.tlog

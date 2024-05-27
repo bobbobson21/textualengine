@@ -8,6 +8,7 @@
 #include <fstream>
 
 #include "../BaseEntity/BaseEntity.h"
+#include "../StringPlus/String+.h"
 
 #define ObtainEntitySpawnDataFrom( X ) (#X,[](){return new X();})
 #define ObtainMaterialDataFrom( Y ) ObtainEntitySpawnDataFrom( Y )
@@ -22,7 +23,6 @@ private:
 	static BaseEntity_RenderingInfo RenderingDataDump;
 
 	static string ImproveFormatting(string Input);
-	static vector<string> ExtractViaComma(string Input); //DO THIS AT HOME
 
 public:
 	static void RegisterEntitySpawnData(string ClassId, function<BaseEntity* ()> Function);

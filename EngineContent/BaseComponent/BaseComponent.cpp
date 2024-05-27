@@ -1,17 +1,10 @@
 #include "BaseComponent.h"
 
-void BaseComponent::Start()
-{
-}
-
-void BaseComponent::OnRemove()
-{
-}
-
 string BaseComponent::GetIdentifyer()
 {
 	return Identifyer;
 }
+
 
 void BaseComponent::OnKeyValueSet(string Key, string Value)
 {
@@ -26,6 +19,9 @@ void BaseComponent::Update(float DeltaTime)
 {
 }
 
+void BaseComponent::Start()
+{
+}
 
 bool BaseComponent::IsVaild(BaseComponent* EntCom)
 {
@@ -38,5 +34,13 @@ bool BaseComponent::IsVaild(BaseComponent* EntCom)
 	{
 		return false; //we are not valid
 	}
+}
 
+
+void BaseComponent::OnRemove()
+{
+}
+
+void BaseComponent::OnFinalRemove()
+{
 }

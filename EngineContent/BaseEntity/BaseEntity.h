@@ -8,6 +8,8 @@
 #include <io.h>
 
 #include "../Marcos/Marcos.h"
+#include "../BaseVectors/vec3D.h"
+#include "../BaseVectors/vec2D.h"
 #include "../BaseComponent/BaseComponent.h"
 #include "../RenderingModifier/RenderingModifier.h"
 
@@ -18,9 +20,7 @@ class BaseComponent;
 
 struct BaseEntity_RenderingInfo //for rendering
 {
-	int OffsetX = 0;
-	int OffsetY = 0;
-	int Importance = 0;
+	Vector3D<int> Offset;
 	bool PostProcessingProof = false;
 	vector<string> ContentsToRender = vector<string>();
 	RenderingModifier *MyModifyer = nullptr;
@@ -37,10 +37,12 @@ class BaseEntity
 {
 private:
 	static vector<BaseEntity*> EntityiesInRunTime;
+	static vector<BaseEntity*> EntityiesInRemoveal;
 	static HANDLE ConOut; //for rendering
 
 	map<string, string> KeyValueList;
 	vector<BaseComponent*> MyComponents;
+	static vector<BaseComponent*> ComponentsInRemoveal;
 
 	map<string, vector<BaseEntity_FireOutInfo>> FireOuts;
 
@@ -51,6 +53,7 @@ protected:
 	virtual void Update(float DeltaTime); //runs on tick in endless loop
 	virtual void Start(); //runs after spawn
 	virtual void OnRemove();
+	virtual void OnFinalRemove();
 	virtual void ReceiveFireInstruction(string Message, string Value); //reacts to a message and value
 	
 	virtual void OnKeyValueSet(string Key, string Value);
@@ -74,7 +77,7 @@ public:
 	string GetValueOfKey(string Key); //gets the value of a setting
 	
 	static void AddComponent(BaseEntity* Ent, BaseComponent* Com); //Components are like mini entits that cant render or store keys but they can effect the entity there attached to
-	static vector<BaseComponent *> GetComponents(BaseEntity* Ent, string Identifyer);
+	static vector<BaseComponent*> GetComponents(BaseEntity* Ent, string Identifyer);
 	static void RemoveAllComponentsOfID(BaseEntity* Ent, string Identifyer);
 
 	static void Spawn(BaseEntity* Ent); //regiestes the entity with the engine so it can render stuff and update
@@ -82,11 +85,12 @@ public:
 	static void RemoveAll(); //destroys all entitys usful for unloading a level
 	static void RemoveAllOfID(string Identifyer); //destroys all entitys usful for unloading a level
 
-	static vector<BaseEntity *> GetEntities(string Identifyer); //find all ents with idenifyer/type
+	static vector<BaseEntity*> GetEntities(string Identifyer); //find all ents with idenifyer/type
 	static vector<BaseEntity*> GetEntitiesByKeyValue(string Key, string Value); //finds all ents by key value
 
 	static bool IsVaild(BaseEntity* Ent); //is a given ent valid (ie has it been spawned and is it not destroyed)
+	
 	static void ProcessUpdate(float DeltaTime);
-
-	static void ProcessRendering(int X, int Y, bool NewLineAfter, RenderingModifier* PostProcessing = nullptr); //renders a charizals into the console //charizals are like pixles but for letters
+	static void ProcessRendering(Vector2D<int> Pos, bool NewLineAfter, RenderingModifier* PostProcessing = nullptr); //renders a charizals into the console //charizals are like pixles but for letters
+	static void ProcessFinalRemoval();
 };

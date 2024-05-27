@@ -7,7 +7,7 @@ void g_e_Player::Start()
 	Collider = new g_ec_MotionCollider();
 	BaseEntity::AddComponent(this, Collider);
 
-	MyRenderingInfo.Importance = 4;
+	MyRenderingInfo.Offset.Z = 4;
 	MyRenderingInfo.ContentsToRender.push_back("@@");
 	MyRenderingInfo.ContentsToRender.push_back("@@");
 	MyRenderingInfo.ContentsToRender.push_back("##");
@@ -43,8 +43,8 @@ void g_e_Player::OnKeyValueSet(string Key, string Value)
 	{
 		try
 		{
-			MyRenderingInfo.OffsetX = (int)stof(Value);
-			EngineSettings::ChangeInRunTime("RenderOffsetX", (MyRenderingInfo.OffsetX - (EngineSettings::GetConstValue("XCharizals", TYPE_REP(int) ) / 2)) + 1);
+			MyRenderingInfo.Offset.X = (int)stof(Value);
+			EngineSettings::ChangeInRunTime("RenderOffsetX", (MyRenderingInfo.Offset.X - (EngineSettings::GetConstValue("XCharizals", TYPE_REP(int) ) / 2)) + 1);
 		}
 		catch(...) {};
 	}
@@ -53,8 +53,8 @@ void g_e_Player::OnKeyValueSet(string Key, string Value)
 	{
 		try
 		{
-			MyRenderingInfo.OffsetY = (int)stof(Value);
-			EngineSettings::ChangeInRunTime("RenderOffsetY", (MyRenderingInfo.OffsetY - (EngineSettings::GetConstValue("YCharizals", TYPE_REP(int)) / 2)) + 1);
+			MyRenderingInfo.Offset.Y = (int)stof(Value);
+			EngineSettings::ChangeInRunTime("RenderOffsetY", (MyRenderingInfo.Offset.Y - (EngineSettings::GetConstValue("YCharizals", TYPE_REP(int)) / 2)) + 1);
 		}
 		catch (...) {};
 	}

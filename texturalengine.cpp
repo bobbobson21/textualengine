@@ -25,11 +25,18 @@ using namespace std;
 void ThreadUpdateLoop()
 {
 	float LastDeltaTime = 0;
+	int TicksSinceLastDeletion = 0;
 
 	while (true)
 	{
 		if (IsInConsole == false)
 		{
+			if (TicksSinceLastDeletion >= 2)
+			{
+				TicksSinceLastDeletion = 0;
+				BaseEntity::ProcessFinalRemoval();
+			}
+
 			auto Start = chrono::high_resolution_clock::now(); //delta time start
 
 			BaseEntity::ProcessUpdate(LastDeltaTime); //updates all entities
@@ -66,7 +73,7 @@ void ThreadRenderLoop()
 			{
 				for (int X = 0; X <= EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)); X++) //starts to render a line of charizals
 				{
-					BaseEntity::ProcessRendering(X + EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), Y + EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)), (X == EngineSettings::GetConstValue("XCharizals", TYPE_REP(int))), EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier))); //dose the real rendering howver it dose not do screen refreshes
+					BaseEntity::ProcessRendering({ X + EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), Y + EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)) }, (X == EngineSettings::GetConstValue("XCharizals", TYPE_REP(int))), EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier))); //dose the real rendering howver it dose not do screen refreshes
 					SetConsoleTextAttribute(ConOut, EngineSettings::GetUpToDateValue("VoidRenderColor", TYPE_REP(int))); //the color of nothing
 				}
 
@@ -137,6 +144,8 @@ void ExitMain() //games ending
 	{
 		delete EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier));
 	}
+
+	BaseEntity::ProcessFinalRemoval();
 }
 
 int main()

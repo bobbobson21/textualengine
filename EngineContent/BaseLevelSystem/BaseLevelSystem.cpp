@@ -28,21 +28,6 @@ string BaseLevelSystem::ImproveFormatting(string Input)
     return Output;
 }
 
-vector<string> BaseLevelSystem::ExtractViaComma(string Input)
-{
-    Input += ",";  //it splits a string up by a charter btw
-    vector<string> Output;
-
-    while (Input.find(",") != string::npos)
-    {
-        Output.push_back(Input.substr(0, Input.find(",")));
-        Input = Input.substr(Input.find(","), Input.length());
-    }
-
-    return Output;
-}
-
-
 void BaseLevelSystem::RegisterEntitySpawnData(string ClassId, std::function<BaseEntity*()> Function)
 {
     EntitySpawnDataStorage[ClassId] = Function;
@@ -133,8 +118,8 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
             {
                 if (CurrentLine.find("=") != string::npos)
                 {
-                    string Key = BaseLevelSystem::ImproveFormatting(CurrentLine.substr(0, CurrentLine.find("=") - 1));
-                    string Value = BaseLevelSystem::ImproveFormatting(CurrentLine.substr(CurrentLine.find("=") +1, CurrentLine.size() -CurrentLine.find("=") ));
+                    string Key = BaseLevelSystem::ImproveFormatting(strp::SplitString(CurrentLine, "=")[0]);
+                    string Value = BaseLevelSystem::ImproveFormatting(strp::SplitString(CurrentLine, "=")[1]);
 
                     Ent->SetKeyValue(Key, Value);
                 }
@@ -151,26 +136,18 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
             {
                 if (CurrentLine.find("=") != string::npos)
                 {
-                    string Key = BaseLevelSystem::ImproveFormatting(CurrentLine.substr(0, CurrentLine.find("=") - 1));
-                    string Value = BaseLevelSystem::ImproveFormatting(CurrentLine.substr(CurrentLine.find("=") + 1, CurrentLine.size() - CurrentLine.find("=")));
+                    string Key = BaseLevelSystem::ImproveFormatting(strp::SplitString(CurrentLine, "=")[0]);
+                    string Value = BaseLevelSystem::ImproveFormatting(strp::SplitString(CurrentLine, "=")[1]);
 
                     if (Key == "MyModifyer")
                     {
                         RenderingDataDump.MyModifyer = BaseLevelSystem::CreateNewMaterialInstance( Value );
                     } 
-                    else if (Key == "Importance")
-                    {
-                        try
-                        {
-                            RenderingDataDump.Importance = (int)stof(Value);
-                        }
-                        catch (...) {}
-                    }
                     else if (Key == "OffsetX")
                     {
                         try
                         {
-                            RenderingDataDump.OffsetX = (int)stof(Value);
+                            RenderingDataDump.Offset.X = (int)stof(Value);
                         }
                         catch (...) {}
                     }
@@ -178,7 +155,15 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
                     {
                         try
                         {
-                            RenderingDataDump.OffsetY = (int)stof(Value);
+                            RenderingDataDump.Offset.Y = (int)stof(Value);
+                        }
+                        catch (...) {}
+                    }
+                    else if (Key == "OffsetZ")
+                    {
+                        try
+                        {
+                            RenderingDataDump.Offset.Z = (int)stof(Value);
                         }
                         catch (...) {}
                     }
@@ -186,8 +171,10 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
                     {
                         try
                         {
-                            RenderingDataDump.OffsetX = (int)stof(BaseLevelSystem::ImproveFormatting(Value.substr(0, Value.find(",") - 1)));
-                            RenderingDataDump.OffsetY = (int)stof(BaseLevelSystem::ImproveFormatting(Value.substr(Value.find(",") + 1, Value.size() - Value.find(","))));
+                            vector<string> Results = strp::SplitString(Value, ",");
+                            RenderingDataDump.Offset.X = (int)stof(Results[0]);
+                            RenderingDataDump.Offset.Y = (int)stof(Results[1]);
+                            RenderingDataDump.Offset.Z = (int)stof(Results[2]);
                         }
                         catch (...) {}
                     }
@@ -226,7 +213,7 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
             {
                 if (CurrentLine.find(",") != string::npos)
                 {
-                    vector<string> Data = BaseLevelSystem::ExtractViaComma(BaseLevelSystem::ImproveFormatting(CurrentLine));
+                    vector<string> Data = strp::SplitString(BaseLevelSystem::ImproveFormatting(CurrentLine), ",");
 
                     if (Data.size() >= 4)
                     {
@@ -246,8 +233,8 @@ void BaseLevelSystem::LoadLevel(vector<string> LevelAssestAsVector)
         {
             if (CurrentLine.find("=") != string::npos)
             {
-                string Message = BaseLevelSystem::ImproveFormatting(CurrentLine.substr(0, CurrentLine.find("=") - 1));
-                string Value = BaseLevelSystem::ImproveFormatting(CurrentLine.substr(CurrentLine.find("=") + 1, CurrentLine.size() - CurrentLine.find("=")));
+                string Message = BaseLevelSystem::ImproveFormatting(strp::SplitString(CurrentLine, "=")[0]);
+                string Value = BaseLevelSystem::ImproveFormatting(strp::SplitString(CurrentLine, "=")[1]);
 
                 EngineSettings::GetConstValue("CommandConsoleCMD", TYPE_REP(BaseEntity))->Fire(Message, Value);
             }

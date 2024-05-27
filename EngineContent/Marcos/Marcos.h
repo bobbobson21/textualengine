@@ -14,6 +14,4 @@
 #define CHARIZAL_AS_PIXLES_X 9
 #define CHARIZAL_AS_PIXLES_Y 19
 
-#define INVALIDATE_DELETE( X ) delete X; X = nullptr
-
 #define DELTA_SHINK( X ) X/100000000

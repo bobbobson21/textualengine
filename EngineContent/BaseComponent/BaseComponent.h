@@ -27,6 +27,7 @@ public:
 	virtual void Update(float DeltaTime); //all of this is the same as the ent
 	virtual void Start();
 	virtual void OnRemove();
+	virtual void OnFinalRemove();
 
 	static bool IsVaild(BaseComponent* EntCom);
 };
