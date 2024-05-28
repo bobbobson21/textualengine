@@ -128,7 +128,7 @@ void g_ui_Base::MatainScreenAttachment()
 	MyRenderingInfo.Offset.Y = (int)((float)EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)) + ((float)EngineSettings::GetConstValue("YCharizals", TYPE_REP(int)) * AnchorY) + ((float)AnchorSizeY * AnchorDirectionX));
 }
 
-void g_ui_Base::SetRenderingModifer(RenderingModifier* RenderMod)
+void g_ui_Base::SetRenderingModifer(BaseRenderingModifier* RenderMod)
 {
 	delete MyRenderingInfo.MyModifyer;
 	MyRenderingInfo.MyModifyer = RenderMod;

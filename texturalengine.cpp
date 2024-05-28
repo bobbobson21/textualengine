@@ -65,7 +65,7 @@ void ThreadRenderLoop()
 	{
 		if (IsInConsole == false)
 		{
-			RenderingModifier::SetScreenCord(EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)));
+			BaseRenderingModifier::SetScreenCord(EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)));
 
 			IsRendering = true;
 
@@ -73,7 +73,7 @@ void ThreadRenderLoop()
 			{
 				for (int X = 0; X <= EngineSettings::GetConstValue("XCharizals", TYPE_REP(int)); X++) //starts to render a line of charizals
 				{
-					BaseEntity::ProcessRendering({ X + EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), Y + EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)) }, (X == EngineSettings::GetConstValue("XCharizals", TYPE_REP(int))), EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier))); //dose the real rendering howver it dose not do screen refreshes
+					BaseEntity::ProcessRendering({ X + EngineSettings::GetUpToDateValue("RenderOffsetX", TYPE_REP(int)), Y + EngineSettings::GetUpToDateValue("RenderOffsetY", TYPE_REP(int)) }, (X == EngineSettings::GetConstValue("XCharizals", TYPE_REP(int))), EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(BaseRenderingModifier))); //dose the real rendering howver it dose not do screen refreshes
 					SetConsoleTextAttribute(ConOut, EngineSettings::GetUpToDateValue("VoidRenderColor", TYPE_REP(int))); //the color of nothing
 				}
 
@@ -140,9 +140,9 @@ void ExitMain() //games ending
 		delete EngineSettings::GetConstValue("CommandConsoleCMD", TYPE_REP(BaseEntity));
 	}
 
-	if (EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier)) != nullptr)
+	if (EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(BaseRenderingModifier)) != nullptr)
 	{
-		delete EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier));
+		delete EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(BaseRenderingModifier));
 	}
 
 	BaseEntity::ProcessFinalRemoval();

@@ -21,7 +21,7 @@
 		return false;
 	}
 
-	bool EngineSettings::ChangeInRunTime(string Var, RenderingModifier *Value)
+	bool EngineSettings::ChangeInRunTime(string Var, BaseRenderingModifier *Value)
 	{
 		EngineSettingsRunTimeSet(Var, Value, PostPorcessingShader)
 
@@ -47,11 +47,11 @@
 		return false;
 	}
 
-	RenderingModifier* EngineSettings::GetUpToDateValue(string Var, RenderingModifier TYPEID)
+	BaseRenderingModifier* EngineSettings::GetUpToDateValue(string Var, BaseRenderingModifier TYPEID)
 	{
 		EngineSettingsGet(Var, PostPorcessingShader);
 
-		return (RenderingModifier*) nullptr;
+		return (BaseRenderingModifier*) nullptr;
 	}
 
 

@@ -2,7 +2,7 @@
 #include "../EngineSettings/EngineSettings.h"
 
 map<string, function<BaseEntity*()>> BaseLevelSystem::EntitySpawnDataStorage;
-map<string, function<RenderingModifier* ()>> BaseLevelSystem::MaterialDataStorage;
+map<string, function<BaseRenderingModifier* ()>> BaseLevelSystem::MaterialDataStorage;
 BaseEntity_RenderingInfo BaseLevelSystem::RenderingDataDump;
 
 string BaseLevelSystem::ImproveFormatting(string Input)
@@ -33,7 +33,7 @@ void BaseLevelSystem::RegisterEntitySpawnData(string ClassId, std::function<Base
     EntitySpawnDataStorage[ClassId] = Function;
 }
 
-void BaseLevelSystem::RegisterMaterialData(string MaterialId, function<RenderingModifier* ()> Function)
+void BaseLevelSystem::RegisterMaterialData(string MaterialId, function<BaseRenderingModifier* ()> Function)
 {
     MaterialDataStorage[MaterialId] = Function;
 }
@@ -50,7 +50,7 @@ BaseEntity* BaseLevelSystem::CreateNewEntity(string ClassId)
     return nullptr;
 }
 
-RenderingModifier* BaseLevelSystem::CreateNewMaterialInstance(string MaterialId)
+BaseRenderingModifier* BaseLevelSystem::CreateNewMaterialInstance(string MaterialId)
 {
     if (MaterialDataStorage.count(MaterialId) > 0)
     {
@@ -255,7 +255,7 @@ void BaseLevelSystem::UnLoadLevel()
     EngineSettings::ChangeInRunTime("RenderOffsetX", 0);
     EngineSettings::ChangeInRunTime("RenderOffsetY", 0);
 
-    delete EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier));
+    delete EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(BaseRenderingModifier));
     EngineSettings::ChangeInRunTime("PostPorcessingShader", nullptr);
 }
 

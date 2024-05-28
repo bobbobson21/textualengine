@@ -11,7 +11,7 @@
 #include "../BaseVectors/vec3D.h"
 #include "../BaseVectors/vec2D.h"
 #include "../BaseComponent/BaseComponent.h"
-#include "../RenderingModifier/RenderingModifier.h"
+#include "../BaseRenderingModifier/BaseRenderingModifier.h"
 
 using namespace std;
 
@@ -23,7 +23,7 @@ struct BaseEntity_RenderingInfo //for rendering
 	Vector3D<int> Offset;
 	bool PostProcessingProof = false;
 	vector<string> ContentsToRender = vector<string>();
-	RenderingModifier *MyModifyer = nullptr;
+	BaseRenderingModifier *MyModifyer = nullptr;
 };
 
 struct BaseEntity_FireOutInfo //for firing out to other ents
@@ -91,6 +91,6 @@ public:
 	static bool IsVaild(BaseEntity* Ent); //is a given ent valid (ie has it been spawned and is it not destroyed)
 	
 	static void ProcessUpdate(float DeltaTime);
-	static void ProcessRendering(Vector2D<int> Pos, bool NewLineAfter, RenderingModifier* PostProcessing = nullptr); //renders a charizals into the console //charizals are like pixles but for letters
+	static void ProcessRendering(Vector2D<int> Pos, bool NewLineAfter, BaseRenderingModifier* PostProcessing = nullptr); //renders a charizals into the console //charizals are like pixles but for letters
 	static void ProcessFinalRemoval();
 };

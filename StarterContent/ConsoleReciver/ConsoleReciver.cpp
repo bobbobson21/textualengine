@@ -47,10 +47,10 @@ void ConsoleReciver::ReceiveFireInstruction(string Message, string Value)
 
 	if (Message == "SetPostProcessingMaterial")
 	{
-		if (RenderingModifier::IsValid(EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier))) == true) //gets rid of old post processing effect
+		if (BaseRenderingModifier::IsValid(EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(BaseRenderingModifier))) == true) //gets rid of old post processing effect
 		{
-			delete EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(RenderingModifier));
-			EngineSettings::ChangeInRunTime("PostPorcessingShader", (RenderingModifier*)nullptr);
+			delete EngineSettings::GetUpToDateValue("PostPorcessingShader", TYPE_REP(BaseRenderingModifier));
+			EngineSettings::ChangeInRunTime("PostPorcessingShader", (BaseRenderingModifier*)nullptr);
 		}
 
 		if (Value == "GPPM")

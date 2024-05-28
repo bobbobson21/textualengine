@@ -1,4 +1,67 @@
-﻿  BaseEntity.cpp
+﻿  BaseSaveObject.cpp
+  BaseLevelSystem.cpp
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\EngineContent\StringPlus\String+.h(10,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  BaseSaveSystem.cpp
+  EngineSettings.cpp
+  g_ec_MotionCollider.cpp
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.cpp(14,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.cpp(23,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.cpp(32,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.cpp(41,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.cpp(50,24): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.cpp(59,24): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.cpp(68,21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  g_e_Collider.cpp
+  g_e_Player.cpp
+  g_e_PostProcessingTrigger.cpp
+  g_e_trigger.cpp
+  g_m_GenericPostProcessingMat.cpp
+  g_m_PlayerMat.cpp
+  g_ui_Base.cpp
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ui_Base\g_ui_Base.cpp(34,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ui_Base\g_ui_Base.cpp(43,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ui_Base\g_ui_Base.cpp(67,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ui_Base\g_ui_Base.cpp(76,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ui_Base\g_ui_Base.cpp(100,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ui_Base\g_ui_Base.cpp(109,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  BaseComponent.cpp
+  BaseEntity.cpp
+  BaseRenderingModifier.cpp
+  EntryPoint.h
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\EngineContent\StringPlus\String+.h(10,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\xstring(2728,53): warning C4244: 'argument': conversion from 'wchar_t' to 'const _Elem', possible loss of data
+          with
+          [
+              _Elem=char
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\xstring(2584,17): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
+          with
+          [
+              _Size_type=unsigned __int64,
+              _Iter=wchar_t *,
+              _Sent=wchar_t *,
+              _Size=unsigned __int64
+          ]
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\GameContent\EntryPoint\EntryPoint.h(33,21): message : see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\GameContent\EntryPoint\EntryPoint.h(33,21): message : see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'GameMain'
+  g_m_WorldMat.cpp
+  g_e_WorldLayer.cpp
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\EngineContent\StringPlus\String+.h(10,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  g_ui_Panel.cpp
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ui_Panel\g_ui_Panel.cpp(24,42): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+  g_ui_ProgressBar.cpp
+  Generating Code...
+  Compiling...
+  g_ui_TextElement.cpp
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ui_TextElement\g_ui_TextElement.cpp(29,39): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\StarterContent\Assests\g_ui_TextElement\g_ui_TextElement.cpp(30,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  ConsoleReciver.cpp
   texturalengine.cpp
 C:\Users\dsbkh\OneDrive\Desktop\github projects\textualengine\EngineContent\StringPlus\String+.h(10,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\xstring(2728,53): warning C4244: 'argument': conversion from 'wchar_t' to 'const _Elem', possible loss of data

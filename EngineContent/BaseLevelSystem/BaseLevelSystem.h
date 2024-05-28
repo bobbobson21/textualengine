@@ -19,17 +19,17 @@ class BaseLevelSystem
 {
 private:
 	static map<string, function<BaseEntity*()>> EntitySpawnDataStorage;
-	static map<string, function<RenderingModifier* ()>> MaterialDataStorage;
+	static map<string, function<BaseRenderingModifier* ()>> MaterialDataStorage;
 	static BaseEntity_RenderingInfo RenderingDataDump;
 
 	static string ImproveFormatting(string Input);
 
 public:
 	static void RegisterEntitySpawnData(string ClassId, function<BaseEntity* ()> Function);
-	static void RegisterMaterialData(string MaterialId, function<RenderingModifier* ()> Function);
+	static void RegisterMaterialData(string MaterialId, function<BaseRenderingModifier* ()> Function);
 
 	static BaseEntity *CreateNewEntity(string ClassId);
-	static RenderingModifier* CreateNewMaterialInstance(string MaterialId);
+	static BaseRenderingModifier* CreateNewMaterialInstance(string MaterialId);
 
 	static BaseEntity_RenderingInfo CollectRenderingData();
 	static void RequestEntityToCollectRendingData(BaseEntity* Ent);

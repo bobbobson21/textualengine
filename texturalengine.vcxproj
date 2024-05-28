@@ -134,13 +134,14 @@
     <ClCompile Include="StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.cpp" />
     <ClCompile Include="StarterContent\Assests\g_e_Collider\g_e_Collider.cpp" />
     <ClCompile Include="StarterContent\Assests\g_e_Player\g_e_Player.cpp" />
+    <ClCompile Include="StarterContent\Assests\g_e_PostProcessingTrigger\g_e_PostProcessingTrigger.cpp" />
     <ClCompile Include="StarterContent\Assests\g_e_trigger\g_e_trigger.cpp" />
     <ClCompile Include="StarterContent\Assests\g_m_GenericPostProcessingMat\g_m_GenericPostProcessingMat.cpp" />
     <ClCompile Include="StarterContent\Assests\g_m_PlayerMat\g_m_PlayerMat.cpp" />
     <ClCompile Include="StarterContent\Assests\g_ui_Base\g_ui_Base.cpp" />
     <ClCompile Include="EngineContent\BaseComponent\BaseComponent.cpp" />
     <ClCompile Include="EngineContent\BaseEntity\BaseEntity.cpp" />
-    <ClCompile Include="EngineContent\RenderingModifier\RenderingModifier.cpp" />
+    <ClCompile Include="EngineContent\BaseRenderingModifier\BaseRenderingModifier.cpp" />
     <ClCompile Include="GameContent\EntryPoint\EntryPoint.h" />
     <ClCompile Include="StarterContent\Assests\g_m_WorldMaterial\g_m_WorldMat.cpp" />
     <ClCompile Include="StarterContent\Assests\g_e_WorldLayer\g_e_WorldLayer.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="StarterContent\Assests\g_ec_MotionCollider\g_ec_MotionCollider.h" />
     <ClInclude Include="StarterContent\Assests\g_e_Collider\g_e_Collider.h" />
     <ClInclude Include="StarterContent\Assests\g_e_Player\g_e_Player.h" />
+    <ClInclude Include="StarterContent\Assests\g_e_PostProcessingTrigger\g_e_PostProcessingTrigger.h" />
     <ClInclude Include="StarterContent\Assests\g_e_trigger\g_e_trigger.h" />
     <ClInclude Include="StarterContent\Assests\g_m_GenericPostProcessingMat\g_m_GenericPostProcessingMat.h" />
     <ClInclude Include="StarterContent\Assests\g_m_PlayerMat\g_m_PlayerMat.h" />
@@ -175,7 +177,7 @@
     <ClInclude Include="EngineContent\BaseEntity\BaseEntity.h" />
     <ClInclude Include="EngineContent\EngineSetting\EngineSetting.h" />
     <ClInclude Include="EngineContent\Marcos\Marcos.h" />
-    <ClInclude Include="EngineContent\RenderingModifier\RenderingModifier.h" />
+    <ClInclude Include="EngineContent\BaseRenderingModifier\BaseRenderingModifier.h" />
     <ClInclude Include="StarterContent\Assests\g_m_WorldMaterial\g_m_WorldMat.h" />
     <ClInclude Include="StarterContent\Assests\g_e_WorldLayer\g_e_WorldLayer.h" />
   </ItemGroup>

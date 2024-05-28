@@ -9,7 +9,7 @@
 
 #include "../../StarterContent/Assests/g_e_Collider/g_e_Collider.h"
 #include "../../StarterContent/Assests/g_e_Player/g_e_Player.h"
-#include "../../StarterContent/Assests/g_e_trigger/g_e_trigger.h"
+#include "../../StarterContent/Assests/g_e_Trigger/g_e_Trigger.h"
 #include "../../StarterContent/Assests/g_e_WorldLayer/g_e_WorldLayer.h"
 
 #include "../../StarterContent/Assests/g_m_WorldMaterial/g_m_WorldMat.h"
@@ -21,7 +21,7 @@ static int GameMain()
 {
 	BaseLevelSystem::RegisterEntitySpawnData ObtainEntitySpawnDataFrom(g_e_Collider);
 	BaseLevelSystem::RegisterEntitySpawnData ObtainEntitySpawnDataFrom(g_e_Player);
-	BaseLevelSystem::RegisterEntitySpawnData ObtainEntitySpawnDataFrom(g_e_trigger);
+	BaseLevelSystem::RegisterEntitySpawnData ObtainEntitySpawnDataFrom(g_e_Trigger);
 	BaseLevelSystem::RegisterEntitySpawnData ObtainEntitySpawnDataFrom(g_e_WorldLayer);
 
 	BaseLevelSystem::RegisterMaterialData ObtainMaterialDataFrom(g_m_WorldMat);

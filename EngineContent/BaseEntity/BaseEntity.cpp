@@ -482,11 +482,11 @@ void BaseEntity::ProcessUpdate(float DeltaTime)
 }
 
 
-void BaseEntity::ProcessRendering(Vector2D<int> Pos, bool NewLineAfter, RenderingModifier* PostProcessing) //https://www.youtube.com/results?search_query=ansi+c%2B%2B
+void BaseEntity::ProcessRendering(Vector2D<int> Pos, bool NewLineAfter, BaseRenderingModifier* PostProcessing) //https://www.youtube.com/results?search_query=ansi+c%2B%2B
 {
 	int RendededCharizalImportance = 0;
 	string RendededCharizalToPush = " ";
-	RenderingModifier* RendededCharizalRenderingModifyer = nullptr;
+	BaseRenderingModifier* RendededCharizalRenderingModifyer = nullptr;
 	bool RendededBlockPostProcessing = false;
 
 	for (int i = 0; i < EntityiesInRunTime.size(); i++)
@@ -521,14 +521,14 @@ void BaseEntity::ProcessRendering(Vector2D<int> Pos, bool NewLineAfter, Renderin
 	}
 
 	string OldRendededCharizalToPush = RendededCharizalToPush; //this is for the post processer
-	if (RenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
+	if (BaseRenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
 	{
 		string NewToPush = RendededCharizalRenderingModifyer->PreRender(Pos.X, Pos.Y, RendededCharizalToPush, STR_NULL); //runs the render modifyer that can be used to create stuff like flashing materials
 		SetConsoleTextAttribute(ConOut, RendededCharizalRenderingModifyer->GetReturnAttribute());
 
 		if (NewToPush != STR_NULL) { RendededCharizalToPush = NewToPush[0]; }
 
-		if (RendededBlockPostProcessing != true && RenderingModifier::IsValid(PostProcessing) == true) //post processing for mat
+		if (RendededBlockPostProcessing != true && BaseRenderingModifier::IsValid(PostProcessing) == true) //post processing for mat
 		{
 			string NewToPush = PostProcessing->PreRender(Pos.X, Pos.Y, RendededCharizalToPush, OldRendededCharizalToPush);
 			SetConsoleTextAttribute(ConOut, PostProcessing->GetReturnAttribute());
@@ -544,11 +544,11 @@ void BaseEntity::ProcessRendering(Vector2D<int> Pos, bool NewLineAfter, Renderin
 	if (NewLineAfter == true) { fwrite("\n", 1, 2, stdout); }
 	
 
-	if (RenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
+	if (BaseRenderingModifier::IsValid(RendededCharizalRenderingModifyer) == true)
 	{
 		RendededCharizalRenderingModifyer->PostRender();
 
-		if (RendededBlockPostProcessing != true && RenderingModifier::IsValid(PostProcessing) == true) //post processing
+		if (RendededBlockPostProcessing != true && BaseRenderingModifier::IsValid(PostProcessing) == true) //post processing
 		{
 			PostProcessing->PostRender();
 		}

@@ -20,7 +20,7 @@ protected:
 
 public:
 	void MatainScreenAttachment(); //put this in update to make UI move with screen
-	void SetRenderingModifer(RenderingModifier* RenderMod);
+	void SetRenderingModifer(BaseRenderingModifier* RenderMod);
 	void SetImportance(int Importance = 20);
 };
 

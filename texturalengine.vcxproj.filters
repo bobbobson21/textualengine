@@ -24,7 +24,7 @@
     <ClCompile Include="EngineContent\BaseComponent\BaseComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EngineContent\RenderingModifier\RenderingModifier.cpp">
+    <ClCompile Include="EngineContent\BaseRenderingModifier\BaseRenderingModifier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameContent\EntryPoint\EntryPoint.h">
@@ -81,6 +81,9 @@
     <ClCompile Include="StarterContent\Assests\g_ui_TextElement\g_ui_TextElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StarterContent\Assests\g_e_PostProcessingTrigger\g_e_PostProcessingTrigger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineContent\BaseEntity\BaseEntity.h">
@@ -89,7 +92,7 @@
     <ClInclude Include="EngineContent\BaseComponent\BaseComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EngineContent\RenderingModifier\RenderingModifier.h">
+    <ClInclude Include="EngineContent\BaseRenderingModifier\BaseRenderingModifier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EngineContent\Audio\AudioBeepControl.h">
@@ -162,6 +165,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EngineContent\StringPlus\String+.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StarterContent\Assests\g_e_PostProcessingTrigger\g_e_PostProcessingTrigger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

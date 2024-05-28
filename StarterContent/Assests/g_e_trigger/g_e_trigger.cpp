@@ -1,52 +1,57 @@
-#include "g_e_trigger.h"
+#include "g_e_Trigger.h"
 
-vector<BaseEntity*> g_e_trigger::TestTriggerOn;
-int g_e_trigger::TriggerCount;
+vector<BaseEntity*> g_e_Trigger::TestTriggerOn;
+int g_e_Trigger::TriggerCount;
 
-void g_e_trigger::Start()
+void g_e_Trigger::TriggerStart()
 {
 	Identifyer = "Trigger";
 	MyUniqueIndexInCount = TriggerCount;
 	TriggerCount++;
 }
 
-void g_e_trigger::Update(float DeltaTime)
+void g_e_Trigger::TriggerUpdate()
 {
-	for (int i = 0; i < TestTriggerOn.size(); i++)
+	if (GetValueOfKey("Enabled") != "0")
 	{
-		try
-		{	
-			if (BaseEntity::IsVaild(TestTriggerOn[i]) == true)
+		for (int i = 0; i < TestTriggerOn.size(); i++)
+		{
+			try
 			{
-				if (IsOverlaping(stoi(TestTriggerOn[i]->GetValueOfKey("PosX")), stoi(TestTriggerOn[i]->GetValueOfKey("PosY")), stoi(TestTriggerOn[i]->GetValueOfKey("SizeX")), stoi(TestTriggerOn[i]->GetValueOfKey("SizeY"))) == true)
+				if (BaseEntity::IsVaild(TestTriggerOn[i]) == true)
 				{
-					if (TestTriggerOn[i]->GetValueOfKey("TRIGInsideTrigger") != to_string(MyUniqueIndexInCount))
+					if (IsOverlaping(stoi(TestTriggerOn[i]->GetValueOfKey("PosX")), stoi(TestTriggerOn[i]->GetValueOfKey("PosY")), stoi(TestTriggerOn[i]->GetValueOfKey("SizeX")), stoi(TestTriggerOn[i]->GetValueOfKey("SizeY"))) == true)
 					{
-						TestTriggerOn[i]->SetKeyValue("TRIGInsideTrigger", to_string(MyUniqueIndexInCount));
-						FireOut("OnTriggerEntered");
+						if (TestTriggerOn[i]->GetValueOfKey("TRIGInsideTrigger") != to_string(MyUniqueIndexInCount))
+						{
+							OnTriggerInterraction(TestTriggerOn[i], true);
+							TestTriggerOn[i]->SetKeyValue("TRIGInsideTrigger", to_string(MyUniqueIndexInCount));
+							FireOut("OnTriggerEntered");
+						}
+					}
+					else if (TestTriggerOn[i]->GetValueOfKey("TRIGInsideTrigger") == to_string(MyUniqueIndexInCount))
+					{
+						OnTriggerInterraction(TestTriggerOn[i], false);
+						TestTriggerOn[i]->SetKeyValue("TRIGInsideTrigger", STR_NULL);
+						FireOut("OnTriggerExited");
 					}
 				}
-				else if (TestTriggerOn[i]->GetValueOfKey("TRIGInsideTrigger") == to_string(MyUniqueIndexInCount))
+				else
 				{
-					TestTriggerOn[i]->SetKeyValue("TRIGInsideTrigger", STR_NULL);
-					FireOut("OnTriggerExited");
+					try
+					{
+						TestTriggerOn.erase(TestTriggerOn.begin() + i);
+						i--;
+					}
+					catch (...) {}
 				}
 			}
-			else
-			{
-				try
-				{
-					TestTriggerOn.erase(TestTriggerOn.begin() + i);
-					i--;
-				}
-				catch (...) {}
-			}
+			catch (...) {}
 		}
-		catch (...) {}
 	}
 }
 
-void g_e_trigger::OnKeyValueSet(string Key, string Value)
+void g_e_Trigger::TriggerOnKeyValueSet(string Key, string Value)
 {
 	if (Key == "Pos")
 	{
@@ -66,16 +71,16 @@ void g_e_trigger::OnKeyValueSet(string Key, string Value)
 	{
 		try
 		{
-			MyOffsetX = stoi(Value);
+			MyOffset.X = stoi(Value);
 		}
-		catch(...) {};
+		catch (...) {};
 	}
 
 	if (Key == "PosY")
 	{
 		try
 		{
-			MyOffsetY = stoi(Value);
+			MyOffset.Y = stoi(Value);
 		}
 		catch (...) {};
 	}
@@ -84,7 +89,7 @@ void g_e_trigger::OnKeyValueSet(string Key, string Value)
 	{
 		try
 		{
-			MySizeX = stoi(Value);
+			MySize.X = stoi(Value);
 		}
 		catch (...) {};
 	}
@@ -93,7 +98,7 @@ void g_e_trigger::OnKeyValueSet(string Key, string Value)
 	{
 		try
 		{
-			MySizeY = stoi(Value);
+			MySize.Y = stoi(Value);
 		}
 		catch (...) {};
 	}
@@ -106,12 +111,12 @@ void g_e_trigger::OnKeyValueSet(string Key, string Value)
 		}
 		else
 		{
-			FireOut("OnDisable");
+			FireOut("OnEnabled");
 		}
 	}
 }
 
-void g_e_trigger::ReceiveFireInstruction(string Message, string Value)
+void g_e_Trigger::TriggerReceiveFireInstruction(string Message, string Value)
 {
 	if (Message == "Enable")
 	{
@@ -124,16 +129,43 @@ void g_e_trigger::ReceiveFireInstruction(string Message, string Value)
 	}
 }
 
-bool g_e_trigger::IsOverlaping(int X, int Y, int SX, int SY)
+
+void g_e_Trigger::Start()
 {
-	if (X <= MyOffsetX +MySizeX && MyOffsetX <= X +SX && Y <= MyOffsetY +MySizeY && MyOffsetY <= Y +SY )
+	TriggerStart();
+}
+
+void g_e_Trigger::Update(float DeltaTime)
+{
+	TriggerUpdate();
+}
+
+void g_e_Trigger::OnKeyValueSet(string Key, string Value)
+{
+	TriggerOnKeyValueSet(Key, Value);
+}
+
+void g_e_Trigger::ReceiveFireInstruction(string Message, string Value)
+{
+	TriggerReceiveFireInstruction(Message, Value);
+}
+
+
+void g_e_Trigger::OnTriggerInterraction(BaseEntity* Ent, bool TrueIfEnteringFalseIfLeaving)
+{
+}
+
+
+bool g_e_Trigger::IsOverlaping(int X, int Y, int SX, int SY)
+{
+	if (X <= MyOffset.X +MySize.X && MyOffset.X <= X +SX && Y <= MyOffset.Y +MySize.Y && MyOffset.Y <= Y +SY )
 	{
 		return true;
 	}
 	return false;
 }
 
-void g_e_trigger::AllowEntToInterractWithTriggers(BaseEntity* Ent)
+void g_e_Trigger::AllowEntToInterractWithTriggers(BaseEntity* Ent)
 {
 	TestTriggerOn.push_back(Ent);
 }
