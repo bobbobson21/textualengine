@@ -10,7 +10,7 @@ private:
 	bool HasEndlessExtent = false;
 
 protected:
-	virtual void OnTriggerInterraction(BaseEntity* Ent, bool TrueIfEnteringFalseIfLeaving) override;
+	void OnTriggerInterraction(BaseEntity* Ent, bool TrueIfEnteringFalseIfLeaving) override;
 
 public:
 	void SetPostProcessingMaterial(BaseRenderingModifier* Mat); //this will delete the mat on entity removal so make it with new

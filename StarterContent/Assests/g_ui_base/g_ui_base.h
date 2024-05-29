@@ -14,9 +14,9 @@ protected:
 	float AnchorSizeX = 0;
 	float AnchorSizeY = 0;
 
-	void Update(float DeltaTime) override;
-	void OnKeyValueSet(string Key, string Value) override;
-	void OnKeyValueSetBase(string Key, string Value);
+	virtual void Update(float DeltaTime) override;
+	virtual void OnKeyValueSet(string Key, string Value) override;
+	virtual void OnKeyValueSetBase(string Key, string Value);
 
 public:
 	void MatainScreenAttachment(); //put this in update to make UI move with screen
